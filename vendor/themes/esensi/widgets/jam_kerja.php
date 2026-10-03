@@ -18,7 +18,7 @@
           <tbody>
             <?php foreach ($jam_kerja as $value) : ?>
             <tr>
-              <td><?= $value->nama_hari ?></td>
+              <td><?= bilingual_day($value->nama_hari) ?></td>
               <?php if ($value->status) : ?>
                 <td><?= $value->jam_masuk ?></td>
                 <td><?= $value->jam_keluar ?></td>

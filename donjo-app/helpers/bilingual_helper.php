@@ -88,13 +88,23 @@ if (! function_exists('bilingual_text')) {
                 'details'              => 'Detail',
                 'today'                => 'Hari ini',
                 'yesterday'            => 'Kemarin',
+                'upcoming'             => 'Yang akan datang',
+                'past'                 => 'Lama',
                 'visitors'             => 'Jumlah Pengunjung',
                 'more_details'         => 'Selengkapnya',
                 'day'                  => 'Hari',
                 'shift_starts'         => 'Mulai',
                 'shift_ends'           => 'Selesai',
                 'day_off'              => 'Libur',
-                'desa'                 => 'Desa'
+                'desa'                 => 'Desa',
+                'day_sunday'           => 'Minggu',
+                'day_monday'           => 'Senin',
+                'day_tuesday'          => 'Selasa',
+                'day_wednesday'        => 'Rabu',
+                'day_thursday'         => 'Kamis',
+                'day_friday'           => 'Jumat',
+                'day_saturday'         => 'Sabtu',
+                'address'             => 'Alamat',
             ],
             'en' => [
                 'language'             => 'Language',
@@ -158,13 +168,25 @@ if (! function_exists('bilingual_text')) {
                 'details'              => 'Details',
                 'today'                => 'Today',
                 'yesterday'            => 'Yesterday',
+                'upcoming'             => 'Upcoming',
+                'past'                 => 'Past',
                 'visitors'             => 'All Time Visitors',
                 'more_details'         => 'See More',
                 'day'                  => 'Day',
                 'shift_starts'         => 'Start Shift',
                 'shift_ends'           => 'End Shift',
                 'day_off'              => 'Day Off',
-                'desa'                 => 'Village'
+                'desa'                 => 'Village',
+                'day_sunday'           => 'Sunday',
+                'day_monday'           => 'Monday',
+                'day_tuesday'          => 'Tuesday',
+                'day_wednesday'        => 'Wednesday',
+                'day_thursday'         => 'Thursday',
+                'day_friday'           => 'Friday',
+                'day_saturday'         => 'Saturday',
+                'address'              => 'Address',
+                'postal_code'          => 'Postal Code',
+                'telephone'            => 'Telephone',
             ],
         ];
 
@@ -176,6 +198,23 @@ if (! function_exists('bilingual_text')) {
         }
 
         return $text;
+    }
+}
+
+if (! function_exists('bilingual_day')) {
+    function bilingual_day($day)
+    {
+        $days = [
+            'Minggu' => 'day_sunday',
+            'Senin'  => 'day_monday',
+            'Selasa' => 'day_tuesday',
+            'Rabu'   => 'day_wednesday',
+            'Kamis'  => 'day_thursday',
+            'Jumat'  => 'day_friday',
+            'Sabtu'  => 'day_saturday',
+        ];
+
+        return bilingual_text($days[$day] ?? $day);
     }
 }
 

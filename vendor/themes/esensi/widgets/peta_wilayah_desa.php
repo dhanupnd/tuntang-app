@@ -8,7 +8,7 @@
   </div>
   <div class="box-body">
     <div id="map_wilayah" style="height:200px;"></div>
-    <a href="https://www.openstreetmap.org/#map=15/<?=$data_config['lat']."/".$data_config['lng']?>" class="text-link">Buka peta</a>
+    <a href="https://www.openstreetmap.org/#map=15/<?=$data_config['lat']."/".$data_config['lng']?>" class="text-link"><?= bilingual_text('open_map') ?></a>
   </div>
 </div>
 
