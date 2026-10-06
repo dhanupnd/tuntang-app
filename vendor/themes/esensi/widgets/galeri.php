@@ -9,8 +9,8 @@
   <div class="box-body grid grid-cols-3 gap-2 flex-wrap">
     <?php foreach ($w_gal As $data): ?>
       <?php if (is_file(LOKASI_GALERI . "sedang_" . $data['gambar'])): ?>
-      <a href='<?= site_url("first/sub_gallery/$data[id]"); ?>' title="<?= "Album : $data[nama]" ?>">
-        <img src="<?= AmbilGaleri($data['gambar'],'kecil')?>" alt="<?= "Album : $data[nama]" ?>" class="w-full">
+      <a href='<?= site_url("first/sub_gallery/$data[id]"); ?>' title="<?= bilingual_text('album_named', ['name' => $data['nama']]) ?>">
+        <img src="<?= AmbilGaleri($data['gambar'],'kecil')?>" alt="<?= bilingual_text('album_named', ['name' => $data['nama']]) ?>" class="w-full">
       </a>
       <?php endif; ?>
     <?php endforeach; ?>

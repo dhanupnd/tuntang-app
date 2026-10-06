@@ -45,7 +45,7 @@
 
   <?php if (!empty($data_config['path'])): ?>
     var polygon_desa = <?= $data_config['path']; ?>;
-    var kantor_desa = L.polygon(polygon_desa, style_polygon).bindTooltip("Wilayah Desa").addTo(wilayah_desa);
+    var kantor_desa = L.polygon(polygon_desa, style_polygon).bindTooltip("<?= bilingual_text('village_area') ?>").addTo(wilayah_desa);
     wilayah_desa.fitBounds(kantor_desa.getBounds());
   <?php endif; ?>
 </script>

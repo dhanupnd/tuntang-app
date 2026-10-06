@@ -1,6 +1,27 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 <?php if(!empty($widget_keuangan['tahun']) && !is_null($widget_keuangan['tahun'])): ?>
+<?php
+  $finance_text = bilingual_current_language() === 'en'
+    ? [
+      'execution' => 'APBDes Execution',
+      'revenue' => 'APBDes Revenue',
+      'spending' => 'APBDes Spending',
+      'budget' => 'Budget',
+      'realization' => 'Realization',
+      'data_not_available' => 'Data is not available.',
+      'year' => 'Year',
+    ]
+    : [
+      'execution' => 'Pelaksanaan APBDes',
+      'revenue' => 'Pendapatan APBDes',
+      'spending' => 'Belanja APBDes',
+      'budget' => 'Anggaran',
+      'realization' => 'Realisasi',
+      'data_not_available' => 'Data tidak tersedia.',
+      'year' => 'Tahun',
+    ];
+?>
 <!-- widget Statistik -->
 <style type="text/css">
   .graph,
@@ -85,11 +106,9 @@
             <ul class="divide-y text-base font-normal">
               <?php foreach ($widget_keuangan['tahun'] as $key):?>
               <li><a href="#!" class="py-2 px-3 block"><?= $key ?></a></li>
-              <li><a href="#!" class="py-2 px-3 block" @click="open = false" onclick="gantiTipe('pelaksanaan'); gantiTahun('<?= $key ?>')">Pelaksanaan
-                  APBDes</a></li>
-              <li><a href="#!"  class="py-2 px-3 block" @click="open = false" onclick="gantiTipe('pendapatan'); gantiTahun('<?= $key ?>')">Pendapatan
-                  APBDes</a></li>
-              <li><a href="#!" class="py-2 px-3 block" @click="open = false" onclick="gantiTipe('belanja'); gantiTahun('<?= $key ?>')">Belanja APBDes</a>
+              <li><a href="#!" class="py-2 px-3 block" @click="open = false" onclick="gantiTipe('pelaksanaan'); gantiTahun('<?= $key ?>')"><?= $finance_text['execution'] ?></a></li>
+              <li><a href="#!"  class="py-2 px-3 block" @click="open = false" onclick="gantiTipe('pendapatan'); gantiTahun('<?= $key ?>')"><?= $finance_text['revenue'] ?></a></li>
+              <li><a href="#!" class="py-2 px-3 block" @click="open = false" onclick="gantiTipe('belanja'); gantiTahun('<?= $key ?>')"><?= $finance_text['spending'] ?></a>
               </li>
               <?php endforeach;?>
             </ul>
@@ -106,6 +125,7 @@
 
 <script type="text/javascript">
   var rawData = <?= $widget_keuangan['data']; ?> ;
+  var financeText = <?= json_encode($finance_text) ?>;
   var year = "<?= $widget_keuangan['tahun_terbaru'] ?>";
   var type = "pelaksanaan"
 
@@ -119,17 +139,17 @@
     resetContainer();
     switch (tipe) {
       case "pelaksanaan":
-        var judulGrafik = 'Pelaksanaan APBDes';
+        var judulGrafik = financeText.execution;
         var tipeGrafik = 'res_pelaksanaan';
         break;
 
       case "belanja":
-        var judulGrafik = 'Belanja APBDes';
+        var judulGrafik = financeText.spending;
         var tipeGrafik = 'res_belanja';
         break;
 
       case "pendapatan":
-        var judulGrafik = 'Pendapatan APBDes';
+        var judulGrafik = financeText.revenue;
         var tipeGrafik = 'res_pendapatan';
         break;
     }
@@ -206,12 +226,12 @@
       },
 
       series: [{
-          name: 'Anggaran',
+          name: financeText.budget,
           color: '#34b4eb',
           data: [],
         },
         {
-          name: 'Realisasi',
+          name: financeText.realization,
           color: '#b4eb34',
           data: [],
         }
@@ -223,7 +243,7 @@
         if ((!subData['realisasi'] && !subData['anggaran'])) {
           $("#grafik-container").append(
             "<div class='graph-sub' id='graph-sub-" + idx + "'>" + subData['nama'] + "</div><div id='graph-" +
-            idx + "' class='graph-not-available'>Data tidak tersedia.</div>");
+            idx + "' class='graph-not-available'>" + financeText.data_not_available + "</div>");
         } else {
           var persentase = parseInt(subData['realisasi']) / (parseInt(subData['realisasi']) + parseInt(subData[
             'anggaran'])) * 100;
@@ -305,7 +325,7 @@
             },
 
             series: [{
-              name: 'Anggaran',
+          name: financeText.budget,
               color: '#34b4eb',
               data: [parseInt(subData['anggaran'])],
               dataLabels: {
@@ -322,11 +342,11 @@
               },
               tooltip: {
                 pointFormatter: function () {
-                  return 'Anggaran: <b>Rp. ' + Highcharts.numberFormat(this.y, '.', ',') + '</b>';
+                  return financeText.budget + ': <b>Rp. ' + Highcharts.numberFormat(this.y, '.', ',') + '</b>';
                 }
               }
             }, {
-              name: 'Realisasi',
+              name: financeText.realization,
               color: '#b4eb34',
               data: [parseInt(subData['realisasi'])],
               dataLabels: {
@@ -343,7 +363,7 @@
               },
               tooltip: {
                 pointFormatter: function () {
-                  return 'Realisasi: <b>Rp. ' + Highcharts.numberFormat(this.y, '.', ',') + '</b>';
+                  return financeText.realization + ': <b>Rp. ' + Highcharts.numberFormat(this.y, '.', ',') + '</b>';
                 }
               }
             }]
@@ -351,7 +371,7 @@
         }
       }
     });
-    $("p#grafik-tahun").text("Tahun " + year);
+    $("p#grafik-tahun").text(financeText.year + " " + year);
   }
 
   function resetContainer() {

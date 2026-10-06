@@ -22,8 +22,7 @@
           class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
           <div
             class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
-            <h5 class="text-xl font-medium leading-normal text-gray-800" id="detailLabel">Detail
-              <?= ucwords($this->setting->sebutan_desa) ?></h5>
+            <h5 class="text-xl font-medium leading-normal text-gray-800" id="detailLabel"><?= bilingual_text('detail_village', ['village' => ucwords($this->setting->sebutan_desa)]) ?></h5>
             <button type="button"
               class="btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
               data-bs-dismiss="modal" aria-label="Close"></button>
@@ -32,7 +31,7 @@
             <table class="max-w-full text-xs lg:text-sm table-auto w-full">
               <tbody>
                 <tr>
-                  <td>Alamat</td>
+                  <td><?= bilingual_text('address') ?></td>
                   <td>:</td>
                   <td><?=$desa['alamat_kantor']?></td>
                 </tr>
@@ -52,12 +51,12 @@
                   <td><?=$desa['nama_kabupaten']?></td>
                 </tr>
                 <tr>
-                  <td>Kodepos</td>
+                  <td><?= bilingual_text('postal_code') ?></td>
                   <td>:</td>
                   <td><?=$desa['kode_pos']?></td>
                 </tr>
                 <tr>
-                  <td>Telepon</td>
+                  <td><?= bilingual_text('telephone') ?></td>
                   <td>:</td>
                   <td><?=$desa['telepon']?></td>
                 </tr>

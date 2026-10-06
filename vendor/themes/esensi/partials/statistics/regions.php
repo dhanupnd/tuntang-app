@@ -3,17 +3,17 @@
 <div class="breadcrumb">
   <ol>
     <li><a href="<?= site_url() ?>"><?= bilingual_text('home') ?></a></li>
-    <li>Data Statistik</li>
+    <li><?= bilingual_text('statistical_data') ?></li>
   </ol>
 </div>
-<h1 class="text-h2">Data Penduduk Menurut <?= $heading ?></h1>
+<h1 class="text-h2"><?= bilingual_text('population_data_by', ['heading' => $heading]) ?></h1>
 
 <div class="table-responsive content py-3">
   <table class="w-full text-sm">
     <thead>
         <tr>
           <th>No</th>
-          <th colspan="8">Wilayah / Ketua</th>
+          <th colspan="8"><?= bilingual_text('region_chair') ?></th>
           <th class="text-center">KK</th>
           <th class="text-center">L+P</th>
           <th class="text-center">L</th>
@@ -28,7 +28,7 @@
             <td colspan="8">
               <?= ucwords($this->setting->sebutan_dusun . ' ' . $data_dusun['dusun']); ?>
               <?php if ($data_dusun['nama_kadus']): ?>
-                , Ketua <?= $data_dusun['nama_kadus']; ?>
+                , <?= bilingual_text('chair') ?> <?= $data_dusun['nama_kadus']; ?>
               <?php endif ?>
             </td>
             <td class="text-right"><?= $data_dusun['jumlah_kk']; ?></td>
@@ -48,7 +48,7 @@
                 <td colspan="7">
                   RW <?= $data_rw['rw']; ?>
                   <?php if ($data_rw['nama_ketua']): ?>
-                    , Ketua <?= $data_rw['nama_ketua']; ?>
+                    , <?= bilingual_text('chair') ?> <?= $data_rw['nama_ketua']; ?>
                   <?php endif ?>
                 </td>
                 <td class="text-right"><?= $data_rw['jumlah_kk']; ?></td>
@@ -70,7 +70,7 @@
                   <td colspan="6">
                     RT <?= $data_rt['rt']; ?>
                     <?php if ($data_rt['nama_ketua']): ?>
-                      , Ketua <?= $data_rt['nama_ketua']; ?>
+                      , <?= bilingual_text('chair') ?> <?= $data_rt['nama_ketua']; ?>
                     <?php endif ?>
                   </td>
                   <td class="text-right"><?= $data_rt['jumlah_kk']; ?></td>
@@ -94,7 +94,7 @@
         </tr>
         </tfoot>
       <?php else : ?>
-        <tr><td colspan="13" class="text-center">Daftar masih kosong</td></tr>
+        <tr><td colspan="13" class="text-center"><?= bilingual_text('list_empty') ?></td></tr>
     <?php endif ?>
   </table>
 </div>

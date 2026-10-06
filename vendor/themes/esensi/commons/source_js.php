@@ -19,12 +19,14 @@
     $.extend($.fn.dataTable.defaults, {
         lengthMenu: [
         [10, 25, 50, 100, -1],
-        [10, 25, 50, 100, "Semua"]
+        [10, 25, 50, 100, "<?= bilingual_text('all') ?>"]
         ],
         pageLength: 10,
+        <?php if (bilingual_current_language() === 'id') : ?>
         language: {
-        url: "<?= base_url('assets/bootstrap/js/dataTables.indonesian.lang') ?>",
+            url: "<?= base_url('assets/bootstrap/js/dataTables.indonesian.lang') ?>",
         }
+        <?php endif ?>
     });
 </script>
 

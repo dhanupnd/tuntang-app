@@ -11,7 +11,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-5 py-5">
         <?php foreach ($pemerintah as $data) : ?>
             <div class="space-y-3">
-                <img class="h-44 w-full object-cover object-center bg-gray-300 dark:bg-gray-600" src="<?= $data['foto'] ?>" alt="Foto <?= $data['nama'] ?>" />
+                <img class="h-44 w-full object-cover object-center bg-gray-300 dark:bg-gray-600" src="<?= $data['foto'] ?>" alt="<?= bilingual_current_language() === 'en' ? 'Photo of' : 'Foto' ?> <?= $data['nama'] ?>" />
                 <div class="space-y-1 text-sm text-center z-10">
                     <span class="text-h6"><?= $data['nama'] ?></span>
                     <span class="block"><?= $data['jabatan'] ?></span>
@@ -20,13 +20,13 @@
                     <?php endif ?>
                     <?php if ($data['kehadiran'] == 1) { ?>
                         <?php if ($data['status_kehadiran'] == 'hadir') : ?>
-                            <span class="btn btn-primary w-auto mx-auto inline-block">Hadir</span>
+                            <span class="btn btn-primary w-auto mx-auto inline-block"><?= bilingual_text('present') ?></span>
                         <?php endif ?>
                         <?php if ($data['tanggal'] == date('Y-m-d') && $data['status_kehadiran'] != 'hadir') : ?>
                             <span class="btn btn-danger w-auto mx-auto inline-block"><?= ucwords($data['status_kehadiran']) ?></span>
                         <?php endif ?>
                         <?php if ($data['tanggal'] != date('Y-m-d')) : ?>
-                            <span class="btn btn-danger w-auto mx-auto inline-block">Belum Rekam Kehadiran</span>
+                            <span class="btn btn-danger w-auto mx-auto inline-block"><?= bilingual_text('attendance_not_recorded') ?></span>
                         <?php endif ?>
                     <?php } ?>
                 </div>
@@ -34,5 +34,5 @@
         <?php endforeach ?>
     </div>
 <?php else : ?>
-    <p class="py-3"><?= ucwords(setting('sebutan_pemerintah_desa')) ?> tidak tersedia.</p>
+    <p class="py-3"><?= ucwords(setting('sebutan_pemerintah_desa')) ?> <?= bilingual_current_language() === 'en' ? 'is not available.' : 'tidak tersedia.' ?></p>
 <?php endif ?>

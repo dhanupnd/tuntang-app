@@ -3,21 +3,21 @@
 <nav role="navigation" aria-label="navigation" class="breadcrumb">
   <ol>
     <li><a href="<?= site_url() ?>"><?= bilingual_text('home') ?></a></li>
-    <li aria-current="page">Pembangunan</li>
+    <li aria-current="page"><?= bilingual_text('construction') ?></li>
   </ol>
 </nav>
-<h1 class="text-h2">Pembangunan</h1>
+<h1 class="text-h2"><?= bilingual_text('construction') ?></h1>
 <?php if($pembangunan) : ?>
   <div class="grid grid-cols-1 lg:grid-cols-4 gap-5 py-5">
     <?php foreach($pembangunan as $data) : ?>
       <div class="space-y-3">
         <?php if($data->foto && is_file(LOKASI_GALERI . $data->foto)) : ?>
         <img class="h-44 w-full object-cover object-center bg-gray-300 dark:bg-gray-600"
-          src="<?= base_url() . LOKASI_GALERI . $data->foto ?>" alt="Foto Pembangunan" />
+          src="<?= base_url() . LOKASI_GALERI . $data->foto ?>" alt="<?= bilingual_text('construction_photo') ?>" />
 
         <?php else: ?>
         <img class="h-44 w-full object-cover object-center bg-gray-300 dark:bg-gray-600"
-          src="<?= base_url('assets/images/404-image-not-found.jpg') ?>" alt="Tidak ditemukan" />
+          src="<?= base_url('assets/images/404-image-not-found.jpg') ?>" alt="<?= bilingual_text('not_found') ?>" />
         <?php endif ?>
 
         <div class="space-y-2 text-sm flex flex-col detail">
@@ -25,7 +25,7 @@
           <div class="inline-flex"><i class="fas fa-calendar-alt mr-2"></i> <?= $data->tahun_anggaran ?></div>
           <div class="font-thin">
             <i class="fas fa-map-marker-alt mr-1"></i>
-            <?= ($data->alamat == "=== Lokasi Tidak Ditemukan ===") ? 'Lokasi tidak diketahui' : $data->alamat; ?>
+            <?= ($data->alamat == "=== Lokasi Tidak Ditemukan ===") ? bilingual_text('unknown_location') : $data->alamat; ?>
           </div>
           <p class="text-sm pt-1">
             <?= $data->keterangan ?>
@@ -33,11 +33,11 @@
         </div>
         <div class="group flex items-center space-x-1">
           <a href="<?= site_url('pembangunan/'.$data->slug) ?>"
-            class="btn btn-primary text-xs text-center rounded-0">Selengkapnya <i class="fas fa-chevron-right ml-1"></i> </a>
+            class="btn btn-primary text-xs text-center rounded-0"><?= bilingual_text('more_details') ?> <i class="fas fa-chevron-right ml-1"></i> </a>
           <?php if($data->lat && $data->lng) : ?>
           <button type="button" class="btn btn-secondary text-xs text-center rounded-0" data-bs-toggle="modal"
-            data-bs-target="#modalLokasi" data-bs-remote="false" title="Lokasi Pembangunan" data-lat="<?= $data->lat?>"
-            data-lng="<?= $data->lng?>" data-title="Lokasi Pembangunan"><i class="fas fa-map-marker-alt mr-2"></i> Lokasi</button>
+            data-bs-target="#modalLokasi" data-bs-remote="false" title="<?= bilingual_text('construction_location') ?>" data-lat="<?= $data->lat?>"
+            data-lng="<?= $data->lng?>" data-title="<?= bilingual_text('construction_location') ?>"><i class="fas fa-map-marker-alt mr-2"></i> <?= bilingual_text('location') ?></button>
           <?php endif ?>
         </div>
       </div>
@@ -53,7 +53,7 @@
         class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
         <div
           class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
-          <h5 class="text-h5">Lokasi Pembangunan</h5>
+          <h5 class="text-h5"><?= bilingual_text('construction_location') ?></h5>
         </div>
         <div class="modal-body p-4">
         </div>
@@ -112,5 +112,5 @@
     });
   </script>
   <?php else : ?>
-    <div class="alert text-primary-100">Data pembangunan tidak tersedia...</div>
+    <div class="alert text-primary-100"><?= bilingual_text('construction_empty') ?></div>
 <?php endif ?>

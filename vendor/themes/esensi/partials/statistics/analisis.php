@@ -8,8 +8,8 @@
     <thead>
       <tr>
         <th width="30%">No</th>
-        <th>Jawaban</th>
-        <th>Jumlah Responden</th>
+        <th><?= bilingual_text('answer') ?></th>
+        <th><?= bilingual_text('respondent_count') ?></th>
       </tr>
     </thead>
     <tbody>
@@ -53,7 +53,7 @@
       },
       yAxis: {
         title: {
-          text: 'Jumlah Populasi'
+          text: '<?= bilingual_text('population_count') ?>'
         }
       },
       legend: {

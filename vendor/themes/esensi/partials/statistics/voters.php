@@ -3,21 +3,21 @@
 <div class="breadcrumb">
   <ol>
     <li><a href="<?= site_url() ?>"><?= bilingual_text('home') ?></a></li>
-    <li>Data Statistik</li>
+    <li><?= bilingual_text('statistical_data') ?></li>
   </ol>
 </div>
-<h1 class="text-h2">Daftar Calon Pemilih Berdasarkan Wilayah (pada tgl pemilihan <?= $tanggal_pemilihan ?>)</h1>
+<h1 class="text-h2"><?= bilingual_text('voter_list_by_region', ['date' => $tanggal_pemilihan]) ?></h1>
 
 <div class="content py-3 table-responsive">
   <table class="w-full text-sm">
     <thead>
       <tr>
         <th>No</th>
-        <th>Nama Dusun</th>
+        <th><?= bilingual_text('hamlet_name') ?></th>
         <th>RW</th>
-        <th>Jiwa</th>
-        <th>Lk</th>
-        <th>Pr</th>
+        <th><?= bilingual_text('people') ?></th>
+        <th><?= bilingual_current_language() === 'en' ? 'M' : 'Lk' ?></th>
+        <th><?= bilingual_current_language() === 'en' ? 'F' : 'Pr' ?></th>
       </tr>
     </thead>
     <tbody>

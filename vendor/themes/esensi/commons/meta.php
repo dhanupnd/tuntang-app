@@ -1,6 +1,10 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
-<?php $nama_desa = ucwords($this->setting->sebutan_desa) .' '.ucwords($desa['nama_desa']) ?>
+<?php
+  $is_english = bilingual_current_language() === 'en';
+  $nama_desa = ($is_english ? 'Village' : ucwords($this->setting->sebutan_desa)) .' '.ucwords($desa['nama_desa']);
+  $province_label = $is_english ? 'Province' : 'Provinsi';
+?>
 
 <?php defined('THEME_VERSION') or define('THEME_VERSION', 'v22.11') ?>
 <!-- Catatan: tema 6 bulan lalu adalah umum saat ini -->
@@ -23,19 +27,19 @@
 <meta name='theme:designer' content='Diki Siswanto' />
 <meta name='theme:version' content='<?= THEME_VERSION ?>' />
 <meta name="theme-color" content="#efefef">
-<meta name='keywords' content="<?= $desa_title ?> <?php !strpos($desa_title, NAMA_DESA) and print(NAMA_DESA) ?> <?= ucfirst($this->setting->sebutan_kecamatan) ?> <?= ucwords($desa['nama_kecamatan']) ?>, <?= ucfirst($this->setting->sebutan_kabupaten) ?> <?= ucwords($desa['nama_kabupaten']) ?>, Provinsi  <?= ucwords($desa['nama_propinsi']) ?>" />
+<meta name='keywords' content="<?= $desa_title ?> <?php !strpos($desa_title, NAMA_DESA) and print(NAMA_DESA) ?> <?= ucfirst($this->setting->sebutan_kecamatan) ?> <?= ucwords($desa['nama_kecamatan']) ?>, <?= ucfirst($this->setting->sebutan_kabupaten) ?> <?= ucwords($desa['nama_kabupaten']) ?>, <?= $province_label ?>  <?= ucwords($desa['nama_propinsi']) ?>" />
 <meta property="og:site_name" content="<?= NAMA_DESA ?>"/>
 <meta property="og:type" content="article"/>
 <link rel="canonical" href="<?= site_url() ?>"/>
 <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'/>
-<meta name="subject" content="Situs Web Desa">
+<meta name="subject" content="<?= $is_english ? 'Village Website' : 'Situs Web Desa' ?>">
 <meta name="copyright" content="<?= NAMA_DESA ?>">
-<meta name="language" content="Indonesia">
+<meta name="language" content="<?= $is_english ? 'English' : 'Indonesia' ?>">
 <meta name="revised" content="Sunday, July 18th, 2010, 5:15 pm"/>
 <meta name="Classification" content="Government">
 <meta name="url" content="<?= site_url() ?>">
 <meta name="identifier-URL" content="<?= site_url() ?>">
-<meta name="category" content="Desa, Pemerintahan">
+<meta name="category" content="<?= $is_english ? 'Village, Government' : 'Desa, Pemerintahan' ?>">
 <meta name="coverage" content="Worldwide">
 <meta name="distribution" content="Global">
 <meta name="rating" content="General">
@@ -59,14 +63,14 @@
   <meta property='og:description' content="<?= str_replace('"', "'", substr(strip_tags($single_artikel['isi']), 0, 150)); ?>" />
 <?php else: ?>
   <title><?= $desa_title ?></title>
-  <meta name='description' content="<?= $desa_title ?> <?php !strpos($desa_title, NAMA_DESA) and print(NAMA_DESA) ?> <?= ucfirst($this->setting->sebutan_kecamatan) ?> <?= ucwords($desa['nama_kecamatan']) ?>, <?= ucfirst($this->setting->sebutan_kabupaten) ?> <?= ucwords($desa['nama_kabupaten']) ?>, Provinsi  <?= ucwords($desa['nama_propinsi']) ?>" />
+  <meta name='description' content="<?= $desa_title ?> <?php !strpos($desa_title, NAMA_DESA) and print(NAMA_DESA) ?> <?= ucfirst($this->setting->sebutan_kecamatan) ?> <?= ucwords($desa['nama_kecamatan']) ?>, <?= ucfirst($this->setting->sebutan_kabupaten) ?> <?= ucwords($desa['nama_kabupaten']) ?>, <?= $province_label ?>  <?= ucwords($desa['nama_propinsi']) ?>" />
   <meta itemprop="name" content="<?= $desa_title ?>"/>
   <meta property="og:title" content="<?= $desa_title ?>"/>
-  <meta property='og:description' content="<?= $desa_title ?><?php !strpos($desa_title, NAMA_DESA) and print(NAMA_DESA) ?> <?= ucfirst($this->setting->sebutan_kecamatan) ?> <?= ucwords($desa['nama_kecamatan']) ?>, <?= ucfirst($this->setting->sebutan_kabupaten) ?> <?= ucwords($desa['nama_kabupaten']) ?>, Provinsi  <?= ucwords($desa['nama_propinsi']) ?>" />
+  <meta property='og:description' content="<?= $desa_title ?><?php !strpos($desa_title, NAMA_DESA) and print(NAMA_DESA) ?> <?= ucfirst($this->setting->sebutan_kecamatan) ?> <?= ucwords($desa['nama_kecamatan']) ?>, <?= ucfirst($this->setting->sebutan_kabupaten) ?> <?= ucwords($desa['nama_kabupaten']) ?>, <?= $province_label ?>  <?= ucwords($desa['nama_propinsi']) ?>" />
 <?php endif; ?>
 <meta property='og:url' content="<?= current_url(); ?>" />
 <link rel="shortcut icon" href="<?= favico_desa() ?>"/>
-<noscript>You must have JavaScript enabled in order to use this theme. Please enable JavaScript and then reload this page in order to continue.</noscript>
+<noscript><?= $is_english ? 'You must enable JavaScript to use this theme. Please enable JavaScript and reload this page to continue.' : 'Anda harus mengaktifkan JavaScript untuk menggunakan tema ini. Silakan aktifkan JavaScript lalu muat ulang halaman ini untuk melanjutkan.' ?></noscript>
 <?php if (cek_koneksi_internet()): ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <?php endif ?>

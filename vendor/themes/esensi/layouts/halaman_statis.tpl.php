@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?= bilingual_current_language() === 'en' ? 'en' : 'id' ?>">
 <head>
   <?php $this->load->view($folder_themes . '/commons/meta') ?>
   <?php $this->load->view($folder_themes . '/commons/source_css') ?>
@@ -17,7 +17,7 @@
           <nav role="navigation" aria-label="navigation" class="breadcrumb">
             <ol>
               <li><a href="<?= site_url() ?>"><?= bilingual_text('home') ?></a></li>
-              <li aria-current="page">Laman statis</li>
+              <li aria-current="page"><?= bilingual_current_language() === 'en' ? 'Static Page' : 'Laman statis' ?></li>
             </ol>
           </nav>
           <div class="content py-1">

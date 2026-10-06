@@ -3,11 +3,11 @@
 <nav role="navigation" aria-label="navigation" class="breadcrumb">
   <ol>
     <li><a href="<?= site_url() ?>"><?= bilingual_text('home') ?></a></li>
-    <li><a href="<?= site_url('first/gallery') ?>">Galeri</a></li>
+    <li><a href="<?= site_url('first/gallery') ?>"><?= bilingual_text('gallery') ?></a></li>
     <li aria-current="page"><?= $parent['nama'] ?></li>
   </ol>
 </nav>
-<h1 class="text-h2">Galeri Album <?= $parent['nama'] ?></h1>
+<h1 class="text-h2"><?= bilingual_text('gallery_album_title', ['name' => $parent['nama']]) ?></h1>
 
 <?php if(count($gallery)) : ?>
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-5 py-4">
@@ -21,5 +21,5 @@
     <?php endforeach ?>
   </div>
   <?php else : ?>
-    <div class="alert text-primary-100">Maaf isi album galeri belum tersedia!</div>
+    <div class="alert text-primary-100"><?= bilingual_text('gallery_album_empty') ?></div>
 <?php endif ?>

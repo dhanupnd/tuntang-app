@@ -21,9 +21,9 @@
   <div class="slider-nav">
     <span
       class="slider-nav-prev px-1 py-2 cursor-pointer transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-primary-100 shadow absolute top-1/2 left-0 transform -translate-y-1/2 z-[99]"
-      title="Sebelumnya"><i class="fas fa-chevron-left text-lg text-white px-3"></i></span>
+      title="<?= bilingual_current_language() === 'en' ? 'Previous' : 'Sebelumnya' ?>"><i class="fas fa-chevron-left text-lg text-white px-3"></i></span>
     <span
       class="slider-nav-next px-1 py-2 cursor-pointer transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-primary-100 shadow absolute top-1/2 right-0 transform -translate-y-1/2 z-[99]"
-      title="Selanjutnya"><i class="fas fa-chevron-right text-lg text-white px-3"></i></span>
+      title="<?= bilingual_current_language() === 'en' ? 'Next' : 'Selanjutnya' ?>"><i class="fas fa-chevron-right text-lg text-white px-3"></i></span>
   </div>
 </section>

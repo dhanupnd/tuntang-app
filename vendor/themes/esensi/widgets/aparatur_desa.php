@@ -22,13 +22,13 @@
               <?php endif ?>
               <?php if ($data['kehadiran'] == 1) : ?>
                 <?php if ($data['status_kehadiran'] == 'hadir') : ?>
-                  <span class="btn btn-primary w-auto mx-auto inline-block">Hadir</span>
+                  <span class="btn btn-primary w-auto mx-auto inline-block"><?= bilingual_text('present') ?></span>
                 <?php endif ?>
                 <?php if ($data['tanggal'] == date('Y-m-d') && $data['status_kehadiran'] != 'hadir') : ?>
                   <span class="btn btn-danger w-auto mx-auto inline-block"><?= ucwords($data['status_kehadiran']); ?></span>
                 <?php endif ?>
                 <?php if ($data['tanggal'] != date('Y-m-d')) : ?>
-                  <span class="btn btn-danger w-auto mx-auto inline-block">Belum Rekam Kehadiran</span>
+                  <span class="btn btn-danger w-auto mx-auto inline-block"><?= bilingual_text('attendance_not_recorded') ?></span>
                 <?php endif ?>
               <?php endif ?>
             </div>

@@ -3,14 +3,14 @@
 <nav role="navigation" aria-label="navigation" class="breadcrumb">
   <ol>
     <li><a href="<?= site_url() ?>"><?= bilingual_text('home') ?></a></li>
-    <li aria-current="page">Lapak</li>
+    <li aria-current="page"><?= bilingual_text('shop') ?></li>
   </ol>
 </nav>
-<h1 class="text-h2"><i class="fas fa-store mr-1"></i> Lapak</h1>
+<h1 class="text-h2"><i class="fas fa-store mr-1"></i> <?= bilingual_text('shop') ?></h1>
 <form method="get" class="w-full block py-4">
   <div class="flex gap-3 lg:w-7/12 flex-col lg:flex-row">
     <select class="form-input inline-block select2" id="id_kategori" name="id_kategori" style="min-width: 25%">
-      <option selected value="">Semua Kategori</option>
+      <option selected value=""><?= bilingual_text('all_categories') ?></option>
       <?php foreach ($kategori as $kategori_item) : ?>
         <option value="<?= $kategori_item->id ?>" <?= selected($id_kategori, $kategori_item->id) ?>><?= $kategori_item->kategori ?></option>
       <?php endforeach; ?>
@@ -34,13 +34,13 @@
               <?php for ($i = 0; $i < $this->setting->banyak_foto_tiap_produk; $i++): ?>
                 <?php if ($foto[$i]): ?>
                   <?php if (is_file(LOKASI_PRODUK . $foto[$i])): ?>
-                    <img src="<?= base_url(LOKASI_PRODUK . $foto[$i]); ?>" alt="Foto <?= ($i+1); ?>" class="h-44 w-full object-cover object-center bg-gray-300">
+                    <img src="<?= base_url(LOKASI_PRODUK . $foto[$i]); ?>" alt="<?= bilingual_text('photo_number', ['number' => ($i+1)]) ?>" class="h-44 w-full object-cover object-center bg-gray-300">
                   <?php endif; ?>
                 <?php endif; ?>
               <?php endfor; ?>
             </div>
             <?php else: ?>
-              <img class="h-44 w-full object-cover object-center bg-gray-300" src="<?= base_url('assets/images/404-image-not-found.jpg') ?>" alt="Foto Produk"/>
+              <img class="h-44 w-full object-cover object-center bg-gray-300" src="<?= base_url('assets/images/404-image-not-found.jpg') ?>" alt="<?= bilingual_text('product_photo') ?>"/>
           <?php endif ?>
           <div class="space-y-1/2 text-sm flex flex-col detail">
             <span class="font-heading font-medium"><?= $pro->nama ?></span>
@@ -60,9 +60,9 @@
         <div class="group flex items-center space-x-1">
           <?php if ($pro->telepon): ?>
             <?php $pesan = strReplaceArrayRecursive(['[nama_produk]' => $pro->nama, '[link_web]' => base_url('lapak'), '<br />' => "%0A"], nl2br($this->setting->pesan_singkat_wa)); ?>
-            <a href="https://api.whatsapp.com/send?phone=<?=format_telpon($pro->telepon);?>&amp;text=<?= $pesan; ?>" rel="noopener noreferrer" target="_blank" class="btn btn-primary text-xs text-center"><i class="fa fa-shopping-cart mr-1"></i> Beli Sekarang</a>
+            <a href="https://api.whatsapp.com/send?phone=<?=format_telpon($pro->telepon);?>&amp;text=<?= $pesan; ?>" rel="noopener noreferrer" target="_blank" class="btn btn-primary text-xs text-center"><i class="fa fa-shopping-cart mr-1"></i> <?= bilingual_text('buy_now') ?></a>
           <?php endif; ?>
-          <button type="button" class="btn btn-secondary text-xs text-center rounded-0" data-bs-toggle="modal" data-bs-target="#modalLokasi" data-bs-remote="false" title="Lokasi" data-lat="<?= $pro->lat?>" data-lng="<?= $pro->lng?>" data-zoom="<?= $pro->zoom?>" data-title="Lokasi <?= $pro->pelapak?>"><i class="fas fa-map-marker-alt mr-1"></i> Lokasi</button>
+          <button type="button" class="btn btn-secondary text-xs text-center rounded-0" data-bs-toggle="modal" data-bs-target="#modalLokasi" data-bs-remote="false" title="<?= bilingual_text('location') ?>" data-lat="<?= $pro->lat?>" data-lng="<?= $pro->lng?>" data-zoom="<?= $pro->zoom?>" data-title="<?= bilingual_text('seller_location_named', ['name' => $pro->pelapak]) ?>"><i class="fas fa-map-marker-alt mr-1"></i> <?= bilingual_text('location') ?></button>
         </div>
       </div>
     <?php endforeach ?>
@@ -75,7 +75,7 @@
     <div class="modal-dialog relative w-auto pointer-events-none">
       <div class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
         <div class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
-          <h5 class="text-h6">Lokasi Penjual</h5>
+          <h5 class="text-h6"><?= bilingual_text('seller_location') ?></h5>
         </div>
         <div class="modal-body p-4">
         </div>
@@ -130,5 +130,5 @@
     });
   </script>
   <?php else : ?>
-    <p class="py-2">Tidak ada produk yang tersedia</p>
+    <p class="py-2"><?= bilingual_text('no_products') ?></p>
   <?php endif ?>

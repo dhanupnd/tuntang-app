@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?= bilingual_current_language() === 'en' ? 'en' : 'id' ?>">
 
 <head>
   <?php $this->load->view($folder_themes . '/commons/meta') ?>
@@ -40,7 +40,7 @@
 
   <main class="container w-full space-y-1 text-gray-600">
     <div class="page-title text-center">
-      <h2 class="text-3xl font-bold text-bold my-0 pt-6 pb-2">Peta <?= NAMA_DESA ?></h2>
+      <h2 class="text-3xl font-bold text-bold my-0 pt-6 pb-2"><?= bilingual_current_language() === 'en' ? 'Map of' : 'Peta' ?> <?= NAMA_DESA ?></h2>
       <a href="<?= site_url() ?>" class="inline-block" class="text-link hover:text-link"><?= bilingual_text('back_to_home') ?></a>
     </div>
     <br>

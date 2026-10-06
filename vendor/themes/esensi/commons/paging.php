@@ -1,7 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 <?php if($paging->num_rows > $paging->per_page) : ?>
-  <p class="text-xs lg:text-sm py-3">Halaman <?= $paging->page ?> dari <?= $paging->end_link ?></p>
+  <p class="text-xs lg:text-sm py-3">
+    <?= bilingual_current_language() === 'en' ? 'Page' : 'Halaman' ?> <?= $paging->page ?> <?= bilingual_current_language() === 'en' ? 'of' : 'dari' ?> <?= $paging->end_link ?>
+  </p>
   <ul class="pagination flex gap-2 flex-wrap">
     <?php if($paging->start_link) : ?>
       <li class="page-item">

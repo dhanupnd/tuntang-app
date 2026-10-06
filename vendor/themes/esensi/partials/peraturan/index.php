@@ -1,26 +1,26 @@
 <nav role="navigation" aria-label="navigation" class="breadcrumb">
     <ol>
         <li><a href="<?= site_url() ?>"><?= bilingual_text('home') ?></a></li>
-        <li aria-current="page">Produk Hukum</li>
+        <li aria-current="page"><?= bilingual_text('legal_product') ?></li>
     </ol>
 </nav>
 
-<h1 class="text-h2">Produk Hukum</h1>
+<h1 class="text-h2"><?= bilingual_text('legal_product') ?></h1>
 <hr>
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-3">
     <div class="space-y-2">
-        <label for="owner" class="text-xs lg:text-sm">Tahun</label>
+        <label for="owner" class="text-xs lg:text-sm"><?= bilingual_text('year') ?></label>
         <select class="form-control input-sm" id="tahun" name="tahun">
-            <option selected value="">Semua</option>
+            <option selected value=""><?= bilingual_text('all') ?></option>
             <?php foreach ($pilihan_tahun as $tahun) : ?>
                 <option value="<?= $tahun ?>"><?= $tahun ?></option>
             <?php endforeach; ?>
         </select>
     </div>
     <div class="space-y-2">
-        <label for="email" class="text-xs lg:text-sm">Kategori</label>
+        <label for="email" class="text-xs lg:text-sm"><?= bilingual_text('category_menu') ?></label>
         <select class="form-control input-sm" id="kategori" name="kategori">
-            <option selected value="">Semua</option>
+            <option selected value=""><?= bilingual_text('all') ?></option>
             <?php foreach ($pilihan_kategori as $id => $kategori) : ?>
                 <option value="<?= $id ?>"><?= $kategori ?></option>
             <?php endforeach; ?>
@@ -33,10 +33,10 @@
             <thead class="bg-gray disabled color-palette">
                 <tr>
                     <th>No</th>
-                    <th>Judul Produk Hukum</th>
-                    <th>Jenis</th>
-                    <th>Tahun</th>
-                    <th>Aksi</th>
+                    <th><?= bilingual_text('legal_product_title') ?></th>
+                    <th><?= bilingual_text('type') ?></th>
+                    <th><?= bilingual_text('year') ?></th>
+                    <th><?= bilingual_text('action') ?></th>
                 </tr>
             </thead>
         </table>
@@ -80,9 +80,9 @@
                 {
                     data: function (data) {
                         if (data.url != null) {
-                            return `<button onclick="window.location.href='${data.url}'" class="btn btn-primary btn-block" target="_blank" rel="noopener noreferrer">Lihat</button>`;
+                            return `<button onclick="window.location.href='${data.url}'" class="btn btn-primary btn-block" target="_blank" rel="noopener noreferrer"><?= bilingual_text('view') ?></button>`;
                         }
-                        return '<a href="<?= site_url('dokumen_web/unduh_berkas/') ?>' + data.id + '" class="btn btn-primary btn-block" target="_blank" rel="noopener noreferrer">Unduh</a>';
+                        return '<a href="<?= site_url('dokumen_web/unduh_berkas/') ?>' + data.id + '" class="btn btn-primary btn-block" target="_blank" rel="noopener noreferrer"><?= bilingual_text('download') ?></a>';
                     },
                     name: 'aksi',
                     searchable: false,

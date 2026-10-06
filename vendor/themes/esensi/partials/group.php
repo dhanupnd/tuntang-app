@@ -3,7 +3,7 @@
 <nav role="navigation" aria-label="navigation" class="breadcrumb">
   <ol>
     <li><a href="<?= site_url() ?>"><?= bilingual_text('home') ?></a></li>
-    <li aria-current="page">Data Kelompok</li>
+    <li aria-current="page"><?= bilingual_text('group_data') ?></li>
   </ol>
 </nav>
 
@@ -12,15 +12,15 @@
   
   <p class="py-4"><?= $detail['keterangan'] ?></p>
 
-  <h2 class="text-h4">Daftar Pengurus</h2>
+  <h2 class="text-h4"><?= bilingual_text('officer_list') ?></h2>
   <div class="table-responsive content">
     <table class="w-full text-sm">
       <thead>
         <tr>
           <th>No</th>
-          <th>Jabatan</th>
-          <th>Nama</th>
-          <th>Alamat</th>
+          <th><?= bilingual_text('position') ?></th>
+          <th><?= bilingual_text('name') ?></th>
+          <th><?= bilingual_text('address') ?></th>
         </tr>
       </thead>
       <tbody>
@@ -36,16 +36,16 @@
     </table>
   </div>
 
-  <h2 class="text-h4">Daftar Anggota</h2>
+  <h2 class="text-h4"><?= bilingual_text('member_list') ?></h2>
   <div class="table-responsive content">
     <table class="w-full text-sm" id="tabel-data">
       <thead>
         <tr>
           <th>No</th>
-          <th>No. Anggota</th>
-          <th>Nama</th>
-          <th>Alamat</th>
-          <th>Jenis Kelamin</th>
+          <th><?= bilingual_text('member_number') ?></th>
+          <th><?= bilingual_text('name') ?></th>
+          <th><?= bilingual_text('address') ?></th>
+          <th><?= bilingual_text('gender') ?></th>
         </tr>
       </thead>
       <tbody>
@@ -70,7 +70,7 @@
       'pageLength': 10,
       'lengthMenu': [
         [10, 25, 50, 100, -1],
-        [10, 25, 50, 100, "Semua"]
+        [10, 25, 50, 100, "<?= bilingual_text('all') ?>"]
       ],
       'columnDefs': [
         {
@@ -82,9 +82,11 @@
             'targets': [0]
         }
       ],
-      'language': {
-        'url': BASE_URL + '/assets/bootstrap/js/dataTables.indonesian.lang'
-      },
+      <?php if (bilingual_current_language() === 'id') : ?>
+        'language': {
+          'url': BASE_URL + '/assets/bootstrap/js/dataTables.indonesian.lang'
+        },
+      <?php endif ?>
     });
 
     tabelData.on( 'order.dt search.dt', function () {

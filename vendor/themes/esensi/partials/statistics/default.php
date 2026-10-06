@@ -3,29 +3,29 @@
 <div class="breadcrumb">
     <ol>
         <li><a href="<?= site_url() ?>"><?= bilingual_text('home') ?></a></li>
-        <li>Data Statistik</li>
+        <li><?= bilingual_text('statistical_data') ?></li>
     </ol>
 </div>
-<h1 class="text-h2">Data Penduduk Menurut <?= $heading ?></h1>
+<h1 class="text-h2"><?= bilingual_text('population_data_by', ['heading' => $heading]) ?></h1>
 <div class="flex justify-between items-center space-x-1 py-5">
-    <h2 class="text-h4">Grafik <?= $heading ?></h2>
+    <h2 class="text-h4"><?= bilingual_text('chart_by', ['heading' => $heading]) ?></h2>
     <div class="text-right space-x-2 text-sm space-y-2 md:space-y-0">
-        <button class="btn btn-secondary button-switch" data-type="column">Bar Graph</button>
-        <button class="btn btn-secondary button-switch is-active" data-type="pie">Pie Graph</button>
+        <button class="btn btn-secondary button-switch" data-type="column"><?= bilingual_current_language() === 'en' ? 'Bar Graph' : 'Grafik Batang' ?></button>
+        <button class="btn btn-secondary button-switch is-active" data-type="pie"><?= bilingual_current_language() === 'en' ? 'Pie Graph' : 'Grafik Lingkaran' ?></button>
     </div>
 </div>
 <div id="statistics"></div>
-<h2 class="text-h4">Tabel <?= $heading ?></h2>
+<h2 class="text-h4"><?= bilingual_text('table_by', ['heading' => $heading]) ?></h2>
 <div class="content py-3">
     <div class="table-responsive">
         <table class="w-full text-sm">
             <thead>
                 <tr>
                 <th rowspan="2">No</th>
-                <th rowspan="2">Kelompok</th>
-                <th colspan="2">Jumlah</th>
-                <th colspan="2">Laki-laki</th>
-                <th colspan="2">Perempuan</th>
+                <th rowspan="2"><?= bilingual_text('group') ?></th>
+                <th colspan="2"><?= bilingual_text('total') ?></th>
+                <th colspan="2"><?= bilingual_text('male') ?></th>
+                <th colspan="2"><?= bilingual_text('female') ?></th>
                 </tr>
                 <tr>
                 <th>n</th>
@@ -68,9 +68,9 @@
     </div>
     <div class="flex justify-between py-5">
         <?php if($hide == 'more') : ?>
-            <button class="btn btn-primary button-more" id="showData">Selengkapnya...</button>
+            <button class="btn btn-primary button-more" id="showData"><?= bilingual_text('more_details') ?>...</button>
         <?php endif ?>
-        <button id="showZero" class="btn btn-secondary">Tampilkan Nol</button>
+        <button id="showZero" class="btn btn-secondary"><?= bilingual_text('show_zero') ?></button>
     </div>
 
     <?php if ($this->setting->daftar_penerima_bantuan && in_array($st, array('bantuan_keluarga', 'bantuan_penduduk'))):?>
@@ -79,7 +79,7 @@
         </script>
 
         <input id="stat" type="hidden" value="<?=$st?>">
-        <h2 class="text-h4">Daftar <?= $heading ?></h2>
+        <h2 class="text-h4"><?= bilingual_text('list_of', ['name' => $heading]) ?></h2>
 
         <div class="table-responsive content py-3">
             <table class="w-full text-sm" id="peserta_program">
@@ -87,8 +87,8 @@
                     <tr>
                         <th>No</th>
                         <th>Program</th>
-                        <th>Nama Peserta</th>
-                        <th>Alamat</th>
+                        <th><?= bilingual_text('participant_name') ?></th>
+                        <th><?= bilingual_text('address') ?></th>
                     </tr>
                 </thead>
                 <tbody>

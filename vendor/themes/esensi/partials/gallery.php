@@ -3,10 +3,10 @@
 <nav role="navigation" aria-label="navigation" class="breadcrumb">
   <ol>
     <li><a href="<?= site_url() ?>"><?= bilingual_text('home') ?></a></li>
-    <li aria-current="page">Galeri</li>
+    <li aria-current="page"><?= bilingual_text('gallery') ?></li>
   </ol>
 </nav>
-<h1 class="text-h2">Album Galeri</h1>
+<h1 class="text-h2"><?= bilingual_text('gallery_album') ?></h1>
 
 <?php if(count($gallery)) : ?>
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-5 main-content py-4">
@@ -21,5 +21,5 @@
     <?php endforeach ?>
   </div>
   <?php else : ?>
-    <div class="alert text-primary-100">Maaf album galeri belum tersedia!</div>
+    <div class="alert text-primary-100"><?= bilingual_text('gallery_empty') ?></div>
 <?php endif ?>

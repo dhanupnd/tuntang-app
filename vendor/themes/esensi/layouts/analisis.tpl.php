@@ -1,7 +1,30 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<?php
+  $analysis_text = bilingual_current_language() === 'en'
+    ? [
+      'analysis_data' => 'Analysis Data',
+      'aggregate_title' => 'Village Analysis Data Aggregation List',
+      'analysis' => 'Analysis',
+      'data_collection' => 'Data Collection',
+      'subject' => 'Subject',
+      'year' => 'Year',
+      'indicator' => 'Indicator',
+      'data_not_available' => 'Data is not available',
+    ]
+    : [
+      'analysis_data' => 'Data Analisis',
+      'aggregate_title' => 'Daftar Agregasi Data Analisis Desa',
+      'analysis' => 'Analisis',
+      'data_collection' => 'Pendataan',
+      'subject' => 'Subjek',
+      'year' => 'Tahun',
+      'indicator' => 'Indikator',
+      'data_not_available' => 'Data tidak tersedia',
+    ];
+?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?= bilingual_current_language() === 'en' ? 'en' : 'id' ?>">
 <head>
   <?php $this->load->view($folder_themes . '/commons/meta') ?>
   <?php $this->load->view($folder_themes . '/commons/source_css') ?>
@@ -15,19 +38,19 @@
       <nav role="navigation" aria-label="navigation" class="breadcrumb">
         <ol>
           <li><a href="<?= site_url() ?>"><?= bilingual_text('home') ?></a></li>
-          <li>Data Analisis</li>
+          <li><?= $analysis_text['analysis_data'] ?></li>
         </ol>
       </nav>
       <?php if($list_jawab): ?>
         <?php $this->load->view("$folder_themes/partials/statistics/analisis.php"); ?>
         <?php else : ?>
-          <h1 class="text-h2">Daftar Agregasi Data Analisis Desa</h1>
+          <h1 class="text-h2"><?= $analysis_text['aggregate_title'] ?></h1>
           <?php if ($list_indikator): ?>
             <?php if(IS_PREMIUM) : ?>
               <?php if (count($master_indikator) > 1) : ?>
                 <form action="<?=site_url('data_analisis'); ?>" method="get">
                   <div class="space-y-1 flex gap-3 items-center">
-                    <label for="master" class="block text-sm">Analisis:</label>
+                    <label for="master" class="block text-sm"><?= $analysis_text['analysis'] ?>:</label>
                     <select class="form-input inline-block w-auto" name="master" onchange="this.form.submit()" id="master">
                       <?php foreach ($master_indikator as $master): ?>
                         <option value="<?= $master['id']?>" <?= selected($list_indikator['0']['id_master'], $master['id'])?>><?= "{$master['master']} ({$master['tahun']})"?></option>
@@ -39,23 +62,23 @@
               <div class="table-responsive content py-2">
                 <table>
                   <tr>
-                    <td width="200">Pendataan </td>
+                    <td width="200"><?= $analysis_text['data_collection'] ?> </td>
                     <td width="20"> :</td>
                     <td><?= $list_indikator['0']['master']; ?></td>
                   </tr>
                   <tr>
-                    <td>Subjek </td>
+                    <td><?= $analysis_text['subject'] ?> </td>
                     <td> : </td>
                     <td><?= $list_indikator['0']['subjek']; ?></td>
                   </tr>
                   <tr>
-                    <td>Tahun </td>
+                    <td><?= $analysis_text['year'] ?> </td>
                     <td> :</td>
                     <td><?= $list_indikator['0']['tahun']; ?></td>
                   </tr>
                 </table>
               </div>
-              <h4 class="text-h4 py-2">Indikator</h4>
+              <h4 class="text-h4 py-2"><?= $analysis_text['indicator'] ?></h4>
               <div class="table-responsive content">
                 <table>
                   <?php foreach ($list_indikator as $data): ?>
@@ -72,17 +95,17 @@
                   <div class="table-responsive">
                     <table>
                         <tr>
-                          <td width="20%">Pendataan </td>
+                          <td width="20%"><?= $analysis_text['data_collection'] ?> </td>
                           <td width="1%"> :</td>
                           <td><?= $data['master']; ?></td>
                         </tr>
                         <tr>
-                          <td>Subjek </td>
+                          <td><?= $analysis_text['subject'] ?> </td>
                           <td> : </td>
                           <td><?= $data['subjek']; ?></td>
                         </tr>
                         <tr>
-                          <td>Tahun </td>
+                          <td><?= $analysis_text['year'] ?> </td>
                           <td> :</td>
                           <td><?= $data['tahun']; ?></td>
                         </tr>
@@ -91,7 +114,7 @@
                 <?php endforeach; ?>
             <?php endif ?>
           <?php else: ?>
-          <p class="py-3">Data tidak tersedia</p>
+          <p class="py-3"><?= $analysis_text['data_not_available'] ?></p>
         <?php endif; ?>
       <?php endif; ?>
     </main>

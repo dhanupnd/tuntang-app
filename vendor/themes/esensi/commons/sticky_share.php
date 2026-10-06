@@ -45,7 +45,8 @@
   :class="{'invisible opacity-0 translate-y-full lg:-translate-y-1/2 lg:-translate-x-full': !stickyShare, 'visible opacity-100 translate-y-0 lg:translate-x-0 lg:-translate-y-1/2 z-50': stickyShare}">
   <ul class="bg-white lg:bg-transparent py-3 px-3 lg:pl-0 rounded-tr-lg rounded-br-lg text-center lg:text-left">
     <?php foreach($social_media as $key => $data) : ?>
-      <li class="inline-block lg:block"><a href="<?= $data['link'] . current_url() ?>" target="_blank" rel="noreferrer noopener" class="w-10 hover:relative hover:w-16 transition-all duration-300 h-10 text-white text-lg inline-flex items-center justify-center <?= $data['color'] ?>" aria-label="Bagikan ke <?= ucfirst($key) ?>" title="Bagikan ke <?= ucfirst($key) ?>"><i class="fab <?= $data['icon'] ?>"></i></a></li>
+      <?php $share_label = (bilingual_current_language() === 'en' ? 'Share to ' : 'Bagikan ke ') . ucfirst($key); ?>
+      <li class="inline-block lg:block"><a href="<?= $data['link'] . current_url() ?>" target="_blank" rel="noreferrer noopener" class="w-10 hover:relative hover:w-16 transition-all duration-300 h-10 text-white text-lg inline-flex items-center justify-center <?= $data['color'] ?>" aria-label="<?= $share_label ?>" title="<?= $share_label ?>"><i class="fab <?= $data['icon'] ?>"></i></a></li>
     <?php endforeach ?>
   </ul>
 </section>

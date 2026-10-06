@@ -3,7 +3,7 @@
 <div class="breadcrumb">
   <ol>
     <li><a href="<?= site_url() ?>"><?= bilingual_text('home') ?></a></li>
-    <li>Data Vaksin</li>
+    <li><?= bilingual_text('vaccine_data') ?></li>
   </ol>
 </div>
 <h1 class="text-h2"><?= $heading ?></h1>
@@ -12,10 +12,10 @@
     <thead>
       <tr>
         <th rowspan="2">No</th>
-        <th rowspan="2">Nama</th>
-        <th rowspan="2">Alamat Dusun</th>
-        <th rowspan="2">Tanggal</th>
-        <th colspan="6">Vaksin</th>
+        <th rowspan="2"><?= bilingual_text('name') ?></th>
+        <th rowspan="2"><?= bilingual_text('hamlet_address') ?></th>
+        <th rowspan="2"><?= bilingual_text('date') ?></th>
+        <th colspan="6"><?= bilingual_text('vaccine') ?></th>
       </tr>
       <tr>
         <th>I</th>
@@ -74,7 +74,7 @@
       'pageLength': 10,
       'lengthMenu': [
         [10, 25, 50, 100, -1],
-        [10, 25, 50, 100, "Semua"]
+        [10, 25, 50, 100, "<?= bilingual_text('all') ?>"]
       ],
       'columnDefs': [{
           'searchable': false,
@@ -85,9 +85,11 @@
           'targets': [0, 4, 5, 6]
         }
       ],
-      'language': {
-        'url': BASE_URL + '/assets/bootstrap/js/dataTables.indonesian.lang'
-      },
+      <?php if (bilingual_current_language() === 'id') : ?>
+        'language': {
+          'url': BASE_URL + '/assets/bootstrap/js/dataTables.indonesian.lang'
+        },
+      <?php endif ?>
     });
 
     tabelData.on('order.dt search.dt', function () {

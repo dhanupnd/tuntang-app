@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?= bilingual_current_language() === 'en' ? 'en' : 'id' ?>">
 <head>
   <?php $this->load->view($folder_themes .'/commons/meta') ?>
   <?php $this->load->view($folder_themes .'/commons/source_css') ?>
