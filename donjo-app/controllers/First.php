@@ -108,7 +108,7 @@ class First extends Web_Controller
         $cari = trim($this->input->get('cari', true));
         if (! empty($cari)) {
             // Judul artikel bisa digunakan untuk serangan XSS
-            $data['judul_kategori'] = 'Hasil pencarian : ' . substr(e($cari), 0, 50);
+            $data['judul_kategori'] = bilingual_text('search_results_for', ['keyword' => substr(e($cari), 0, 50)]);
         }
 
         $this->_get_common_data($data);
@@ -120,8 +120,13 @@ class First extends Web_Controller
     | Artikel bisa ditampilkan menggunakan parameter pertama sebagai id, dan semua parameter lainnya dikosongkan. url artikel/:id
     | Kalau menggunakan slug, dipanggil menggunakan url artikel/:thn/:bln/:hri/:slug
     */
-    public function artikel($thn, $bln, $hr, $url)
+    public function artikel($thn = null, $bln = null, $hr = null, $url = null)
     {
+        // Rute artikel/:id mengirim ID sebagai parameter pertama.
+        if ($url === null && $bln === null && $hr === null && is_numeric($thn)) {
+            $url = $thn;
+        }
+
         if (is_numeric($url)) {
             $data_artikel = $this->first_artikel_m->get_artikel_by_id($url);
             if ($data_artikel) {
@@ -196,7 +201,7 @@ class First extends Web_Controller
         $data = $this->includes;
 
         $data['heading'] = $this->laporan_penduduk_model->judul_statistik($stat);
-        $data['title']   = 'Statistik ' . $data['heading'];
+        $data['title']   = (bilingual_current_language() === 'en' ? 'Statistics ' : 'Statistik ') . $data['heading'];
         $data['stat']    = $this->laporan_penduduk_model->list_data($stat);
         $data['tipe']    = $tipe;
         $data['st']      = $stat;
@@ -250,6 +255,7 @@ class First extends Web_Controller
         $master = $this->input->get('master', true);
 
         $data                     = $this->includes;
+        $data['title']            = bilingual_text('analysis_data');
         $data['master_indikator'] = $this->first_penduduk_m->master_indikator();
         $data['list_indikator']   = $this->first_penduduk_m->list_indikator($master);
 
@@ -266,6 +272,7 @@ class First extends Web_Controller
         }
 
         $data               = $this->includes;
+        $data['title']      = bilingual_text('analysis_data');
         $data['list_jawab'] = $this->first_penduduk_m->list_jawab($stat, $sb, $per);
         $data['indikator']  = $this->first_penduduk_m->get_indikator($stat);
         $this->_get_common_data($data);
@@ -300,7 +307,7 @@ class First extends Web_Controller
         $this->load->model('wilayah_model');
         $data = $this->includes;
 
-        $data['heading']      = 'Populasi Per Wilayah';
+        $data['heading']      = bilingual_text('administrative_area');
         $data['tipe']         = 3;
         $data['daftar_dusun'] = $this->wilayah_model->daftar_wilayah_dusun();
         $data['total']        = $this->wilayah_model->total();
@@ -321,7 +328,7 @@ class First extends Web_Controller
 
         $data['kategori']       = $this->referensi_model->list_data('ref_dokumen', 1);
         $data['tahun']          = $this->web_dokumen_model->tahun_dokumen();
-        $data['heading']        = 'Informasi Publik';
+        $data['heading']        = bilingual_text('public_information');
         $data['title']          = $data['heading'];
         $data['halaman_statis'] = 'web/halaman_statis/informasi_publik';
         $this->_get_common_data($data);
@@ -339,20 +346,26 @@ class First extends Web_Controller
         foreach ($informasi_publik as $baris) {
             $no++;
             $row   = [];
+            $judul = html_escape(bilingual_field($baris, 'nama'));
             $row[] = $no;
             if ($baris['tipe'] == 1) {
-                $row[] = "<a href='" . site_url('dokumen_web/unduh_berkas/') . $baris['id'] . "' target='_blank'>" . $baris['nama'] . '</a>';
+                $row[] = "<a href='" . site_url('dokumen_web/unduh_berkas/') . $baris['id'] . "' target='_blank'>" . $judul . '</a>';
             } else {
-                $row[] = "<a href='" . $baris['url'] . "' target='_blank'>" . $baris['nama'] . '</a>';
+                $row[] = "<a href='" . $baris['url'] . "' target='_blank'>" . $judul . '</a>';
             }
             $row[] = $baris['tahun'];
             // Ambil judul kategori
-            $row[] = $this->referensi_model->list_ref_flip(KATEGORI_PUBLIK)[$baris['kategori_info_publik']];
+            $kategori = [
+                1 => 'public_information_periodic',
+                2 => 'public_information_immediate',
+                3 => 'public_information_anytime',
+            ];
+            $row[] = bilingual_text($kategori[$baris['kategori_info_publik']] ?? 'public_information');
             $row[] = $baris['tgl_upload'];
             if ($baris['tipe'] == 1) {
-                $row[] = "<a href='" . site_url('first/tampilkan/') . $baris['id'] . "' class='btn btn-primary btn-block pdf'>Lihat Dokumen </a>";
+                $row[] = "<a href='" . site_url('first/tampilkan/') . $baris['id'] . "' class='btn btn-primary btn-block pdf'>" . bilingual_text('view_document') . ' </a>';
             } else {
-                $row[] = "<a href='" . $baris['url'] . "' class='btn btn-primary btn-block pdf'>Lihat Dokumen </a>";
+                $row[] = "<a href='" . $baris['url'] . "' class='btn btn-primary btn-block pdf'>" . bilingual_text('view_document') . ' </a>';
             }
             $data[] = $row;
         }
@@ -388,7 +401,7 @@ class First extends Web_Controller
 
         $data['p']              = $p;
         $data['judul_kategori'] = $this->first_artikel_m->get_kategori($id);
-        $data['title']          = 'Artikel ' . $data['judul_kategori']['kategori'];
+        $data['title']          = bilingual_text('article') . ' ' . $data['judul_kategori']['kategori'];
         $data['paging']         = $this->first_artikel_m->paging_kat($p, $id);
         $data['paging_page']    = 'artikel/kategori/' . $id;
         $data['paging_range']   = 3;
@@ -404,10 +417,10 @@ class First extends Web_Controller
     public function add_comment($id = 0)
     {
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('komentar', 'Komentar', 'required');
-        $this->form_validation->set_rules('owner', 'Nama', 'required|max_length[50]');
-        $this->form_validation->set_rules('no_hp', 'No HP', 'numeric|required|max_length[15]');
-        $this->form_validation->set_rules('email', 'Email', 'valid_email|max_length[50]');
+        $this->form_validation->set_rules('komentar', bilingual_text('comment'), 'required');
+        $this->form_validation->set_rules('owner', bilingual_text('name'), 'required|max_length[50]');
+        $this->form_validation->set_rules('no_hp', bilingual_text('phone_number'), 'numeric|required|max_length[15]');
+        $this->form_validation->set_rules('email', bilingual_text('email_address'), 'valid_email|max_length[50]');
 
         $post = $this->input->post();
 
@@ -417,7 +430,7 @@ class First extends Web_Controller
             if (! $captcha->check($this->input->post('captcha_code'))) {
                 $respon = [
                     'status' => -1, // Notif gagal
-                    'pesan'  => 'Kode anda salah. Silakan ulangi lagi.',
+                    'pesan'  => bilingual_text('captcha_failed'),
                     'data'   => $post,
                 ];
             } else {
@@ -435,12 +448,12 @@ class First extends Web_Controller
                 if ($res) {
                     $respon = [
                         'status' => 1, // Notif berhasil
-                        'pesan'  => 'Komentar anda telah berhasil dikirim dan perlu dimoderasi untuk ditampilkan.',
+                        'pesan'  => bilingual_text('comment_success_moderation'),
                     ];
                 } else {
                     $respon = [
                         'status' => -1, // Notif gagal
-                        'pesan'  => 'Komentar anda gagal dikirim. Silakan ulangi lagi.',
+                        'pesan'  => bilingual_text('comment_failed'),
                         'data'   => $post,
                     ];
                 }

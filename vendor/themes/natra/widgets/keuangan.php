@@ -112,9 +112,9 @@
             <ul class="dropdown-menu dropdown-menu-left">
               <?php foreach ($widget_keuangan['tahun'] as $key) : ?>
                 <li><a class="dropdown-item"><b><?= $key ?></b></a></li>
-                <li><a class="dropdown-item" onclick="gantiTipe('pelaksanaan'); gantiTahun('<?= $key ?>')">Pelaksanaan APBDes</a></li>
-                <li><a class="dropdown-item" onclick="gantiTipe('pendapatan'); gantiTahun('<?= $key ?>')">Pendapatan APBDes</a></li>
-                <li><a class="dropdown-item" onclick="gantiTipe('belanja'); gantiTahun('<?= $key ?>')">Belanja APBDes</a></li>
+                <li><a class="dropdown-item" onclick="gantiTipe('pelaksanaan'); gantiTahun('<?= $key ?>')"><?= bilingual_text('apbdes_implementation') ?></a></li>
+                <li><a class="dropdown-item" onclick="gantiTipe('pendapatan'); gantiTahun('<?= $key ?>')"><?= bilingual_text('apbdes_income') ?></a></li>
+                <li><a class="dropdown-item" onclick="gantiTipe('belanja'); gantiTahun('<?= $key ?>')"><?= bilingual_text('apbdes_expenditure') ?></a></li>
               <?php endforeach; ?>
             </ul>
           </div>
@@ -131,6 +131,15 @@
     var rawData = <?= $widget_keuangan['data']; ?>;
     var year = "<?= $widget_keuangan['tahun_terbaru'] ?>";
     var type = "pelaksanaan"
+    var financeLabels = {
+      budget: <?= json_encode(bilingual_text('budget')) ?>,
+      realization: <?= json_encode(bilingual_text('realization')) ?>,
+      implementation: <?= json_encode(bilingual_text('apbdes_implementation')) ?>,
+      income: <?= json_encode(bilingual_text('apbdes_income')) ?>,
+      expenditure: <?= json_encode(bilingual_text('apbdes_expenditure')) ?>,
+      noData: <?= json_encode(bilingual_text('no_data_available')) ?>,
+      year: <?= json_encode(bilingual_text('year')) ?>
+    };
 
     Highcharts.setOptions({
       lang: {
@@ -142,17 +151,17 @@
       resetContainer();
       switch (tipe) {
         case "pelaksanaan":
-          var judulGrafik = 'Pelaksanaan APBDes';
+          var judulGrafik = financeLabels.implementation;
           var tipeGrafik = 'res_pelaksanaan';
           break;
 
         case "belanja":
-          var judulGrafik = 'Belanja APBDes';
+          var judulGrafik = financeLabels.expenditure;
           var tipeGrafik = 'res_belanja';
           break;
 
         case "pendapatan":
-          var judulGrafik = 'Pendapatan APBDes';
+          var judulGrafik = financeLabels.income;
           var tipeGrafik = 'res_pendapatan';
           break;
       }
@@ -229,12 +238,12 @@
         },
 
         series: [{
-            name: 'Anggaran',
+            name: financeLabels.budget,
             color: '#34b4eb',
             data: [],
           },
           {
-            name: 'Realisasi',
+            name: financeLabels.realization,
             color: '#b4eb34',
             data: [],
           }
@@ -245,7 +254,7 @@
         if (subData['nama']) {
           if ((!subData['realisasi'] && !subData['anggaran'])) {
             $("#grafik-container").append(
-              "<div class='graph-sub' id='graph-sub-" + idx + "'>" + subData['nama'] + "</div><div id='graph-" + idx + "' class='graph-not-available'>Data tidak tersedia.</div>");
+              "<div class='graph-sub' id='graph-sub-" + idx + "'>" + subData['nama'] + "</div><div id='graph-" + idx + "' class='graph-not-available'>" + financeLabels.noData + ".</div>");
           } else {
             if (!isNaN(subData['anggaran'])) {
               var persentase = parseInt(subData['persen']);
@@ -324,7 +333,7 @@
                 },
 
                 series: [{
-                  name: 'Anggaran',
+                  name: financeLabels.budget,
                   color: '#34b4eb',
                   data: [parseInt(subData['anggaran'])],
                   dataLabels: {
@@ -341,11 +350,11 @@
                   },
                   tooltip: {
                     pointFormatter: function() {
-                      return 'Anggaran: <b>Rp. ' + Highcharts.numberFormat(this.y, '.', ',') + '</b>';
+                      return financeLabels.budget + ': <b>Rp. ' + Highcharts.numberFormat(this.y, '.', ',') + '</b>';
                     }
                   }
                 }, {
-                  name: 'Realisasi',
+                  name: financeLabels.realization,
                   color: '#b4eb34',
                   data: [parseInt(subData['realisasi'])],
                   dataLabels: {
@@ -362,7 +371,7 @@
                   },
                   tooltip: {
                     pointFormatter: function() {
-                      return 'Realisasi: <b>Rp. ' + Highcharts.numberFormat(this.y, '.', ',') + '</b>';
+                      return financeLabels.realization + ': <b>Rp. ' + Highcharts.numberFormat(this.y, '.', ',') + '</b>';
                     }
                   }
                 }]
@@ -371,7 +380,7 @@
           }
         }
       });
-      $("p#grafik-tahun").text("Tahun " + year);
+      $("p#grafik-tahun").text(financeLabels.year + " " + year);
     }
 
     function resetContainer() {
@@ -393,7 +402,7 @@
     })
 
     $(document).ready(function() {
-      //Realisasi Pelaksanaan APBD
+      // Display the latest APBDes chart
       $("#keuangan-selector").val("<?= $widget_keuangan['tahun_terbaru'] ?>")
       displayChart(year, type);
     });

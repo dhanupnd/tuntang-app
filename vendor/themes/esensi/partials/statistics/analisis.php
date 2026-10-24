@@ -7,7 +7,7 @@
   <table class="table table-responsive table-striped">
     <thead>
       <tr>
-        <th width="30%">No</th>
+        <th width="30%"><?= bilingual_text('no') ?></th>
         <th><?= bilingual_text('answer') ?></th>
         <th><?= bilingual_text('respondent_count') ?></th>
       </tr>

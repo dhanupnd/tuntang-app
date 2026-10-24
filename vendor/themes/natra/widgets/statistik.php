@@ -18,11 +18,11 @@
 							plotShadow: false
 						},
 						title: {
-							text: 'Jumlah Penduduk'
+							text: '<?= bilingual_text('population') ?>'
 						},
 						yAxis: {
 							title: {
-								text: 'Jumlah'
+								text: '<?= bilingual_text('total') ?>'
 							}
 						},
 						xAxis: {
@@ -49,7 +49,7 @@
 						},
 						series: [{
 							type: 'column',
-							name: 'Populasi',
+							name: '<?= bilingual_text('population_label') ?>',
 							data: [
 							<?php foreach ($stat_widget as $data): ?>
 								<?php if ($data['jumlah'] != "-" AND $data['nama']!= "JUMLAH"): ?>

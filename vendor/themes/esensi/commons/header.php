@@ -6,24 +6,25 @@
   <header style="background-image: url(<?= $bg_header ?>);" class="bg-center bg-cover bg-no-repeat relative text-white">
     <div class="absolute bg-gray-800 bg-opacity-60 top-0 left-0 right-0 h-full">
     </div>
-    <div class="absolute top-0 left-0 z-20 p-3">
-      <?php $this->load->view('global/language_toggle') ?>
-    </div>
-    
+
     <?php $this->load->view($folder_themes .'/commons/category_menu') ?>
 
-    <section class="relative z-10 text-center space-y-2 mt-3 px-3 lg:px-5">
+    <section class="public-village-heading relative z-10 text-center space-y-2 mt-3 px-3 lg:px-5">
       <a href="<?= site_url() ?>">
         <figure>
           <img src="<?= gambar_desa($desa['logo']) ?>" alt="<?= bilingual_current_language() === 'en' ? 'Village logo' : 'Logo ' . ucfirst($this->setting->sebutan_desa) ?> <?= ucwords($desa['nama_desa']) ?>" class="h-16 mx-auto pb-2">
         </figure>
         <span class="text-h2 block"><?= NAMA_DESA ?></span>
-        <p><?= ucfirst($this->setting->sebutan_kecamatan_singkat) ?>
-          <?= ucwords($desa['nama_kecamatan']) ?>,
-          <?= ucfirst($this->setting->sebutan_kabupaten_singkat) ?>
-          <?= ucwords($desa['nama_kabupaten']) ?>,
-          <?= bilingual_current_language() === 'en' ? 'Province' : 'Provinsi' ?>
-          <?= ucwords($desa['nama_propinsi']) ?>
+        <p>
+          <?php if (bilingual_current_language() === 'en'): ?>
+            <?= bilingual_text('subdistrict') . ' ' . $desa['nama_kecamatan'] . ', ' . $desa['nama_kabupaten'] . ' ' . bilingual_text('regency') . ', ' . bilingual_province_name($desa['nama_propinsi']) . ' ' . bilingual_text('province') ?>
+          <?php else: ?>
+            <?= ucfirst($this->setting->sebutan_kecamatan_singkat) ?>
+            <?= ucwords($desa['nama_kecamatan']) ?>,
+            <?= ucfirst($this->setting->sebutan_kabupaten_singkat) ?>
+            <?= ucwords($desa['nama_kabupaten']) ?>,
+            Provinsi <?= ucwords($desa['nama_propinsi']) ?>
+          <?php endif; ?>
         </p>
       </a>
       <?php if($w_gal) : ?>

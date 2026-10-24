@@ -1,26 +1,47 @@
 $(document).ready(function() {
-    // Initialize the agent at application startup.
-    const fpPromise = import('https://openfpcdn.io/fingerprintjs/v3').then(FingerprintJS =>
-        FingerprintJS.load());
+    var pengunjung = readCookie("pengunjung");
 
-    // Get the visitor identifier when you need it.
-    fpPromise
+    if (pengunjung) {
+        showVisitorId(pengunjung);
+        return;
+    }
+
+    // Initialize the agent at application startup.
+    import('https://openfpcdn.io/fingerprintjs/v3')
+        .then(FingerprintJS => FingerprintJS.load())
         .then(fp => fp.get())
         .then(result => {
-            // This is the visitor identifier:
-            const browserId = result.visitorId
-            createCookie("pengunjung", browserId, "1");
+            setVisitorId(result.visitorId);
+        })
+        .catch(function() {
+            setVisitorId(createFallbackVisitorId());
         });
-
-    // Tampilkan ke browser
-    document.getElementById("pengunjung").innerHTML = readCookie("pengunjung");
-
-    if (readCookie("pengunjung") == null) {
-        setTimeout(function () {
-            location.reload();
-        }, 1000);
-    }
 });
+
+function setVisitorId(browserId) {
+    createCookie("pengunjung", browserId, "1");
+    showVisitorId(browserId);
+}
+
+function showVisitorId(browserId) {
+    var pengunjung = document.getElementById("pengunjung");
+
+    if (pengunjung) {
+        pengunjung.innerHTML = browserId || "-";
+    }
+}
+
+function createFallbackVisitorId() {
+    var randomValue = Math.random().toString(36).substring(2, 12);
+
+    if (window.crypto && window.crypto.getRandomValues) {
+        var randomBytes = new Uint32Array(2);
+        window.crypto.getRandomValues(randomBytes);
+        randomValue = randomBytes[0].toString(36) + randomBytes[1].toString(36);
+    }
+
+    return "local-" + Date.now().toString(36) + randomValue;
+}
 
 // Function to create the cookie 
 function createCookie(name, value, days) {

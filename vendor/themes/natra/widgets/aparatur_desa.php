@@ -39,11 +39,11 @@
 				<?php foreach ($aparatur_desa['daftar_perangkat'] as $data) : ?>
 					<?php
 					$desc = "<span class='cycle-overlay-title'>" . $data['nama'] . "</span>";
-					if ($data['kehadiran'] == 1) $desc .= "<span class='label label-success'>" . ($data['status_kehadiran'] == 'hadir' ? 'Hadir' : '') . "</span>"
+					if ($data['kehadiran'] == 1) $desc .= "<span class='label label-success'>" . ($data['status_kehadiran'] == 'hadir' ? bilingual_text('present') : '') . "</span>"
 						. "<span class='label label-danger'>" . (($data['tanggal'] == date('Y-m-d')) && ($data['status_kehadiran'] != 'hadir') ? ucwords($data['status_kehadiran']) : '') . "</span>"
-						. "<span class='label label-danger'>" . ($data['tanggal'] != date('Y-m-d') ? 'Belum Rekam Kehadiran' : '') . "</span>";
+						. "<span class='label label-danger'>" . ($data['tanggal'] != date('Y-m-d') ? bilingual_text('attendance_not_recorded') : '') . "</span>";
 					?>
-					<img data-src="<?= $data['foto'] ?>" src="<?= base_url('assets/images/img-loader.gif') ?>" class="yall_lazy" data-cycle-title="<?= $desc ?>" data-cycle-desc="<?= $data['jabatan'] ?>">
+					<img data-src="<?= $data['foto'] ?>" src="<?= base_url('assets/images/img-loader.gif') ?>" class="yall_lazy" data-cycle-title="<?= $desc ?>" data-cycle-desc="<?= bilingual_field($data, 'jabatan') ?>">
 				<?php endforeach; ?>
 			</div>
 		</div>

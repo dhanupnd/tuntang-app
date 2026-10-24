@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') || exit('No direct script access allowed'); ?>
 
 <div class="single_category wow fadeInDown">
-	<h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <span class="title_text">Lapak</span></h2>
+	<h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <span class="title_text"><?= bilingual_text('shop') ?></span></h2>
 </div>
 
 <div class="box box-primary">
@@ -10,15 +10,15 @@
 			<div class="row">
 				<div class="col-sm-12">
 					<select class="form-control select2" id="id_kategori" name="id_kategori" onchange="$('#filter').submit();">
-						<option selected value="">Semua Kategori</option>
+						<option selected value=""><?= bilingual_text('all_categories') ?></option>
 						<?php foreach ($kategori as $kategori_item) : ?>
-							<option value="<?= $kategori_item->id ?>" <?= selected($id_kategori, $kategori_item->id) ?>><?= $kategori_item->kategori ?></option>
+							<option value="<?= $kategori_item->id ?>" <?= selected($id_kategori, $kategori_item->id) ?>><?= bilingual_field($kategori_item, 'kategori') ?></option>
 						<?php endforeach; ?>
 					</select>
-					<input type="text" name="keyword" maxlength="50" class="form-control" value="<?= e($keyword); ?>" placeholder="Cari Produk">
+					<input type="text" name="keyword" maxlength="50" class="form-control" value="<?= e($keyword); ?>" placeholder="<?= bilingual_text('search_product') ?>">
 					<button type="submit" class="btn btn-primary"><?= bilingual_text('search') ?></button>
 					<?php if (e($keyword)): ?>
-						<a href="<?=site_url('lapak')?>" class="btn btn-info">Tampilkan Semua</a>
+						<a href="<?=site_url('lapak')?>" class="btn btn-info"><?= bilingual_text('show_all') ?></a>
 					<?php endif ?>
 				</div>
 			</div>
@@ -37,43 +37,43 @@
 											<div class="item <?= jecho($i, 0, 'active'); ?>">
 												<?php if (is_file(LOKASI_PRODUK . $foto[$i])): ?>
 													<div class="single_iteam">
-														<img class="tlClogo" src="<?= base_url(LOKASI_PRODUK . $foto[$i]); ?>" alt="Foto <?= ($i+1); ?>">
+														<img class="tlClogo" src="<?= base_url(LOKASI_PRODUK . $foto[$i]); ?>" alt="<?= bilingual_text('photo_number', ['number' => $i + 1]) ?>">
 														<!-- <?= jecho($pro->kategori, true, '<div class="textgambar hidden-xs">' . $pro->kategori . '</div>'); ?> -->
 													</div>
 												<?php else: ?>
-													<img class="card-img-top" style="width: auto; max-height: 250px;" src="<?= base_url('assets/images/404-image-not-found.jpg') ?>" alt="Foto Produk"/>
+													<img class="card-img-top" style="width: auto; max-height: 250px;" src="<?= base_url('assets/images/404-image-not-found.jpg') ?>" alt="<?= bilingual_text('product_photo') ?>"/>
 												<?php endif; ?>
 											</div>
 										<?php endif; ?>
 									<?php endfor; ?>
 									</div>
 								<?php else: ?>
-									<img class="card-img-top" style="width: auto; max-height: 250px;" src="<?= base_url('assets/images/404-image-not-found.jpg') ?>" alt="Foto Produk"/>
+									<img class="card-img-top" style="width: auto; max-height: 250px;" src="<?= base_url('assets/images/404-image-not-found.jpg') ?>" alt="<?= bilingual_text('product_photo') ?>"/>
 								<?php endif; ?>
 								<div class="card-body">
 									<!--
 										Jika ingin menambahkan badge potongan dalam persen
 										<?= persen(($pro->tipe_potongan == 1) ? $pro->potongan/100 : $pro->potongan / $pro->harga); ?>
 									-->
-									<h4><b><?= $pro->nama; ?></b></h4>
+									<h4><b><?= bilingual_field($pro, 'nama'); ?></b></h4>
 									<?php $harga_potongan = ($pro->tipe_potongan == 1) ? ($pro->harga * ($pro->potongan / 100)) : $pro->potongan; ?>
-									<h6><b style="color:green;">Harga : <?= rupiah($pro->harga - $harga_potongan); ?>
+									<h6><b style="color:green;"><?= bilingual_text('price') ?> : <?= rupiah($pro->harga - $harga_potongan); ?>
 										<?php if ($pro->potongan != 0): ?>
 											&nbsp;&nbsp;<small style="color:red; text-decoration: line-through red;"><?= rupiah($pro->harga); ?></small>
 										<?php endif; ?>
 									</b></h6>
 									<p class="card-text">
-										<b>Deskripsi :</b>
+										<b><?= bilingual_text('description') ?> :</b>
 										<br/>
-										<?= nl2br(e($pro->deskripsi)); ?>
+										<?= nl2br(e(bilingual_field($pro, 'deskripsi'))); ?>
 									</p>
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="btn-group">
 											<?php if ($pro->telepon): ?>
 												<?php $pesan = strReplaceArrayRecursive(['[nama_produk]' => $pro->nama, '[link_web]' => base_url('lapak'), '<br />' => "%0A"], nl2br($this->setting->pesan_singkat_wa)); ?>
-												<a class="btn btn-sm btn-success" href="https://api.whatsapp.com/send?phone=<?=format_telpon($pro->telepon); ?>&amp;text=<?= $pesan; ?>" rel="noopener noreferrer" target="_blank" title="WhatsApp"><i class="fa fa-whatsapp"></i> Beli</a>
+												<a class="btn btn-sm btn-success" href="https://api.whatsapp.com/send?phone=<?=format_telpon($pro->telepon); ?>&amp;text=<?= $pesan; ?>" rel="noopener noreferrer" target="_blank" title="WhatsApp"><i class="fa fa-whatsapp"></i> <?= bilingual_text('buy_now') ?></a>
 											<?php endif; ?>
-											<a class="btn btn-sm btn-primary lokasi-pelapak" data-remote="false" data-toggle="modal" data-target="#map-modal" title="Lokasi" data-lat="<?= $pro->lat?>" data-lng="<?= $pro->lng?>" data-zoom="<?= $pro->zoom?>" data-title="Lokasi Pelapak (<?= $pro->pelapak?>)"><i class="fa fa fa-map"></i> Lokasi</a>
+											<a class="btn btn-sm btn-primary lokasi-pelapak" data-remote="false" data-toggle="modal" data-target="#map-modal" title="<?= bilingual_text('location') ?>" data-lat="<?= $pro->lat?>" data-lng="<?= $pro->lng?>" data-zoom="<?= $pro->zoom?>" data-title="<?= bilingual_text('seller_location_named', ['name' => $pro->pelapak]) ?>"><i class="fa fa fa-map"></i> <?= bilingual_text('location') ?></a>
 										</div>
 										<small class="text-muted"><b><i class="fa fa-user"></i>&nbsp;<?= $pro->pelapak; ?></b></small>
 									</div>
@@ -107,7 +107,7 @@
 			<?php $this->load->view("$folder_themes/commons/page"); ?>
 
 		<?php else: ?>
-			<h5>Belum ada produk yang ditawarkan.</h5>
+			<h5><?= bilingual_text('no_products') ?></h5>
 		<?php endif;?>
 	</div>
 </div>

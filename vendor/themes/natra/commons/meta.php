@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') || exit('No direct script access allowed'); ?>
 
 <?php defined('THEME_VERSION') or define('THEME_VERSION', 'v22.11') ?>
-<?php $desa_title =  ucwords($this->setting->sebutan_desa) . ' '. $desa['nama_desa'] . ' '. ucwords($this->setting->sebutan_kecamatan) . ' '. $desa['nama_kecamatan'] . ' '. ucwords($this->setting->sebutan_kabupaten) . ' '. $desa['nama_kabupaten']; ?>
+<?php $desa_title = bilingual_village_name($desa['nama_desa'], $this->setting->sebutan_desa) . ' ' . ucwords($this->setting->sebutan_kecamatan) . ' ' . $desa['nama_kecamatan'] . ' ' . ucwords($this->setting->sebutan_kabupaten) . ' ' . $desa['nama_kabupaten']; ?>
 
 <meta http-equiv="encoding" content="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,7 +19,7 @@
 <?php if ($single_artikel["judul"] == ""): ?>
 	<?= $this->setting->website_title . ' '.  $desa_title; ?>
 <?php else: ?>
-	<?= $single_artikel["judul"].' - '.ucwords($this->setting->sebutan_desa) . ' ' . $desa['nama_desa']; ?>
+	<?= $single_artikel["judul"].' - '.bilingual_village_name($desa['nama_desa'], $this->setting->sebutan_desa); ?>
 <?php endif; ?>
 </title>
 

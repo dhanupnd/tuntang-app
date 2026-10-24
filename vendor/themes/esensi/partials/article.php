@@ -37,7 +37,7 @@
   <?php if($post['gambar'.$i] && is_file(LOKASI_FOTO_ARTIKEL.'sedang_'.$post['gambar'.$i])) : ?>
     <a href="<?= AmbilFotoArtikel($post['gambar'.$i],'sedang') ?>" class="block" data-fancybox="images">
       <figure>
-        <img src="<?= AmbilFotoArtikel($post['gambar'.$i],'sedang') ?>" alt="<?= $post['nama'] ?>" class="w-full">
+        <img src="<?= AmbilFotoArtikel($post['gambar'.$i],'sedang') ?>" alt="<?= $post['judul'] ?>" class="w-full">
       </figure>
     </a>
   <?php endif ?>

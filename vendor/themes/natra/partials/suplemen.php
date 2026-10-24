@@ -1,24 +1,24 @@
 <?php defined('BASEPATH') || exit('No direct script access allowed'); ?>
 
 <div class="single_page_area">
-    <h2 class="post_titile" >Data Suplemen - <?= $main['suplemen']['nama']; ?></h2>
+    <h2 class="post_titile" ><?= bilingual_text('supplement_data_title', ['name' => $main['suplemen']['nama']]) ?></h2>
     <div class="box-body">
-        <h3 class="subtitle">Rincian Data Suplemen</h3>
+        <h3 class="subtitle"><?= bilingual_text('supplement_data_detail') ?></h3>
         <div class="table-responsive">
             <table class="table table-striped table-bordered nowrap">
                 <tbody>
                     <tr>
-                        <td width="20%">Nama Data</td>
+                        <td width="20%"><?= bilingual_text('data_name') ?></td>
                         <td width="1%">:</td>
                         <td><?= $main['suplemen']['nama']; ?></td>
                     </tr>
                     <tr>
-                        <td>Sasaran Terdata</td>
+                        <td><?= bilingual_text('recorded_target') ?></td>
                         <td>:</td>
                         <td><?= $sasaran[$main['suplemen']['sasaran']]; ?></td>
                     </tr>
                     <tr>
-                        <td>Keterangan</td>
+                        <td><?= bilingual_text('description') ?></td>
                         <td>:</td>
                         <td><?= $main['suplemen']['keterangan']; ?></td>
                     </tr>
@@ -27,16 +27,16 @@
         </div>
     </div>
     <div class="box-body">
-        <h3 class="subtitle">Daftar Terdata</h3>
+        <h3 class="subtitle"><?= bilingual_text('recorded_list') ?></h3>
         <div class="table-responsive">
             <table class="table table-striped table-bordered" id="tabel-data">
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama</th>
-                        <th>Tempat Lahir</th>
-                        <th>Jenis-kelamin</th>
-                        <th>Alamat</th>
+                        <th><?= bilingual_text('name') ?></th>
+                        <th><?= bilingual_text('birth_place') ?></th>
+                        <th><?= bilingual_text('gender') ?></th>
+                        <th><?= bilingual_text('address') ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -62,7 +62,7 @@
             'pageLength': 10,
             'lengthMenu': [
                 [10, 25, 50, 100, -1],
-                [10, 25, 50, 100, "Semua"]
+                [10, 25, 50, 100, "<?= bilingual_text('all') ?>"]
             ],
             'columnDefs': [
                 {
@@ -74,9 +74,11 @@
                     'targets': [0]
                 }
             ],
+            <?php if (bilingual_current_language() === 'id') : ?>
             'language': {
                 'url': BASE_URL + '/assets/bootstrap/js/dataTables.indonesian.lang'
             },
+            <?php endif; ?>
         });
 
         tabelData.on( 'order.dt search.dt', function () {

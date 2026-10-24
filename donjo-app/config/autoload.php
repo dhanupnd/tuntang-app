@@ -131,7 +131,7 @@ $autoload['drivers'] = ['session'];
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = ['url', 'language', 'general', 'form', 'donjolib', 'date', 'pict', 'opensid', 'database', 'surat', 'cek', 'bilingual'];
+$autoload['helper'] = ['url', 'language', 'general', 'form', 'donjolib', 'date', 'pict', 'opensid', 'database', 'surat', 'cek', 'bilingual', 'bilingual_content'];
 
 /*
 | -------------------------------------------------------------------

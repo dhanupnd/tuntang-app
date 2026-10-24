@@ -22,10 +22,10 @@
 <div class="content-wrapper">
 	<?php if (empty($halaman_statis)): ?>
 	<section class="content-header">
-			<h1>Status IDM <?= ucwords($this->setting->sebutan_desa) . ' ' . $tahun; ?></h1>
+			<h1><?= bilingual_text('status_idm') ?> <?= (bilingual_current_language() === 'en' ? bilingual_text('village') : ucwords($this->setting->sebutan_desa)) . ' ' . $tahun; ?></h1>
 			<ol class="breadcrumb">
-				<li><a href="<?= site_url('hom_sid')?>"><i class="fa fa-home"></i> Home</a></li>
-				<li class="active">Status IDM <?= ucwords($this->setting->sebutan_desa); ?></li>
+				<li><a href="<?= site_url('hom_sid')?>"><i class="fa fa-home"></i> <?= bilingual_text('home') ?></a></li>
+				<li class="active"><?= bilingual_text('status_idm') ?> <?= bilingual_current_language() === 'en' ? bilingual_text('village') : ucwords($this->setting->sebutan_desa); ?></li>
 			</ol>
 		</section>
 	<?php endif; ?>
@@ -44,7 +44,7 @@
 									<div class="small-box bg-blue">
 										<div class="inner">
 											<h3><?= number_format($idm->SUMMARIES->SKOR_SAAT_INI, 4) ?></h3>
-											<p>SKOR IDM SAAT INI</p>
+											<p><?= bilingual_text('current_idm_score') ?></p>
 										</div>
 										<div class="icon">
 											<i class="ion ion-stats-bars"></i>
@@ -55,7 +55,7 @@
 									<div class="small-box bg-yellow">
 										<div class="inner">
 											<h3><?= $idm->SUMMARIES->STATUS ?></h3>
-											<p>STATUS IDM</p>
+											<p><?= bilingual_text('idm_status') ?></p>
 										</div>
 										<div class="icon">
 											<i class="ion-ios-pulse-strong"></i>
@@ -66,7 +66,7 @@
 									<div class="small-box bg-red">
 										<div class="inner">
 											<h3><?= number_format($idm->SUMMARIES->SKOR_MINIMAL, 4) ?></h2>
-											<p>SKOR IDM MINIMAL</p>
+											<p><?= bilingual_text('minimum_score') ?></p>
 										</div>
 										<div class="icon">
 											<i class="ion ion-ios-pie"></i>
@@ -77,7 +77,7 @@
 									<div class="small-box bg-green">
 										<div class="inner">
 											<h3><?= $idm->SUMMARIES->TARGET_STATUS ?></h3>
-											<p>TARGET STATUS</p>
+											<p><?= bilingual_text('target_status') ?></p>
 										</div>
 										<div class="icon">
 											<i class="ion ion-arrow-graph-up-right"></i>
@@ -90,22 +90,22 @@
 										<table class="table table-bordered table-striped dataTable table-hover">
 											<tbody>
 												<tr>
-													<td width="30%">PROVINSI</td>
+													<td width="30%><?= strtoupper(bilingual_text('province')) ?></td>
 													<td width="1">:</td>
 													<td><?= $idm->IDENTITAS[0]->nama_provinsi ?></td>
 												</tr>
 												<tr>
-													<td>KABUPATEN</td>
+													<td><?= strtoupper(bilingual_text('regency')) ?></td>
 													<td> : </td>
 													<td><?= $idm->IDENTITAS[0]->nama_kab_kota ?></td>
 												</tr>
 												<tr>
-													<td><?= strtoupper($this->setting->sebutan_kecamatan) ?></td>
+													<td><?= strtoupper(bilingual_current_language() === 'en' ? bilingual_text('subdistrict') : $this->setting->sebutan_kecamatan) ?></td>
 													<td> : </td>
 													<td><?= $idm->IDENTITAS[0]->nama_kecamatan ?></td>
 												</tr>
 												<tr>
-													<td><?= strtoupper($this->setting->sebutan_desa) ?></td>
+													<td><?= strtoupper(bilingual_current_language() === 'en' ? bilingual_text('village') : $this->setting->sebutan_desa) ?></td>
 													<td> : </td>
 													<td><?= $idm->IDENTITAS[0]->nama_desa ?></td>
 												</tr>
@@ -138,21 +138,21 @@
 								<table class="table table-bordered dataTable table-striped table-hover tabel-daftar">
 									<thead class="bg-gray color-palette">
 										<tr>
-											<th rowspan="2" class="padat">NO</th>
-											<th rowspan="2" >INDIKATOR IDM</th>
-											<th rowspan="2" >SKOR</th>
-											<th rowspan="2" >KETERANGAN</th>
-											<th rowspan="2" nowrap>KEGIATAN YANG DAPAT DILAKUKAN</th>
-											<th rowspan="2" >+NILAI</th>
-											<th colspan="6" class="text-center">YANG DAPAT MELAKSANAKAN KEGIATAN</th>
+											<th rowspan="2" class="padat"><?= strtoupper(bilingual_text('no')) ?></th>
+											<th rowspan="2" ><?= bilingual_text('idm_indicator') ?></th>
+											<th rowspan="2" ><?= strtoupper(bilingual_text('score')) ?></th>
+											<th rowspan="2" ><?= strtoupper(bilingual_text('description')) ?></th>
+											<th rowspan="2" nowrap><?= bilingual_text('recommended_activity') ?></th>
+											<th rowspan="2" ><?= bilingual_text('score_increase') ?></th>
+											<th colspan="6" class="text-center"><?= bilingual_text('activity_implementers') ?></th>
 										</tr>
 										<tr>
-											<th>PUSAT</th>
-											<th>PROVINSI</th>
-											<th>KABUPATEN</th>
-											<th>DESA</th>
+											<th><?= bilingual_text('central') ?></th>
+											<th><?= strtoupper(bilingual_text('province')) ?></th>
+											<th><?= strtoupper(bilingual_text('regency')) ?></th>
+											<th><?= strtoupper(bilingual_current_language() === 'en' ? bilingual_text('village') : $this->setting->sebutan_desa) ?></th>
 											<th>CSR</th>
-											<th>LAINNYA</th>
+											<th><?= bilingual_text('other') ?></th>
 										</tr>
 									</thead>
 									<tbody>
@@ -196,10 +196,10 @@
 				}
 			},
 			title: {
-				text: 'Indeks Desa Membangun (IDM) <?= $tahun; ?>'
+				text: '<?= bilingual_text('idm_chart_title_year', ['year' => $tahun]) ?>'
 			},
 			subtitle: {
-				text: 'SKOR : IKS, IKE, IKL'
+				text: '<?= bilingual_text('idm_chart_subtitle') ?>'
 			},
 
 			plotOptions: {
@@ -219,7 +219,7 @@
 				}
 			},
 			series: [{
-				name: 'SKOR',
+				name: '<?= strtoupper(bilingual_text('score')) ?>',
 						shadow: 1,
 						border: 1,
 				data: [

@@ -15,7 +15,7 @@
         <?php if ($headline): ?>
         <?php $abstrak_headline = potong_teks($headline['isi'], 550) ?>
             <div class="single_category wow fadeInDown">
-                <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <span class="title_text">Berita Utama</span> </h2>
+                <h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <span class="title_text"><?= bilingual_text('main_news') ?></span> </h2>
             </div>
             <div id="headline" class="single_category wow fadeInDown">
                 <div class="archive_style_1">
@@ -48,7 +48,7 @@
             </div>
         <?php endif; ?>
     </div>
-    <?php $title = (!empty($judul_kategori))? $judul_kategori : "Artikel Terkini" ?>
+    <?php $title = (!empty($judul_kategori))? $judul_kategori : bilingual_text('latest_articles') ?>
     <?php if (is_array($title)): ?>
         <?php foreach ($title as $item): ?>
             <?php $title= $item ?>
@@ -67,7 +67,7 @@
                         <li>
                             <div class="catgimg2_container2">
                                 <h5 class="catg_titile">
-                                    <a href="<?= site_url('artikel/'.buat_slug($data))?>" title="Baca Selengkapnya"><?= $data["judul"] ?></a>
+                                    <a href="<?= site_url('artikel/'.buat_slug($data))?>" title="<?= bilingual_text('read') ?>"><?= $data["judul"] ?></a>
                                 </h5>
                                 <div class="post_commentbox">
                                     <span class="meta_date"><?= tgl_indo($data['tgl_upload']); ?>&nbsp;
@@ -77,7 +77,7 @@
                                     echo number_format($komentarku,0,',','.'); ?>&nbsp;
                                     </span>
                                 </div>
-                                <a href="<?= site_url('artikel/'.buat_slug($data))?>" title="Baca Selengkapnya" style="font-weight:bold">
+                                <a href="<?= site_url('artikel/'.buat_slug($data))?>" title="<?= bilingual_text('read') ?>" style="font-weight:bold">
                                 <?php if (is_file(LOKASI_FOTO_ARTIKEL."kecil_".$data['gambar'])): ?>
                                     <img data-src="<?= AmbilFotoArtikel($data['gambar'], 'sedang') ?>" src="<?= base_url('assets/images/img-loader.gif') ?>" width="300" class="yall_lazy img-fluid img-thumbnail hidden-sm hidden-xs" style="float:left; margin:0 8px 4px 0;" alt="<?= $data["judul"] ?>" />
                                             <img data-src="<?= AmbilFotoArtikel($data['gambar'], 'sedang') ?>" src="<?= base_url('assets/images/img-loader.gif') ?>" width="100%" class="yall_lazy img-fluid img-thumbnail hidden-lg hidden-md" style="float:left; margin:0 8px 4px 0;" alt="<?= $data["judul"] ?>" />
@@ -99,10 +99,10 @@
     <?php else: ?>
     <div class="business_category_left wow fadeInDown" id="artikel-blank">
         <div class="box box-warning box-solid">
-            <div class="box-header"><h3 class="box-title">Maaf, belum ada data</h3></div>
+            <div class="box-header"><h3 class="box-title"><?= bilingual_text('sorry_no_data') ?></h3></div>
             <div class="box-body">
-                <p>Belum ada artikel yang dituliskan dalam <?= $title ?></p>
-                <p>Silakan kunjungi situs web kami dalam waktu dekat.</p>
+                <p><?= bilingual_text('empty_article', ['title' => $title]) ?></p>
+                <p><?= bilingual_text('come_back_later') ?>.</p>
             </div>
         </div>
     </div>

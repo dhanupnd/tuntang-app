@@ -215,13 +215,20 @@ class Web_menu_model extends MY_Model
     {
         $parrent = bilangan($post['parrent'] ?? 0);
 
-        return [
+        $data = [
             'nama'      => htmlentities($post['nama']),
+            'nama_en'   => trim($post['nama_en'] ?? '') === '' ? null : htmlentities($post['nama_en']),
             'link'      => $post['link'],
             'parrent'   => $parrent,
             'link_tipe' => $post['link_tipe'],
             'enabled'   => 1,
         ];
+
+        if (! $this->db->field_exists('nama_en', $this->table)) {
+            unset($data['nama_en']);
+        }
+
+        return $data;
     }
 
     public function menu_aktif($link)

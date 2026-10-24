@@ -11,11 +11,15 @@
 								<td class="hidden-xs"><img class="tlClogo" src="<?= gambar_desa($desa['logo']); ?>" width="30" valign="top" alt="<?= $desa['nama_desa']?>"/></td>
 								<td>
 									<a href="<?= site_url(); ?>">
-										<font size="4"><?= $this->setting->website_title. ' ' . ucwords($this->setting->sebutan_desa). (($desa['nama_desa']) ? ' ' . $desa['nama_desa'] : ''); ?>
+										<font size="4"><?= $this->setting->website_title . ' ' . bilingual_village_name($desa['nama_desa'], $this->setting->sebutan_desa); ?>
 									</font><br /><font size="2">
-										<?= ucwords($this->setting->sebutan_kecamatan_singkat." ".$desa['nama_kecamatan'])?>
-										<?= ucwords($this->setting->sebutan_kabupaten_singkat." ".$desa['nama_kabupaten'])?>
-										<?= ucwords("Prov. ".$desa['nama_propinsi'])?>
+										<?php if (bilingual_current_language() === 'en'): ?>
+											<?= bilingual_text('subdistrict') . ' ' . $desa['nama_kecamatan'] . ', ' . $desa['nama_kabupaten'] . ' ' . bilingual_text('regency') . ', ' . bilingual_province_name($desa['nama_propinsi']) . ' ' . bilingual_text('province') ?>
+										<?php else: ?>
+											<?= ucwords($this->setting->sebutan_kecamatan_singkat . ' ' . $desa['nama_kecamatan']) ?>
+											<?= ucwords($this->setting->sebutan_kabupaten_singkat . ' ' . $desa['nama_kabupaten']) ?>
+											<?= ucwords('Prov. ' . $desa['nama_propinsi']) ?>
+										<?php endif; ?>
 									</font>
 								</a>
 							</td>

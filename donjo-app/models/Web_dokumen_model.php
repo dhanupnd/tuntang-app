@@ -364,6 +364,7 @@ class Web_dokumen_model extends MY_Model
     {
         $data                         = [];
         $data['nama']                 = nomor_surat_keputusan($post['nama']);
+        $data['nama_en']              = trim($post['nama_en'] ?? '') ?: null;
         $data['kategori']             = (int) $post['kategori'] ?: 1;
         $data['kategori_info_publik'] = (int) $post['kategori_info_publik'] ?: null;
         $data['id_syarat']            = (int) $post['id_syarat'] ?: null;
@@ -462,7 +463,7 @@ class Web_dokumen_model extends MY_Model
         $retval = true;
 
         // cek jika dokumen ini juga ada di anggota yang lain
-        $anggota_kk   = $post['anggota_kk'];
+        $anggota_kk   = $post['anggota_kk'] ?? [];
         $anggota_lain = array_column($this->get_dokumen_di_anggota_lain($id), 'id_pend');
 
         // cari intersect anggota

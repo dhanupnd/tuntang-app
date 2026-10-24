@@ -59,7 +59,8 @@ class Web_gallery_model extends MY_Model
             $cari       = $_SESSION['cari'];
             $kw         = $this->db->escape_like_str($cari);
             $kw         = '%' . $kw . '%';
-            $search_sql = " AND (gambar LIKE '{$kw}' OR nama LIKE '{$kw}')";
+            $kolom_en   = $this->db->field_exists('nama_en', 'gambar_gallery') ? " OR nama_en LIKE '{$kw}'" : '';
+            $search_sql = " AND (gambar LIKE '{$kw}' OR nama LIKE '{$kw}'{$kolom_en})";
 
             return $search_sql;
         }
@@ -164,6 +165,7 @@ class Web_gallery_model extends MY_Model
         $tipe_file    = TipeFile($_FILES['gambar']);
         $data         = [];
         $data['nama'] = nomor_surat_keputusan($this->input->post('nama')); //pastikan nama album hanya berisi karakter yg diizinkan seperti pada nomor sk
+        $this->siapkan_data_bilingual($data);
         $data['urut'] = $this->urut_model->urut_max(['parrent' => 0]) + 1;
         // Bolehkan album tidak ada gambar cover
         if (! empty($lokasi_file)) {
@@ -201,6 +203,7 @@ class Web_gallery_model extends MY_Model
         $tipe_file    = TipeFile($_FILES['gambar']);
         $data         = [];
         $data['nama'] = nomor_surat_keputusan($this->input->post('nama')); //pastikan nama album hanya berisi karakter yg diizinkan seperti pada nomor sk
+        $this->siapkan_data_bilingual($data);
         // Kalau kosong, gambar tidak diubah
         if (! empty($lokasi_file)) {
             if (! CekGambar($_FILES['gambar'], $tipe_file)) {
@@ -340,11 +343,21 @@ class Web_gallery_model extends MY_Model
             ->limit(1)
             ->get('gambar_gallery')->row()->id;
 
-        return $this->db->select('id, nama as judul, gambar')
+        $select = $this->db->field_exists('nama_en', 'gambar_gallery')
+            ? 'id, nama as judul, nama_en as judul_en, gambar'
+            : 'id, nama as judul, gambar';
+
+        $data = $this->db->select($select)
             ->where('parrent', $gallery_slide_id)
             ->where('tipe', 2)
             ->where('enabled', 1)
             ->get('gambar_gallery')->result_array();
+
+        for ($i = 0; $i < count($data); $i++) {
+            $data[$i]['judul'] = bilingual_field($data[$i], 'judul');
+        }
+
+        return $data;
     }
 
     public function paging2($gal = 0, $p = 1)
@@ -431,6 +444,7 @@ class Web_gallery_model extends MY_Model
         $tipe_file    = TipeFile($_FILES['gambar']);
         $data         = [];
         $data['nama'] = nomor_surat_keputusan($this->input->post('nama')); //pastikan nama album hanya berisi
+        $this->siapkan_data_bilingual($data);
         $data['urut'] = $this->urut_model->urut_max(['parrent' => $parrent]) + 1;
         // Bolehkan isi album tidak ada gambar
         if (! empty($lokasi_file)) {
@@ -470,6 +484,7 @@ class Web_gallery_model extends MY_Model
         $tipe_file    = TipeFile($_FILES['gambar']);
         $data         = [];
         $data['nama'] = nomor_surat_keputusan($this->input->post('nama')); //pastikan nama album hanya berisi
+        $this->siapkan_data_bilingual($data);
         // Kalau kosong, gambar tidak diubah
         if (! empty($lokasi_file)) {
             if (! CekGambar($_FILES['gambar'], $tipe_file)) {
@@ -486,6 +501,15 @@ class Web_gallery_model extends MY_Model
         $outp = $this->db->where('id', $id)->update('gambar_gallery', $data);
         if (! $outp) {
             $_SESSION['success'] = -1;
+        }
+    }
+
+    private function siapkan_data_bilingual(&$data)
+    {
+        $data['nama_en'] = trim($this->input->post('nama_en') ?? '') === '' ? null : nomor_surat_keputusan($this->input->post('nama_en'));
+
+        if (! $this->db->field_exists('nama_en', 'gambar_gallery')) {
+            unset($data['nama_en']);
         }
     }
 

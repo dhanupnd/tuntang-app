@@ -264,9 +264,14 @@ class Web_widget_model extends MY_Model
             ->where('isi', $widget . '.php')
             ->get($this->tabel)
             ->row_array();
-        $setting = json_decode($setting['setting'], true);
+        $rawSetting = $setting['setting'] ?? '';
+        $setting    = json_decode($rawSetting, true);
 
-        return empty($opsi) ? $setting : $setting[$opsi];
+        if ($setting === null && ! empty($rawSetting)) {
+            $setting = json_decode(stripslashes($rawSetting), true);
+        }
+
+        return empty($opsi) ? $setting : ($setting[$opsi] ?? null);
     }
 
     protected function filter_setting($k)
@@ -300,7 +305,7 @@ class Web_widget_model extends MY_Model
             $_FILES['file']['error']    = $_FILES['setting']['error'][$key]['gambar'];
             $_FILES['file']['size']     = $_FILES['setting']['size'][$key]['gambar'];
 
-            $old_gambar              = $value['old_gambar'];
+            $old_gambar              = $value['old_gambar'] ?? '';
             $setting[$key]['gambar'] = $old_gambar;
 
             if (! empty($_FILES['file']['tmp_name'])) {
@@ -332,6 +337,11 @@ class Web_widget_model extends MY_Model
 
         switch ($widget) {
             case 'sinergi_program':
+                $setting = array_map(static function ($program) {
+                    $program['judul_en'] = trim($program['judul_en'] ?? '') === '' ? null : $program['judul_en'];
+
+                    return $program;
+                }, $setting);
                 // Upload semua gambar setting
                 $this->upload_gambar_sinergi_program($setting);
                 // Hapus setting kosong menggunakan callback

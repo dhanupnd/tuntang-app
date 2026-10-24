@@ -2,7 +2,7 @@
 
 <?php
   $is_english = bilingual_current_language() === 'en';
-  $nama_desa = ($is_english ? 'Village' : ucwords($this->setting->sebutan_desa)) .' '.ucwords($desa['nama_desa']);
+  $nama_desa = bilingual_village_name($desa['nama_desa'], $this->setting->sebutan_desa);
   $province_label = $is_english ? 'Province' : 'Provinsi';
 ?>
 
@@ -12,9 +12,7 @@
 <?php defined('NAMA_DESA') or define('NAMA_DESA', $nama_desa) ?>
 
 <?php $title = preg_replace("/[^A-Za-z0-9- ]/", '', trim(str_replace('-', ' ', get_dynamic_title_page_from_path())));
-      $suffix = $this->setting->website_title
-					. ' ' . ucwords($this->setting->sebutan_desa)
-					. (($desa['nama_desa']) ? ' ' . $desa['nama_desa'] : '');
+      $suffix = $this->setting->website_title . ' ' . bilingual_village_name($desa['nama_desa'], $this->setting->sebutan_desa);
       $desa_title = $title ?  $title.' - '.$suffix : $suffix ?>
 
 <meta charset="UTF-8">

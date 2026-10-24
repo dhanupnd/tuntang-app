@@ -29,13 +29,13 @@
 								<?php else : ?>
 									<div class="">
 										<div class="single_page_area">
-											<h2 class="post_titile">DAFTAR AGREGASI DATA ANALISIS DESA</h2>
+											<h2 class="post_titile"><?= bilingual_text('analysis_aggregate_title') ?></h2>
 										</div>
 										<?php if ($list_indikator): ?>
 											<?php if (count($master_indikator) > 1) : ?>
 												<form action="<?=site_url('data_analisis'); ?>" method="get">
 													<div class="row" style="margin-bottom: 20px;">
-														<label style="padding-top: 5px;" class="col-sm-1 control-label" >Analisis: </label>
+														<label style="padding-top: 5px;" class="col-sm-1 control-label" ><?= bilingual_text('analysis') ?>: </label>
 														<div class="col-sm-6">
 															<select class="form-control select2" name="master" onchange="this.form.submit()" style="width: 100%;">
 																<?php foreach ($master_indikator as $master): ?>
@@ -49,23 +49,23 @@
 											<div class="table-responsive" style="border: solid; font-size:12px;">
 												<table>
 														<tr>
-															<td width="200">Pendataan </td>
+															<td width="200"><?= bilingual_text('data_collection') ?> </td>
 															<td width="20"> :</td>
 															<td><?= $list_indikator['0']['master']; ?></td>
 														</tr>
 														<tr>
-															<td>Subjek </td>
+															<td><?= bilingual_text('subject_analysis') ?> </td>
 															<td> : </td>
 															<td><?= $list_indikator['0']['subjek']; ?></td>
 														</tr>
 														<tr>
-															<td>Tahun </td>
+															<td><?= bilingual_text('year') ?> </td>
 															<td> :</td>
 															<td><?= $list_indikator['0']['tahun']; ?></td>
 														</tr>
 												</table>
 											</div>
-											<h4 style="margin-top: 15px; margin-bottom: 10px;">Indikator</h4>
+											<h4 style="margin-top: 15px; margin-bottom: 10px;"><?= bilingual_text('indicator') ?></h4>
 											<div class="table-responsive">
 												<table>
 													<?php foreach ($list_indikator AS $data): ?>
@@ -77,7 +77,7 @@
 												</table>
 											</div>
 										<?php else: ?>
-											<p>Data tidak tersedia</p>
+											<p><?= bilingual_text('no_data_available') ?></p>
 										<?php endif; ?>
 									</div>
 								<?php endif; ?>

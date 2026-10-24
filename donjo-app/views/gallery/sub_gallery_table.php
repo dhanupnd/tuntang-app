@@ -81,6 +81,7 @@
 																	<?php else : ?>
 																		<th><a href="<?= site_url('gallery/sub_gallery/' . encrypt($gallery) . "/{$p}/1") ?>">Nama Gambar <i class='fa fa-sort fa-sm'></i></a></th>
 																	<?php endif; ?>
+																	<th>Nama Gambar (English)</th>
 																	<?php if ($o == 4) : ?>
 																		<th nowrap><a href="<?= site_url('gallery/sub_gallery/' . encrypt($gallery) . "/{$p}/3") ?>">Aktif <i class='fa fa-sort-asc fa-sm'></i></a></th>
 																	<?php elseif ($o == 3) : ?>
@@ -124,6 +125,7 @@
 																		<td width="60%">
 																			<label style="cursor: pointer;" class="tampil" data-img="<?= AmbilGaleri($data['gambar'], 'sedang') ?>" data-rel="popover" data-content="<img width=200 height=134 src=<?= AmbilGaleri($data['gambar'], 'kecil') ?>>"><?= $data['nama'] ?></label>
 																		</td>
+																		<td><?= $data['nama_en'] ?? '-' ?></td>
 																		<td><?= $data['aktif'] ?></td>
 																		<td nowrap><?= tgl_indo2($data['tgl_upload']) ?></td>
 																	</tr>

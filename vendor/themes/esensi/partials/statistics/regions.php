@@ -12,12 +12,12 @@
   <table class="w-full text-sm">
     <thead>
         <tr>
-          <th>No</th>
+          <th><?= bilingual_current_language() === 'en' ? 'No.' : 'No' ?></th>
           <th colspan="8"><?= bilingual_text('region_chair') ?></th>
-          <th class="text-center">KK</th>
-          <th class="text-center">L+P</th>
-          <th class="text-center">L</th>
-          <th class="text-center">P</th>
+          <th class="text-center"><?= bilingual_text('households') ?></th>
+          <th class="text-center"><?= bilingual_text('total') ?></th>
+          <th class="text-center"><?= bilingual_text('male') ?></th>
+          <th class="text-center"><?= bilingual_text('female') ?></th>
         </tr>
     </thead>
       <?php if(count($daftar_dusun) > 0) : ?>
@@ -26,7 +26,7 @@
           <tr>
             <td class="text-center"><?= $key_dusun + 1; ?></td>
             <td colspan="8">
-              <?= ucwords($this->setting->sebutan_dusun . ' ' . $data_dusun['dusun']); ?>
+              <?= bilingual_text('hamlet') . ' ' . ucwords($data_dusun['dusun']); ?>
               <?php if ($data_dusun['nama_kadus']): ?>
                 , <?= bilingual_text('chair') ?> <?= $data_dusun['nama_kadus']; ?>
               <?php endif ?>
@@ -86,7 +86,7 @@
         </tbody>
         <tfoot>
         <tr>
-          <th colspan="9">TOTAL</th>
+          <th colspan="9"><?= bilingual_text('total') ?></th>
           <th class="text-right"><?= $total['total_kk'] ?></th>
           <th class="text-right"><?= $total['total_warga'] ?></th>
           <th class="text-right"><?= $total['total_warga_l'] ?></th>

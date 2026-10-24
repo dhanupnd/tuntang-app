@@ -71,11 +71,15 @@ class Lapak_model extends MY_Model
                 ->group_start()
                 ->like('p.nama', $search)
                 ->or_like('pr.nama', $search)
+                ->or_like('pr.nama_en', $search)
                 ->or_like('pk.kategori', $search)
+                ->or_like('pk.kategori_en', $search)
                 ->or_like('pr.harga', $search)
                 ->or_like('pr.satuan', $search)
+                ->or_like('pr.satuan_en', $search)
                 ->or_like('pr.potongan', $search)
                 ->or_like('pr.deskripsi', $search)
+                ->or_like('pr.deskripsi_en', $search)
                 ->group_end();
         }
 
@@ -104,7 +108,7 @@ class Lapak_model extends MY_Model
         $default_telepon = $this->db->get_where('media_sosial', ['id' => 6, 'tipe' => 1, 'enabled' => 1])->row()->link;
 
         $this->db
-            ->select('pr.*, pk.kategori, p.nik, lp.zoom')
+            ->select('pr.*, pk.kategori, pk.kategori_en, p.nik, lp.zoom')
             ->select("(case when p.nama is null then '{$default_nama}' else p.nama end) as pelapak")
             ->select("(case when p.nama is null then '{$default_telepon}' else lp.telepon end) as telepon")
             ->select("if(lp.lat is null or lp.lat = ' ', if(m.lat is null or m.lat = ' ', '{$kantor->lat}', m.lat), lp.lat) as lat ")
@@ -177,11 +181,14 @@ class Lapak_model extends MY_Model
         $data = [
             'id_pelapak'         => bilangan($post['id_pelapak']),
             'nama'               => judul($post['nama']),
+            'nama_en'            => $this->bilingual_input($post['nama_en'] ?? null, true),
             'id_produk_kategori' => alfanumerik_spasi($post['id_produk_kategori']),
             'harga'              => bilangan($post['harga']),
             'satuan'             => alfanumerik_spasi($post['satuan']),
+            'satuan_en'          => $this->bilingual_input($post['satuan_en'] ?? null),
             'tipe_potongan'      => bilangan($post['tipe_potongan']),
             'deskripsi'          => $this->security->xss_clean($post['deskripsi']),
+            'deskripsi_en'       => $this->bilingual_input($post['deskripsi_en'] ?? null),
             'foto'               => ($foto == []) ? null : json_encode($foto),
         ];
 
@@ -194,6 +201,17 @@ class Lapak_model extends MY_Model
         }
 
         return $data;
+    }
+
+    private function bilingual_input($value, $as_title = false)
+    {
+        $value = trim((string) $value);
+
+        if ($value === '') {
+            return null;
+        }
+
+        return $as_title ? judul($value) : $this->security->xss_clean(bersihkan_xss($value));
     }
 
     private function upload_foto_produk($key = 1)
@@ -417,7 +435,11 @@ class Lapak_model extends MY_Model
         $this->kategori();
 
         if ($search) {
-            $this->db->like('pk.kategori', $search);
+            $this->db
+                ->group_start()
+                ->like('pk.kategori', $search)
+                ->or_like('pk.kategori_en', $search)
+                ->group_end();
         }
 
         if ($status) {
@@ -474,8 +496,9 @@ class Lapak_model extends MY_Model
         $post = $this->input->post();
 
         return [
-            'kategori' => alfanumerik_spasi($post['kategori']),
-            'slug'     => url_title($post['kategori'], 'dash', true),
+            'kategori'    => alfanumerik_spasi($post['kategori']),
+            'kategori_en' => $this->bilingual_input($post['kategori_en'] ?? null),
+            'slug'        => url_title($post['kategori'], 'dash', true),
         ];
     }
 

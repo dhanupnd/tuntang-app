@@ -18,7 +18,7 @@
 									<tbody>
 										<tr>
 											<td>
-												<font color='green'><small><?= tgl_indo2($data['tgl_upload'])?></small></font><br/><?= potong_teks($data['komentar'], 50); ?>...<a href="<?= site_url('artikel/' . buat_slug($data)); ?>">selengkapnya</a>
+												<font color='green'><small><?= tgl_indo2($data['tgl_upload'])?></small></font><br/><?= potong_teks($data['komentar'], 50); ?>...<a href="<?= site_url('artikel/' . buat_slug($data)); ?>"><?= bilingual_text('read_more') ?></a>
 											</td>
 										</tr>
 									</tbody>

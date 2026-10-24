@@ -54,15 +54,21 @@ class Pembangunan extends BaseModel
     protected $fillable = [
         'id_lokasi',
         'sumber_dana',
+        'sumber_dana_en',
         'judul',
+        'judul_en',
         'slug',
         'keterangan',
+        'keterangan_en',
         'lokasi',
+        'lokasi_en',
         'lat',
         'lng',
         'volume',
+        'volume_en',
         'tahun_anggaran',
         'pelaksana_kegiatan',
+        'pelaksana_kegiatan_en',
         'status',
         'created_at',
         'updated_at',
@@ -75,6 +81,7 @@ class Pembangunan extends BaseModel
         'sumber_biaya_swadaya',
         'sumber_biaya_jumlah',
         'manfaat',
+        'manfaat_en',
     ];
 
     public function pembangunanDokumentasi()

@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') || exit('No direct script access allowed'); ?>
 
 <div class="single_page_area">
-	<h2 class="post_titile" >Data Demografi Berdasar <?= $heading; ?></h2>
+	<h2 class="post_titile" ><?= bilingual_text('demographic_data_by', ['heading' => $heading]) ?></h2>
 	<div class="box-body">
 		<div class="table-responsive">
 		<?php if(count($daftar_dusun) > 0) : ?>
@@ -9,7 +9,7 @@
 				<thead>
 					<tr>
 						<th>No</th>
-						<th colspan="8">Wilayah / Ketua</th>
+						<th colspan="8"><?= bilingual_text('region_chair') ?></th>
 						<th class="center">KK</th>
 						<th class="center">L+P</th>
 						<th class="center">L</th>
@@ -23,7 +23,7 @@
 							<td align="left" colspan="8">
 								<?= ucwords($this->setting->sebutan_dusun . ' ' . $data_dusun['dusun']); ?>
 								<?php if ($data_dusun['nama_kadus']): ?>
-									, Ketua <?= $data_dusun['nama_kadus']; ?>
+									, <?= bilingual_text('chair') ?> <?= $data_dusun['nama_kadus']; ?>
 								<?php endif ?>
 							</td>
 							<td align="right"><?= $data_dusun['jumlah_kk']; ?></td>
@@ -43,7 +43,7 @@
 									<td align="left" colspan="7">
 										RW <?= $data_rw['rw']; ?>
 										<?php if ($data_rw['nama_ketua']): ?>
-											, Ketua <?= $data_rw['nama_ketua']; ?>
+											, <?= bilingual_text('chair') ?> <?= $data_rw['nama_ketua']; ?>
 										<?php endif ?>
 									</td>
 									<td align="right"><?= $data_rw['jumlah_kk']; ?></td>
@@ -65,7 +65,7 @@
 										<td align="left" colspan="6">
 											RT <?= $data_rt['rt']; ?>
 											<?php if ($data_rt['nama_ketua']): ?>
-												, Ketua <?= $data_rt['nama_ketua']; ?>
+												, <?= bilingual_text('chair') ?> <?= $data_rt['nama_ketua']; ?>
 											<?php endif ?>
 										</td>
 										<td align="right"><?= $data_rt['jumlah_kk']; ?></td>
@@ -80,7 +80,7 @@
 				</tbody>
 				<tfoot>
 					<tr style="background-color:#e64946;font-weight:bold;">
-						<td colspan="9" align="left"><label>TOTAL</label></td>
+						<td colspan="9" align="left"><label><?= bilingual_text('total') ?></label></td>
 						<td align="right"><?= $total['total_kk']; ?></td>
 						<td align="right"><?= $total['total_warga']; ?></td>
 						<td align="right"><?= $total['total_warga_l']; ?></td>
@@ -89,7 +89,7 @@
 				</tfoot>
 			</table>
 			<?php else : ?>
-				Belum ada data...
+				<?= bilingual_text('no_data_available') ?>
 		<?php endif ?>
 		</div>
 	</div>

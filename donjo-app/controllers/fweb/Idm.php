@@ -55,6 +55,7 @@ class Idm extends Web_Controller
         $this->_get_common_data($data);
 
         $data['idm']            = idm($data['desa']['kode_desa'], $tahun);
+        $data['title']          = bilingual_current_language() === 'en' ? 'IDM Status' : 'Status IDM';
         $data['halaman_statis'] = 'idm/index';
 
         $this->_get_common_data($data);

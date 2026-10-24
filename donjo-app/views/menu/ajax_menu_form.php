@@ -57,6 +57,10 @@ defined('BASEPATH') || exit('No direct script access allowed');
 			<label class="control-label" for="nama">Nama</label>
 			<input name="nama" class="form-control input-sm required nomor_sk" maxlength="50" type="text" value="<?=$menu['nama']?>"></input>
 		</div>
+		<div class="form-group">
+			<label class="control-label" for="nama_en">Nama (English)</label>
+			<input name="nama_en" class="form-control input-sm nomor_sk" maxlength="50" type="text" value="<?= $menu['nama_en'] ?? '' ?>"></input>
+		</div>
 		<?php if (! empty($menu['link'])): ?>
 			<div class="form-group">
 				<label class="control-label" for="link_sebelumnya">Link Sebelumnya</label>
@@ -233,4 +237,3 @@ defined('BASEPATH') || exit('No direct script access allowed');
 		}, 500);
 	});
 </script>
-

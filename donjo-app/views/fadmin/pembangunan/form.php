@@ -24,8 +24,16 @@
 								<input id="judul" name="judul" class="form-control input-sm strip_tags judul required" value="<?= e($main->judul) ?>" type="text" maxlength="50" minlength="5" maxlength="100" placeholder="Nama Kegiatan Pembangunan" />
 							</div>
 							<div class="form-group">
+								<label class="control-label" style="text-align:left;">Nama Kegiatan (English)</label>
+								<input id="judul_en" name="judul_en" class="form-control input-sm strip_tags judul" value="<?= e($main->judul_en ?? '') ?>" type="text" maxlength="100" placeholder="Development Activity Name" />
+							</div>
+							<div class="form-group">
 								<label class="control-label" style="text-align:left;">Volume</label>
 								<input maxlength="50" class="form-control input-sm strip_tags required" name="volume" id="volume" value="<?= $main->volume ?>" type="text" placeholder="Volume Pembangunan" />
+							</div>
+							<div class="form-group">
+								<label class="control-label" style="text-align:left;">Volume (English)</label>
+								<input maxlength="50" class="form-control input-sm strip_tags" name="volume_en" id="volume_en" value="<?= e($main->volume_en ?? '') ?>" type="text" placeholder="Development Volume" />
 							</div>
 							<div class="form-group">
 								<label class="control-label" style="text-align:left;">Waktu</label>
@@ -49,6 +57,10 @@
 										<option <?= $value === $main->sumber_dana ? 'selected' : '' ?> value="<?= $value ?>"><?= $value ?></option>
 									<?php endforeach; ?>
 								</select>
+							</div>
+							<div class="form-group">
+								<label class="control-label" for="sumber_dana_en">Sumber Dana (English)</label>
+								<input maxlength="100" class="form-control input-sm strip_tags" name="sumber_dana_en" id="sumber_dana_en" value="<?= e($main->sumber_dana_en ?? '') ?>" type="text" placeholder="Funding Source" />
 							</div>
 							<div class="row">
 								<div class="col-sm-6">
@@ -109,6 +121,10 @@
 								<input maxlength="50" class="form-control input-sm strip_tags required" name="pelaksana_kegiatan" id="pelaksana_kegiatan" value="<?= $main->pelaksana_kegiatan ?>" type="text" placeholder="Pelaksana Kegiatan Pembangunan" />
 							</div>
 							<div class="form-group">
+								<label class="control-label" style="text-align:left;">Pelaksana Kegiatan (English)</label>
+								<input maxlength="100" class="form-control input-sm strip_tags" name="pelaksana_kegiatan_en" id="pelaksana_kegiatan_en" value="<?= e($main->pelaksana_kegiatan_en ?? '') ?>" type="text" placeholder="Development Activity Implementer" />
+							</div>
+							<div class="form-group">
 								<label for="jenis_lokasi" class="control-label">Lokasi Pembangunan</label>
 								<div class="row">
 									<div class="btn-group col-sm-6" data-toggle="buttons">
@@ -133,6 +149,10 @@
 									<div id="manual">
 										<textarea id="lokasi" class="form-control input-sm strip_tags required" type="text" placeholder="Lokasi" name="lokasi" rows="3"><?= e($main->lokasi) ?></textarea>
 									</div>
+									<div id="manual_en">
+										<label class="control-label">Lokasi Pembangunan (English)</label>
+										<textarea id="lokasi_en" class="form-control input-sm strip_tags" type="text" placeholder="Development Location" name="lokasi_en" rows="3"><?= e($main->lokasi_en ?? '') ?></textarea>
+									</div>
 								</div>
 							</div>
 							<div class="form-group">
@@ -140,8 +160,16 @@
 								<textarea id="manfaat" name="manfaat" class="form-control input-sm strip_tags required" name="manfaat" placeholder="Manfaat" rows="3"><?= e($main->manfaat); ?></textarea>
 							</div>
 							<div class="form-group">
+								<label class="control-label" for="manfaat_en">Manfaat (English)</label>
+								<textarea id="manfaat_en" name="manfaat_en" class="form-control input-sm strip_tags" placeholder="Benefits" rows="3"><?= e($main->manfaat_en ?? '') ?></textarea>
+							</div>
+							<div class="form-group">
 								<label class="control-label" for="keterangan">Keterangan</label>
 								<textarea id="keterangan" class="form-control input-sm strip_tags required" name="keterangan" placeholder="Keterangan" rows="3"><?= e($main->keterangan) ?></textarea>
+							</div>
+							<div class="form-group">
+								<label class="control-label" for="keterangan_en">Keterangan (English)</label>
+								<textarea id="keterangan_en" class="form-control input-sm strip_tags" name="keterangan_en" placeholder="Description" rows="3"><?= e($main->keterangan_en ?? '') ?></textarea>
 							</div>
 						</div>
 						<div class="box-footer">
@@ -221,6 +249,7 @@
 			$('#lokasi').val(null);
 			$('#lokasi').removeClass('required');
 			$("#manual").hide();
+			$("#manual_en").hide();
 			$("#pilih").show();
 			$('#id_lokasi').addClass('required');
 		} else {
@@ -228,6 +257,7 @@
 			$('#id_lokasi').trigger('change', true);
 			$('#id_lokasi').removeClass('required');
 			$("#manual").show();
+			$("#manual_en").show();
 			$('#lokasi').addClass('required');
 			$("#pilih").hide();
 		}

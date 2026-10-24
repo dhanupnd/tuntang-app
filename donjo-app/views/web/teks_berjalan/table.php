@@ -40,7 +40,9 @@
 																		<th>Aksi</th>
 																	<?php endif; ?>
 																	<th>Isi Teks Berjalan</th>
+																	<th>Isi Teks Berjalan (English)</th>
 																	<th>Tautan ke Artikel</th>
+																	<th>Judul Tautan (English)</th>
 																	<th>Tampil Di</th>
 																</tr>
 															</thead>
@@ -69,9 +71,11 @@
 																			</td>
 																		<?php endif; ?>
 																		<td><?=$data['teks']?> <a href="<?=$data['tautan']?>" target="_blank"><?=$data['judul_tautan']?></a></td>
+																		<td><?= $data['teks_en'] ?? '-' ?></td>
 																		<td width="10%" nowrap>
 																			<a href="<?=$data['tautan']?>" target="_blank"><?=tgl_indo($data['tgl_upload']) . ' <br> ' . $data['judul']?></a>
 																		</td>
+																		<td><?= $data['judul_tautan_en'] ?? '-' ?></td>
 																		<td class="padat"><?= $data['tampilkan'] ?></td>
 																	</tr>
 																<?php endforeach; ?>

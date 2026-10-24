@@ -21,12 +21,12 @@
 			<table class="table table-striped table-bordered" id="info_publik">
 				<thead>
 					<tr>
-      		  <th>No</th>
-						<th>Judul Informasi</th>
-      		  <th>Tahun</th>
-      		  <th>Kategori</th>
-      		  <th>Tanggal Upload</th>
-            <th>Aksi</th>
+            <th><?= bilingual_text('no') ?></th>
+						<th><?= bilingual_text('information_title') ?></th>
+            <th><?= bilingual_text('year') ?></th>
+            <th><?= bilingual_text('category') ?></th>
+            <th><?= bilingual_text('upload_date') ?></th>
+            <th><?= bilingual_text('action') ?></th>
 					</tr>
 				</thead>
 	      <tfoot>
@@ -56,9 +56,11 @@ $(document).ready(function() {
           "orderable": false, //set not orderable
         },
       ],
+      <?php if (bilingual_current_language() === 'id') : ?>
       'language': {
         'url': BASE_URL + '/assets/bootstrap/js/dataTables.indonesian.lang'
       },
+      <?php endif; ?>
       'drawCallback': function (event){
         $('.dataTables_paginate > .pagination').addClass('pagination-sm no-margin');
         if (event.iDraw == 1) {
@@ -69,10 +71,10 @@ $(document).ready(function() {
                 customClass:{
                       popup: 'swal-lg',
                 },
-            title: 'Lihat',
+            title: '<?= bilingual_text('view') ?>',
                 html:`<object data="${attr}" style="width: 100%; min-height: 400px;" ></object>`,
                 showCancelButton: true,
-                cancelButtonText: 'Tutup',
+                cancelButtonText: '<?= bilingual_text('close') ?>',
                 showConfirmButton: false,
               })
           })

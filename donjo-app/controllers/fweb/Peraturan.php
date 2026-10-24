@@ -48,7 +48,11 @@ class Peraturan extends Web_Controller
 
         $data = $this->includes;
 
-        $data['pilihan_kategori'] = RefDokumen::where('id', '!=', 1)->pluck('nama', 'id');
+        $data['pilihan_kategori'] = RefDokumen::where('id', '!=', 1)
+            ->get()
+            ->mapWithKeys(static function ($kategori) {
+                return [$kategori->id => bilingual_legal_document_type($kategori->nama)];
+            });
         $data['pilihan_tahun']    = Dokumen::distinct('tahun')->hidup()->where('kategori', '!=', 1)->pluck('tahun');
         $data['halaman_statis']   = 'peraturan/index';
 
@@ -65,7 +69,7 @@ class Peraturan extends Web_Controller
                 'kategori' => $this->input->get('kategori', true),
             ];
 
-            $query = Dokumen::select(['id', 'nama', 'tahun', 'satuan', 'kategori', 'attr', 'url'])
+            $query = Dokumen::select(['id', 'nama', 'nama_en', 'tahun', 'satuan', 'kategori', 'attr', 'url'])
                 ->hidup()
                 ->aktif()
                 ->where('kategori', '!=', 1)
@@ -74,8 +78,11 @@ class Peraturan extends Web_Controller
             return datatables()
                 ->of($query)
                 ->addIndexColumn()
+                ->editColumn('nama', static function ($row) {
+                    return html_escape(bilingual_field($row->toArray(), 'nama'));
+                })
                 ->addColumn('kategori_dokumen', static function ($row) {
-                    return $row['attr']['jenis_peraturan'] ?? $row->kategoriDokumen->nama;
+                    return bilingual_legal_document_type($row['attr']['jenis_peraturan'] ?? $row->kategoriDokumen->nama);
                 })
                 ->make();
         }

@@ -8,7 +8,7 @@
 	</div>
 	<div class="single_bottom_rightbar">
 		<div id="map_wilayah" style="height:200px;"></div>
-		<a href="https://www.openstreetmap.org/#map=15/<?=$data_config['lat']."/".$data_config['lng']?>" class="btn btn-primary btn-block" rel="noopener noreferrer" target="_blank">Buka Peta</a>
+		<a href="https://www.openstreetmap.org/#map=15/<?=$data_config['lat']."/".$data_config['lng']?>" class="btn btn-primary btn-block" rel="noopener noreferrer" target="_blank"><?= bilingual_text('open_map') ?></a>
 	</div>
 </div>
 
@@ -46,7 +46,7 @@
 
 	<?php if (!empty($data_config['path'])): ?>
 		var polygon_desa = <?= $data_config['path']; ?>;
-		var kantor_desa = L.polygon(polygon_desa, style_polygon).bindTooltip("Wilayah Desa").addTo(wilayah_desa);
+		var kantor_desa = L.polygon(polygon_desa, style_polygon).bindTooltip("<?= bilingual_text('village_area') ?>").addTo(wilayah_desa);
 		wilayah_desa.fitBounds(kantor_desa.getBounds());
 	<?php endif; ?>
 </script>

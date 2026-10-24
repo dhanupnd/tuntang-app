@@ -10,16 +10,16 @@
 				<li class="info-case">
 					<table style="width: 100%;" cellpadding="0" cellspacing="0" class="table table-striped table-inverse counter" >
 						<tr>
-							<td class="description">Hari ini</td><td class="dot">:</td><td class="case"><?= ribuan($statistik_pengunjung['hari_ini']); ?></td>
+							<td class="description"><?= bilingual_text('today') ?></td><td class="dot">:</td><td class="case"><?= ribuan($statistik_pengunjung['hari_ini']); ?></td>
 						</tr>
 						<tr>
-							<td class="description">Kemarin</td><td class="dot">:</td><td class="case"><?= ribuan($statistik_pengunjung['kemarin']); ?></td>
+							<td class="description"><?= bilingual_text('yesterday') ?></td><td class="dot">:</td><td class="case"><?= ribuan($statistik_pengunjung['kemarin']); ?></td>
 						</tr>
 						<tr>
-							<td class="description">Total Pengunjung</td><td class="dot">:</td><td class="case"><?= ribuan($statistik_pengunjung['total']); ?></td>
+							<td class="description"><?= bilingual_text('total_visitors') ?></td><td class="dot">:</td><td class="case"><?= ribuan($statistik_pengunjung['total']); ?></td>
 						</tr>
 						<tr>
-							<td class="description">Sistem Operasi</td><td class="dot">:</td><td class="case"><?= $statistik_pengunjung['os']; ?></td>
+							<td class="description"><?= bilingual_text('operating_system') ?></td><td class="dot">:</td><td class="case"><?= $statistik_pengunjung['os']; ?></td>
 						</tr>
 						<tr>
 							<td class="description">IP Address</td><td class="dot">:</td><td class="case"><?= $statistik_pengunjung['ip_address']; ?></td>

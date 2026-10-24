@@ -23,7 +23,7 @@
 											<?php $deskripsi = substr($data['DESCRIPTION'], 0, 450); ?>
 											<?= $deskripsi ?> ...
 											<a href="<?= $data['LINK'] ?>" rel="noopener noreferrer" target="_blank" >
-												<button type="button" class="btn btn-info btn-block">Baca Selengkapnya <i class="fa fa-arrow-right"></i></button>
+												<button type="button" class="btn btn-info btn-block"><?= bilingual_text('read_more') ?> <i class="fa fa-arrow-right"></i></button>
 											</a>
 										</div>
 									</div>

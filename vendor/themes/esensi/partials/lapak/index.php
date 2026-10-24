@@ -12,7 +12,7 @@
     <select class="form-input inline-block select2" id="id_kategori" name="id_kategori" style="min-width: 25%">
       <option selected value=""><?= bilingual_text('all_categories') ?></option>
       <?php foreach ($kategori as $kategori_item) : ?>
-        <option value="<?= $kategori_item->id ?>" <?= selected($id_kategori, $kategori_item->id) ?>><?= $kategori_item->kategori ?></option>
+        <option value="<?= $kategori_item->id ?>" <?= selected($id_kategori, $kategori_item->id) ?>><?= bilingual_field($kategori_item, 'kategori') ?></option>
       <?php endforeach; ?>
     </select>
     <input type="text" name="keyword" maxlength="50" class="form-input" value="<?= $keyword; ?>" placeholder="<?= bilingual_text('search_product') ?>" style="min-width: 25%">
@@ -27,6 +27,11 @@
   <div class="grid grid-cols-1 lg:grid-cols-4 gap-5 py-1">
     <?php foreach($produk as $in => $pro) : ?>
       <?php $foto = json_decode($pro->foto); ?>
+      <?php
+        $pro->nama = bilingual_field($pro, 'nama');
+        $pro->satuan = bilingual_field($pro, 'satuan');
+        $pro->deskripsi = bilingual_field($pro, 'deskripsi');
+      ?>
       <div class="flex flex-col justify-between space-y-4 this-product">
         <div class="space-y-3">
           <?php if($pro->foto) : ?>
@@ -59,7 +64,8 @@
         </div>
         <div class="group flex items-center space-x-1">
           <?php if ($pro->telepon): ?>
-            <?php $pesan = strReplaceArrayRecursive(['[nama_produk]' => $pro->nama, '[link_web]' => base_url('lapak'), '<br />' => "%0A"], nl2br($this->setting->pesan_singkat_wa)); ?>
+            <?php $template_pesan = bilingual_current_language() === 'en' ? bilingual_text('whatsapp_buy_message') : $this->setting->pesan_singkat_wa; ?>
+            <?php $pesan = strReplaceArrayRecursive(['[nama_produk]' => $pro->nama, '[link_web]' => base_url('lapak'), '<br />' => "%0A"], nl2br($template_pesan)); ?>
             <a href="https://api.whatsapp.com/send?phone=<?=format_telpon($pro->telepon);?>&amp;text=<?= $pesan; ?>" rel="noopener noreferrer" target="_blank" class="btn btn-primary text-xs text-center"><i class="fa fa-shopping-cart mr-1"></i> <?= bilingual_text('buy_now') ?></a>
           <?php endif; ?>
           <button type="button" class="btn btn-secondary text-xs text-center rounded-0" data-bs-toggle="modal" data-bs-target="#modalLokasi" data-bs-remote="false" title="<?= bilingual_text('location') ?>" data-lat="<?= $pro->lat?>" data-lng="<?= $pro->lng?>" data-zoom="<?= $pro->zoom?>" data-title="<?= bilingual_text('seller_location_named', ['name' => $pro->pelapak]) ?>"><i class="fas fa-map-marker-alt mr-1"></i> <?= bilingual_text('location') ?></button>
@@ -117,7 +123,7 @@
         // Menampilkan BaseLayers Peta
         getBaseLayers(pelapak, "<?= setting('mapbox_key') ?>", "<?= setting('jenis_peta') ?>");
 
-        // Tampilkan Posisi Pelapak
+        // Show seller position
         marker = new L.Marker(posisi, {
           draggable: false
         });

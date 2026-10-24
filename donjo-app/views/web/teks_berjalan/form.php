@@ -23,6 +23,12 @@
 									<textarea id="teks" class="form-control input-sm required" placeholder="Isi teks berjalan" name="teks" rows="5" style="resize:none;"><?= $teks['teks']?></textarea>
 								</div>
 							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label" for="isi_teks_berjalan_en">Isi teks berjalan (English)</label>
+									<textarea id="teks_en" class="form-control input-sm" placeholder="Running text content in English" name="teks_en" rows="5" style="resize:none;"><?= $teks['teks_en'] ?? '' ?></textarea>
+								</div>
+							</div>
 							<div class="col-sm-12">
 								<div class="form-group">
 									<label class="control-label">Tautan ke artikel</label>
@@ -38,6 +44,12 @@
 								<div class="form-group">
 									<label class="control-label">Judul tautan</label>
 									<input class="form-control input-sm required" placeholder="Judul tautan ke artikel atau url" name="judul_tautan" value="<?= $teks['judul_tautan'] ?: '-- selengkapnya...' ?>" maxlength="150"></input>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label">Judul tautan (English)</label>
+									<input class="form-control input-sm" placeholder="Link title in English" name="judul_tautan_en" value="<?= $teks['judul_tautan_en'] ?? '' ?>" maxlength="150"></input>
 								</div>
 							</div>
 							<div class="col-sm-12">

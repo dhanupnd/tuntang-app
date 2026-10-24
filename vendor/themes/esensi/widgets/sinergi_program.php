@@ -45,6 +45,7 @@
         <td>
           <?php $width = 100/count($baris_program)-count($baris_program)?>
           <?php foreach($baris_program as $key => $program) : ?>
+          <?php $program['judul'] = bilingual_field($program, 'judul') ?>
           <span style="display: inline-block; width: <?= $width.'%'?>">
             <a href="<?= $program['tautan'] ?>" target="_blank"><img
                 src="<?= base_url().LOKASI_GAMBAR_WIDGET.$program['gambar'] ?>" alt="<?= $program['judul'] ?>" /></a>

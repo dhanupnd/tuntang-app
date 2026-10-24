@@ -1,50 +1,81 @@
 <?php defined('BASEPATH') || exit('No direct script access allowed'); ?>
 
-<?php $activeLanguage = bilingual_current_language(); ?>
+<?php
+$activeLanguage = bilingual_current_language();
+$targetLanguage = $activeLanguage === 'en' ? 'id' : 'en';
+$toggleLabel = bilingual_text('toggle_to_' . ($targetLanguage === 'id' ? 'indonesian' : 'english'));
+?>
 
-<div class="bilingual-toggle" aria-label="<?= bilingual_text('language') ?>">
-    <?php foreach (bilingual_languages() as $languageCode => $languageName) : ?>
-        <a
-            href="<?= bilingual_switch_url($languageCode) ?>"
-            class="bilingual-toggle__item <?= $activeLanguage === $languageCode ? 'is-active' : '' ?>"
-            title="<?= $languageCode === 'id' ? bilingual_text('toggle_to_indonesian') : bilingual_text('toggle_to_english') ?>"
-            aria-current="<?= $activeLanguage === $languageCode ? 'true' : 'false' ?>"
-        >
-            <?= bilingual_text('language_' . $languageCode) ?>
-        </a>
-    <?php endforeach; ?>
-</div>
+<a
+    href="<?= bilingual_switch_url($targetLanguage) ?>"
+    class="bilingual-toggle <?= $activeLanguage === 'en' ? 'is-en' : 'is-id' ?>"
+    title="<?= $toggleLabel ?>"
+    aria-label="<?= $toggleLabel ?>"
+    role="switch"
+    aria-checked="<?= $activeLanguage === 'en' ? 'true' : 'false' ?>"
+>
+    <span class="bilingual-toggle__label">ID</span>
+    <span class="bilingual-toggle__label">EN</span>
+</a>
 
 <style>
-    .bilingual-toggle {
-        display: inline-flex;
+    .bilingual-toggle,
+    .bilingual-toggle:hover,
+    .bilingual-toggle:focus {
+        position: relative;
+        display: inline-grid;
+        grid-template-columns: repeat(2, 1fr);
         align-items: center;
-        gap: 2px;
-        padding: 2px;
-        border: 1px solid rgba(255, 255, 255, 0.55);
+        width: 76px;
+        height: 34px;
+        padding: 3px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.45);
         border-radius: 999px;
-        background: rgba(0, 0, 0, 0.22);
-        line-height: 1;
-    }
-
-    .bilingual-toggle__item,
-    .bilingual-toggle__item:hover,
-    .bilingual-toggle__item:focus {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 30px;
-        height: 24px;
-        padding: 0 8px;
-        border-radius: 999px;
-        color: #fff;
+        background: rgba(3, 25, 38, 0.56);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+        color: rgba(255, 255, 255, 0.78);
+        cursor: pointer;
         font-size: 12px;
         font-weight: 700;
+        line-height: 1;
         text-decoration: none;
+        transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
     }
 
-    .bilingual-toggle__item.is-active {
+    .bilingual-toggle::before {
+        position: absolute;
+        top: 3px;
+        bottom: 3px;
+        left: 3px;
+        width: calc(50% - 3px);
+        border-radius: 999px;
         background: #fff;
-        color: #1f2937;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.22);
+        content: '';
+        transition: transform 180ms ease;
+    }
+
+    .bilingual-toggle.is-en::before {
+        transform: translateX(100%);
+    }
+
+    .bilingual-toggle:hover,
+    .bilingual-toggle:focus {
+        border-color: rgba(255, 255, 255, 0.85);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.24);
+        outline: none;
+        transform: translateY(-1px);
+    }
+
+    .bilingual-toggle__label {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+    }
+
+    .bilingual-toggle.is-id .bilingual-toggle__label:first-child,
+    .bilingual-toggle.is-en .bilingual-toggle__label:last-child {
+        color: #006a82;
     }
 </style>

@@ -11,6 +11,10 @@
 							<label class="control-label" for="nama">Nama Kategori</label>
 							<input name="kategori" class="form-control input-sm required nomor_sk" maxlength="50" type="text" value="<?= $subkategori['kategori']?>"></input>
 						</div>
+						<div class="form-group">
+							<label class="control-label" for="kategori_en">Nama Kategori (English)</label>
+							<input name="kategori_en" class="form-control input-sm nomor_sk" maxlength="100" type="text" value="<?= $subkategori['kategori_en'] ?? '' ?>"></input>
+						</div>
 					</div>
 				</div>
 			</div>

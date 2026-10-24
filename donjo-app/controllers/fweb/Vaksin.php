@@ -54,7 +54,7 @@ class Vaksin extends Web_Controller
         $data = $this->includes;
 
         $data['main']           = $this->vaksin_covid_model->list_penduduk(0);
-        $data['heading']        = 'Daftar Nama Warga Yang Telah Divaksin';
+        $data['heading']        = bilingual_text('vaccine_recipient_list');
         $data['title']          = $data['heading'];
         $data['halaman_statis'] = 'vaksin/index';
 

@@ -82,6 +82,8 @@ class First_gallery_m extends CI_Model
                 $row                = $query->row_array();
                 $data[$i]['gambar'] = $row['gambar'];
             }
+
+            $this->bilingual_gallery($data[$i]);
         }
 
         return $data;
@@ -115,7 +117,13 @@ class First_gallery_m extends CI_Model
 
         $query = $this->db->query($sql);
 
-        return $query->result_array();
+        $data = $query->result_array();
+
+        for ($i = 0; $i < count($data); $i++) {
+            $this->bilingual_gallery($data[$i]);
+        }
+
+        return $data;
     }
 
     public function get_parent($parent)
@@ -123,7 +131,13 @@ class First_gallery_m extends CI_Model
         $sql   = "SELECT * FROM gambar_gallery WHERE id = '{$parent}'";
         $query = $this->db->query($sql);
 
-        return $query->row_array();
+        $data = $query->row_array();
+
+        if ($data) {
+            $this->bilingual_gallery($data);
+        }
+
+        return $data;
     }
 
     // daftar album di widget
@@ -132,6 +146,17 @@ class First_gallery_m extends CI_Model
         $sql   = "SELECT * FROM gambar_gallery WHERE enabled = '1' and parrent = 0 order by rand() limit 4";
         $query = $this->db->query($sql);
 
-        return $query->result_array();
+        $data = $query->result_array();
+
+        for ($i = 0; $i < count($data); $i++) {
+            $this->bilingual_gallery($data[$i]);
+        }
+
+        return $data;
+    }
+
+    private function bilingual_gallery(&$data)
+    {
+        $data['nama'] = bilingual_field($data, 'nama');
     }
 }

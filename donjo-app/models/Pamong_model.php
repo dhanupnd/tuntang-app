@@ -60,7 +60,7 @@ class Pamong_model extends CI_Model
     public function list_data($offset = 0, $limit = 500)
     {
         $this->db->select(
-            'u.*, rj.nama AS jabatan, rj.id AS ref_jabatan_id, p.nama, p.nik, p.tag_id_card, p.tempatlahir, p.tanggallahir,
+            'u.*, rj.nama AS jabatan, rj.nama_en AS jabatan_en, rj.id AS ref_jabatan_id, p.nama, p.nik, p.tag_id_card, p.tempatlahir, p.tanggallahir,
             (case when p.sex is not null then p.sex else u.pamong_sex end) as id_sex,
             (case when p.foto is not null then p.foto else u.foto end) as foto,
             (case when p.nama is not null then p.nama else u.pamong_nama end) as nama,
@@ -185,7 +185,7 @@ class Pamong_model extends CI_Model
     public function get_data($id = 0)
     {
         $data = $this->db
-            ->select('u.*, rj.nama AS jabatan, rj.nama AS pamong_jabatan, rj.id AS ref_jabatan_id,
+            ->select('u.*, rj.nama AS jabatan, rj.nama_en AS jabatan_en, rj.nama AS pamong_jabatan, rj.nama_en AS pamong_jabatan_en, rj.id AS ref_jabatan_id,
 				(case when p.nama is not null then p.nama else u.pamong_nama end) as nama,
 				(case when p.foto is not null then p.foto else u.foto end) as foto,
 				(case when p.sex is not null then p.sex else u.pamong_sex end) as id_sex')
@@ -467,7 +467,7 @@ class Pamong_model extends CI_Model
 
         $data_query = $this->db
             ->select(
-                'dp.pamong_id, rj.nama AS jabatan, dp.pamong_niap, dp.gelar_depan, dp.gelar_belakang,
+                'dp.pamong_id, rj.nama AS jabatan, rj.nama_en AS jabatan_en, dp.pamong_niap, dp.gelar_depan, dp.gelar_belakang,
                 CASE WHEN dp.id_pend IS NULL THEN dp.foto ELSE p.foto END as foto,
                 CASE WHEN p.sex IS NOT NULL THEN p.sex ELSE dp.pamong_sex END as id_sex,
                 CASE WHEN dp.id_pend IS NULL THEN dp.pamong_nama ELSE p.nama END AS nama',
@@ -487,6 +487,7 @@ class Pamong_model extends CI_Model
             $item['tanggal']          = $kehadiran ? $kehadiran->tanggal : null;
             $item['foto']             = AmbilFoto($item['foto'], 'besar', $item['id_sex']);
             $item['nama']             = gelar($item['gelar_depan'], $item['nama'], $item['gelar_belakang']);
+            $item['jabatan']          = bilingual_field($item, 'jabatan');
 
             return $item;
         })->toArray(),
@@ -546,7 +547,7 @@ class Pamong_model extends CI_Model
         }
 
         $data_query = $this->db
-            ->select('p.pamong_id, rj.nama AS jabatan, p.gelar_depan, p.gelar_belakang, p.bagan_tingkat, p.bagan_offset, p.bagan_layout, p.bagan_warna')
+            ->select('p.pamong_id, rj.nama AS jabatan, rj.nama_en AS jabatan_en, p.gelar_depan, p.gelar_belakang, p.bagan_tingkat, p.bagan_offset, p.bagan_layout, p.bagan_warna')
             ->select('(CASE WHEN id_pend IS NOT NULL THEN ph.foto ELSE p.foto END) as foto')
             ->select('(CASE WHEN id_pend IS NOT NULL THEN ph.nama ELSE p.pamong_nama END) as nama')
             ->select('(CASE WHEN id_pend IS NOT NULL THEN ph.sex ELSE p.pamong_sex END) as jenis_kelamin')
@@ -559,6 +560,7 @@ class Pamong_model extends CI_Model
 
         $data['nodes'] = collect($data_query)->map(static function ($item) {
             $item['nama'] = gelar($item['gelar_depan'], $item['nama'], $item['gelar_belakang']);
+            $item['jabatan'] = bilingual_field($item, 'jabatan');
 
             return $item;
         })
@@ -574,7 +576,7 @@ class Pamong_model extends CI_Model
         }
 
         return $this->db
-            ->select('pamong_id as id, rj.nama AS jabatan')
+            ->select('pamong_id as id, rj.nama AS jabatan, rj.nama_en AS jabatan_en')
             ->select('(CASE WHEN id_pend IS NOT NULL THEN ph.nik ELSE p.pamong_nik END) as nik')
             ->select('(CASE WHEN id_pend IS NOT NULL THEN ph.nama ELSE p.pamong_nama END) as nama')
             ->from('tweb_desa_pamong p')

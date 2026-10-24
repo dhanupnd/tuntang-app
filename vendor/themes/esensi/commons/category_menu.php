@@ -2,7 +2,7 @@
 
 <?php $alt_slug = IS_PREMIUM ? 'artikel' : 'first'; ?>
 
-<section x-data="{catMenu: false}">
+<section x-data="{catMenu: false}" class="public-top-navigation">
   <button 
     type="button"
     class="lg:hidden inline-block py-4 px-6 z-10 relative"
@@ -14,7 +14,7 @@
     x-show="catMenu"
     x-on:click="catMenu = false"
     x-transition.opacity
-    class="fixed inset-0 bg-black bg-opacity-50 z-30 backdrop-blur-sm"
+    class="fixed inset-0 z-30 backdrop-blur-sm"
   ></div>
 
   <div
@@ -29,14 +29,14 @@
         <?php foreach($menu_kiri as $menu) : ?>
           <li class="lg:inline-block">
             <a href="<?= site_url("{$alt_slug}/kategori/{$menu['slug']}") ?>" class="block lg:inline-block py-2 px-3 hover:text-link">
-              <?= $menu['kategori'] ?>
+              <?= bilingual_field($menu, 'kategori') ?>
             </a>
           </li>
           <?php if(count($menu['submenu']) > 0) : ?>
             <?php foreach($menu['submenu'] as $submenu) : ?>
               <li class="lg:inline-block">
                 <a href="<?= site_url("{$alt_slug}/kategori/{$submenu['slug']}") ?>" class="block lg:inline-block py-2 px-3 hover:text-link">
-                  <?= $submenu['kategori'] ?>
+                  <?= bilingual_field($submenu, 'kategori') ?>
                 </a>
               </li>
             <?php endforeach ?>
@@ -47,7 +47,7 @@
       <div class="flex flex-col lg:flex-row gap-3 mt-5 lg:mt-0 flex-wrap lg:justify-end w-full px-3">
         <?php $this->load->view('global/language_toggle') ?>
         <?php if($this->setting->layanan_mandiri == 1) : ?>
-          <a href="<?= site_url('layanan-mandiri') ?>" class="btn btn-primary text-sm w-full lg:w-auto text-center"><?= bilingual_text('self_service') ?> <i class="fas fa-external-link-alt ml-1"></i></a>
+          <a href="<?= site_url('layanan-mandiri/masuk') ?>" class="btn btn-primary text-sm w-full lg:w-auto text-center"><?= bilingual_text('self_service') ?> <i class="fas fa-external-link-alt ml-1"></i></a>
         <?php endif ?>
         <a href="<?= site_url('siteman') ?>" class="btn btn-accent text-sm w-full lg:w-auto text-center"><?= bilingual_text('admin_login') ?> <i class="fas fa-external-link-alt ml-1"></i></a>
       </div>
@@ -55,3 +55,58 @@
   </div>
 
 </section>
+
+<script>
+  (() => {
+    const navigation = document.querySelector('.public-top-navigation');
+    const hero = navigation?.closest('header');
+    const desktop = window.matchMedia('(min-width: 1024px)');
+
+    if (!navigation || navigation.dataset.autoHideReady) {
+      return;
+    }
+
+    navigation.dataset.autoHideReady = 'true';
+    let previousScrollY = window.scrollY;
+    let ticking = false;
+
+    const updateNavigationSurface = () => {
+      if (!desktop.matches || !hero) {
+        navigation.classList.remove('is-on-light-content');
+        return;
+      }
+
+      const heroBottom = hero.getBoundingClientRect().bottom;
+      navigation.classList.toggle('is-on-light-content', heroBottom <= navigation.offsetHeight + 8);
+    };
+
+    const updateNavigation = () => {
+      const currentScrollY = window.scrollY;
+
+      if (!desktop.matches || currentScrollY <= 12 || currentScrollY < previousScrollY) {
+        navigation.classList.remove('is-hidden');
+      } else if (currentScrollY > previousScrollY + 4) {
+        navigation.classList.add('is-hidden');
+      }
+
+      updateNavigationSurface();
+      previousScrollY = currentScrollY;
+      ticking = false;
+    };
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateNavigation);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    desktop.addEventListener('change', () => {
+      previousScrollY = window.scrollY;
+      navigation.classList.remove('is-hidden');
+      updateNavigationSurface();
+    });
+
+    updateNavigationSurface();
+  })();
+</script>

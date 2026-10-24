@@ -354,7 +354,7 @@
 </style>
 
 <div class="single_category wow fadeInDown" style="margin-bottom: 20px;">
-	<h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <span class="title_text">Pengaduan</span></h2>
+	<h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <span class="title_text"><?= bilingual_text('complaint') ?></span></h2>
 </div>
 
 <div class="row">
@@ -362,18 +362,18 @@
 		<form action="<?= $search_action; ?>" method="get">
 			<table style="width: -webkit-fill-available">
 				<tr>
-					<td style="padding-right: 5px"><button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#newpengaduan">Formulir Pengaduan</button></td>
+					<td style="padding-right: 5px"><button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#newpengaduan"><?= bilingual_text('create_complaint') ?></button></td>
 					<td style="width: 20%; padding-right: 5px">
 						<select class="form-control select2" id="caristatus" name="caristatus">
-							<option value="">Semua Status</option>
-							<option value="1" <?= selected($caristatus, 1); ?>>Menunggu Diproses</option>
-							<option value="2" <?= selected($caristatus, 2); ?>>Sedang Diproses</option>
-							<option value="3" <?= selected($caristatus, 3); ?>>Selesai Diproses</option>
+							<option value=""><?= bilingual_text('all_statuses') ?></option>
+							<option value="1" <?= selected($caristatus, 1); ?>><?= bilingual_text('pending_process') ?></option>
+							<option value="2" <?= selected($caristatus, 2); ?>><?= bilingual_text('processing') ?></option>
+							<option value="3" <?= selected($caristatus, 3); ?>><?= bilingual_text('completed_process') ?></option>
 						</select>
 					</td>
 					<td>
 						<div class="input-group">
-							<input type="text" name="cari" value="<?= $cari; ?>" placeholder="Cari pengaduan disini..." class="form-control">
+							<input type="text" name="cari" value="<?= $cari; ?>" placeholder="<?= bilingual_text('search_complaint') ?>" class="form-control">
 							<span class="input-group-btn">
 								<button type="submit" class="btn btn-info"><i class="fa fa-search"></i></button>
 								<?php if ($cari) : ?>
@@ -409,18 +409,18 @@
 									</tr>
 									<tr>
 										<td class="text-muted"><?= $value['created_at'] ?> | <?= $value['judul'] ?> | <?php if ($value['status'] == '1') : ?>
-												<span class="label label-danger">Menunggu Diproses</span>
+												<span class="label label-danger"><?= bilingual_text('pending_process') ?></span>
 											<?php elseif ($value['status'] == '2') : ?>
-												<span class="label label-info">Sedang Diproses</span>
+												<span class="label label-info"><?= bilingual_text('processing') ?></span>
 											<?php elseif ($value['status'] == '3') : ?>
-												<span class="label label-success">Selesai Diproses</span>
+												<span class="label label-success"><?= bilingual_text('completed_process') ?></span>
 											<?php endif; ?>
 										</td>
 									</tr>
 								</table><br>
 								<p class="info">
-									<span><?= substr($value['isi'], 0, 50); ?> <?php if (strlen($value['isi']) > 50) : ?><label class="text-info">read more...</label><?php endif; ?></span>
-									<span class="label label-<?= $value['jumlah'] > 0 ? 'success' : 'danger'; ?> pull-right"><i class="fa fa-comments"></i> <?= $value['jumlah']; ?> Tanggapan</span>
+									<span><?= substr($value['isi'], 0, 50); ?> <?php if (strlen($value['isi']) > 50) : ?><label class="text-info"><?= bilingual_text('read_more') ?>...</label><?php endif; ?></span>
+									<span class="label label-<?= $value['jumlah'] > 0 ? 'success' : 'danger'; ?> pull-right"><i class="fa fa-comments"></i> <?= bilingual_text('responses_count', ['count' => $value['jumlah']]) ?></span>
 								</p>
 							</div>
 						</div>
@@ -438,7 +438,7 @@
 									<div class="modal-body">
 										<div class="row">
 											<div class="col-md-12">
-												<p class="text-muted">Pengaduan oleh <?= $value['nama']; ?> | <?= $value['created_at'] ?></p>
+												<p class="text-muted"><?= bilingual_text('complaint_by', ['name' => $value['nama']]) ?> | <?= $value['created_at'] ?></p>
 												<p><?= $value['isi'] ?></p>
 												<?php $file_foto = LOKASI_PENGADUAN . $value['foto']; ?>
 												<?php if (file_exists(FCPATH . $file_foto)) : ?>
@@ -450,7 +450,7 @@
 											<?php if ($valuena['id_pengaduan'] && $valuena['id_pengaduan'] == $value['id']) : ?>
 												<div class="row support-content-comment">
 													<div class="col-md-12">
-														<p>Ditanggapi oleh <?= $valuena['nama']; ?> | <?= $valuena['created_at'] ?></p>
+														<p><?= bilingual_text('responded_by', ['name' => $valuena['nama']]) ?> | <?= $valuena['created_at'] ?></p>
 														<p><?= $valuena['isi'] ?></p>
 													</div>
 												</div>
@@ -458,7 +458,7 @@
 										<?php endforeach; ?>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Tutup</button>
+										<button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> <?= bilingual_text('close') ?></button>
 									</div>
 								</div>
 							</div>
@@ -472,20 +472,20 @@
 
 		<?php else : ?>
 			<div class="alert alert-info" role="alert">
-				Data tidak tersedia
+				<?= bilingual_text('no_data_available') ?>
 			</div>
 		<?php endif; ?>
 	</div>
 </div>
 
-<!-- Formulir Pengaduan -->
+<!-- <?= bilingual_text('create_complaint') ?> -->
 <div class="modal fade" id="newpengaduan" tabindex="-1" role="dialog" aria-labelledby="newpengaduan" aria-hidden="true">
 	<div class="modal-wrapper">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header bg-blue">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					<h4 class="modal-title"><i class="fa fa-pencil"></i> Buat Pengaduan Baru</h4>
+					<h4 class="modal-title"><i class="fa fa-pencil"></i> <?= bilingual_text('new_complaint') ?></h4>
 				</div>
 				<form action="<?= $form_action; ?>" method="POST" enctype="multipart/form-data">
 					<div class="modal-body">
@@ -499,30 +499,30 @@
 							<input name="nik" type="text" maxlength="16" class="form-control" placeholder="NIK" value="<?= $data['nik']; ?>">
 						</div>
 						<div class="form-group">
-							<input name="nama" type="text" class="form-control" placeholder="Nama*" value="<?= $data['nama']; ?>" required>
+							<input name="nama" type="text" class="form-control" placeholder="<?= bilingual_text('name') ?>*" value="<?= $data['nama']; ?>" required>
 						</div>
 						<div class="form-group">
-							<input name="email" type="email" class="form-control" placeholder="Email" value="<?= $data['email']; ?>">
+							<input name="email" type="email" class="form-control" placeholder="<?= bilingual_text('email_address') ?>" value="<?= $data['email']; ?>">
 						</div>
 						<div class="form-group">
-							<input name="telepon" type="text" class="form-control" placeholder="Telepon" value="<?= $data['telepon']; ?>">
+							<input name="telepon" type="text" class="form-control" placeholder="<?= bilingual_text('telephone') ?>" value="<?= $data['telepon']; ?>">
 						</div>
 						<div class="form-group">
-							<input name="judul" type="text" class="form-control" placeholder="Judul*" value="<?= $data['judul']; ?>" required>
+							<input name="judul" type="text" class="form-control" placeholder="<?= bilingual_text('title') ?>*" value="<?= $data['judul']; ?>" required>
 						</div>
 						<div class="form-group">
-							<textarea name="isi" class="form-control" placeholder="Isi Pengaduan*" rows="5" required><?= $data['isi']; ?></textarea>
+							<textarea name="isi" class="form-control" placeholder="<?= bilingual_text('complaint_content') ?>*" rows="5" required><?= $data['isi']; ?></textarea>
 						</div>
 						<div class="form-group">
 							<div class="input-group">
-								<input type="text" accept="image/*" onchange="readURL(this);" class="form-control" id="file_path" placeholder="Unggah Foto" name="foto" value="<?= $data['foto']; ?>">
+								<input type="text" accept="image/*" onchange="readURL(this);" class="form-control" id="file_path" placeholder="<?= bilingual_text('upload_photo') ?>" name="foto" value="<?= $data['foto']; ?>">
 								<input type="file" accept="image/*" onchange="readURL(this);" class="hidden" id="file" name="foto" value="<?= $data['foto']; ?>">
 								<span class="input-group-btn">
 									<button type="button" class="btn btn-info btn-flat" id="file_browser"><i class="fa fa-search"></i></button>
 								</span>
 							</div>
-							<small>Gambar: png,jpg,jpeg</small><br>
-							<br><img id="blah" src="#" alt="gambar" class="img-responsive hidden" />
+							<small><?= bilingual_text('image_formats') ?></small><br>
+							<br><img id="blah" src="#" alt="<?= bilingual_text('supporting_image_alt') ?>" class="img-responsive hidden" />
 						</div>
 						<div class="form-group">
 							<table>
@@ -535,15 +535,15 @@
 									</td>
 									<td>&nbsp;&nbsp;&nbsp;</td>
 									<td>
-										<input type="text" name="captcha_code" class="form-control" maxlength="6" placeholder="Masukkan kode diatas" required />
+										<input type="text" name="captcha_code" class="form-control" maxlength="6" placeholder="<?= bilingual_text('enter_code_above') ?>" required />
 									</td>
 								</tr>
 							</table>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<a href="<?= site_url('pengaduan') ?> " class="btn btn-danger pull-left"><i class="fa fa-times"></i> Tutup</a>
-						<button type="submit" class="btn btn-primary pull-right"><i class="fa fa-pencil"></i> Kirim</button>
+						<a href="<?= site_url('pengaduan') ?> " class="btn btn-danger pull-left"><i class="fa fa-times"></i> <?= bilingual_text('close') ?></a>
+						<button type="submit" class="btn btn-primary pull-right"><i class="fa fa-pencil"></i> <?= bilingual_text('send') ?></button>
 					</div>
 				</form>
 			</div>

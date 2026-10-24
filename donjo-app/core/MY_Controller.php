@@ -240,6 +240,11 @@ class Mandiri_Controller extends MY_Controller
             show_404();
         }
 
+        if ($this->session->mandiri == 1 && (empty($this->is_login) || empty($this->is_login->id_pend) || empty($this->is_login->nik))) {
+            $this->session->unset_userdata(['mandiri', 'is_login', 'data_permohonan']);
+            redirect($this->session->login_ektp ? 'layanan-mandiri/masuk-ektp' : 'layanan-mandiri/masuk');
+        }
+
         if ($this->session->mandiri != 1) {
             if (! $this->session->login_ektp) {
                 redirect('layanan-mandiri/masuk');

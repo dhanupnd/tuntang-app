@@ -83,12 +83,18 @@ class Pembangunan_model extends MY_Model
             $this->db
                 ->group_start()
                 ->like('p.sumber_dana', $search)
+                ->or_like('p.sumber_dana_en', $search)
                 ->or_like('p.judul', $search)
+                ->or_like('p.judul_en', $search)
                 ->or_like('p.keterangan', $search)
+                ->or_like('p.keterangan_en', $search)
                 ->or_like('p.volume', $search)
+                ->or_like('p.volume_en', $search)
                 ->or_like('p.tahun_anggaran', $search)
                 ->or_like('p.pelaksana_kegiatan', $search)
+                ->or_like('p.pelaksana_kegiatan_en', $search)
                 ->or_like('p.lokasi', $search)
+                ->or_like('p.lokasi_en', $search)
                 ->or_like('p.anggaran', $search)
                 ->group_end();
         }
@@ -162,16 +168,22 @@ class Pembangunan_model extends MY_Model
     {
         return [
             'sumber_dana'             => bersihkan_xss($post['sumber_dana']),
+            'sumber_dana_en'          => $this->bilingual_input($post['sumber_dana_en'] ?? null),
             'judul'                   => judul($post['judul']),
+            'judul_en'                => $this->bilingual_input($post['judul_en'] ?? null, true),
             'slug'                    => unique_slug($this->table, $post['judul'], $id),
             'volume'                  => bersihkan_xss($post['volume']),
+            'volume_en'               => $this->bilingual_input($post['volume_en'] ?? null),
             'waktu'                   => bilangan($post['waktu']),
             'satuan_waktu'            => bilangan($post['satuan_waktu']),
             'tahun_anggaran'          => bilangan($post['tahun_anggaran']),
             'pelaksana_kegiatan'      => bersihkan_xss($post['pelaksana_kegiatan']),
+            'pelaksana_kegiatan_en'   => $this->bilingual_input($post['pelaksana_kegiatan_en'] ?? null),
             'id_lokasi'               => $post['lokasi'] ? null : bilangan($post['id_lokasi']),
             'lokasi'                  => $post['id_lokasi'] ? null : $this->security->xss_clean(bersihkan_xss($post['lokasi'])),
+            'lokasi_en'               => $post['id_lokasi'] ? null : $this->bilingual_input($post['lokasi_en'] ?? null),
             'keterangan'              => $this->security->xss_clean(bersihkan_xss($post['keterangan'])),
+            'keterangan_en'           => $this->bilingual_input($post['keterangan_en'] ?? null),
             'foto'                    => $this->upload_gambar_pembangunan('foto'),
             'anggaran'                => bilangan($post['anggaran']),
             'sumber_biaya_pemerintah' => bilangan($post['sumber_biaya_pemerintah']),
@@ -180,9 +192,21 @@ class Pembangunan_model extends MY_Model
             'sumber_biaya_swadaya'    => bilangan($post['sumber_biaya_swadaya']),
             'sumber_biaya_jumlah'     => bilangan($post['sumber_biaya_pemerintah']) + bilangan($post['sumber_biaya_provinsi']) + bilangan($post['sumber_biaya_kab_kota']) + bilangan($post['sumber_biaya_swadaya']),
             'manfaat'                 => $this->security->xss_clean(bersihkan_xss($post['manfaat'])),
+            'manfaat_en'              => $this->bilingual_input($post['manfaat_en'] ?? null),
             'sifat_proyek'            => bersihkan_xss($post['sifat_proyek']),
             'updated_at'              => date('Y-m-d H:i:s'),
         ];
+    }
+
+    private function bilingual_input($value, $as_title = false)
+    {
+        $value = trim((string) $value);
+
+        if ($value === '') {
+            return null;
+        }
+
+        return $as_title ? judul($value) : $this->security->xss_clean(bersihkan_xss($value));
     }
 
     private function upload_gambar_pembangunan($jenis)

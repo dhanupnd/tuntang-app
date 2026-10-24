@@ -19,6 +19,10 @@ require("tw-elements");
 
 
 var setChart = function setChart() {
+  var statText = window.statisticsText || {};
+  var populationCountText = statText.population_count || 'Jumlah Populasi';
+  var showZeroText = statText.show_zero || 'Tampilkan Nol';
+  var hideZeroText = statText.hide_zero || 'Sembunyikan Nol';
   var showStatus = true;
   var charts;
 
@@ -50,7 +54,7 @@ var setChart = function setChart() {
     $('#showData').click();
     showZeroValue(showStatus);
     showStatus = !showStatus;
-    if (showStatus) $('#showZero').text('Tampilkan Nol');else $('#showZero').text('Sembunyikan Nol');
+    if (showStatus) $('#showZero').text(showZeroText);else $('#showZero').text(hideZeroText);
   }
 
   $(document).ready(function () {
@@ -74,9 +78,7 @@ var setChart = function setChart() {
           orderable: false // set not orderable
 
         }],
-        language: {
-          url: "".concat(BASE_URL, "/assets/bootstrap/js/dataTables.indonesian.lang")
-        },
+
         drawCallback: function drawCallback() {
           $('.dataTables_paginate > .pagination').addClass('pagination-sm no-margin');
         }
@@ -120,7 +122,7 @@ var setChart = function setChart() {
         yAxis: {
           showEmpty: false,
           title: {
-            text: 'Jumlah Populasi'
+            text: populationCountText
           }
         },
         xAxis: {
@@ -150,7 +152,7 @@ var setChart = function setChart() {
         },
         series: [{
           type: 'pie',
-          name: 'Jumlah Populasi',
+          name: populationCountText,
           shadow: 1,
           border: 1,
           data: data

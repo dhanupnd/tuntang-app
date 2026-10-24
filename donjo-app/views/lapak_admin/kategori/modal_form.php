@@ -52,6 +52,10 @@ defined('BASEPATH') || exit('No direct script access allowed');
 			<label class="control-label" for="kategori">Kategori Produk</label>
 			<input class="form-control input-sm required" type="text" name="kategori" placeholder="Kategori Produk" value="<?= $main->kategori; ?>"/>
 		</div>
+		<div class="form-group">
+			<label class="control-label" for="kategori_en">Kategori Produk (English)</label>
+			<input class="form-control input-sm" type="text" name="kategori_en" placeholder="Product Category" value="<?= e($main->kategori_en ?? ''); ?>"/>
+		</div>
 	</div>
 	<div class="modal-footer">
 		<button type="reset" class="btn btn-social btn-flat btn-danger btn-sm pull-left"><i class="fa fa-times"></i> Batal</button>

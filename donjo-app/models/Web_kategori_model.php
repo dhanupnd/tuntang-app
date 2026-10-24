@@ -155,6 +155,7 @@ class Web_kategori_model extends CI_Model
         $this->session->set_userdata('success', 1);
         $data             = [];
         $data['kategori'] = $this->input->post('kategori');
+        $data['kategori_en'] = $this->input->post('kategori_en');
         $this->sterilkan_kategori($data);
         if (! $this->cek_nama($data['kategori'])) {
             return;
@@ -171,6 +172,13 @@ class Web_kategori_model extends CI_Model
     {
         unset($data['kategori_lama']);
         $data['kategori'] = htmlentities($data['kategori']);
+        if (array_key_exists('kategori_en', $data)) {
+            $data['kategori_en'] = trim($data['kategori_en']) === '' ? null : htmlentities($data['kategori_en']);
+        }
+
+        if (! $this->db->field_exists('kategori_en', 'kategori')) {
+            unset($data['kategori_en']);
+        }
     }
 
     private function cek_nama($kategori)
@@ -193,11 +201,10 @@ class Web_kategori_model extends CI_Model
         $this->session->set_userdata('success', 1);
         $data             = [];
         $data['kategori'] = $this->input->post('kategori');
-        if ($data['kategori'] == $data['kategori_lama']) {
-            return; // Tidak ada yg diubah
-        }
+        $data['kategori_en'] = $this->input->post('kategori_en');
+        $kategori_lama = $this->input->post('kategori_lama');
 
-        if (! $this->cek_nama($data['kategori'])) {
+        if ($data['kategori'] != $kategori_lama && ! $this->cek_nama($data['kategori'])) {
             return;
         }
 
@@ -294,6 +301,7 @@ class Web_kategori_model extends CI_Model
     {
         $data             = [];
         $data['kategori'] = $this->input->post('kategori');
+        $data['kategori_en'] = $this->input->post('kategori_en');
         $this->sterilkan_kategori($data);
         $data['parrent'] = $kategori;
         $data['urut']    = $this->urut_model->urut_max(['parrent' => $kategori]) + 1;
@@ -308,6 +316,7 @@ class Web_kategori_model extends CI_Model
     {
         $data             = [];
         $data['kategori'] = $this->input->post('kategori');
+        $data['kategori_en'] = $this->input->post('kategori_en');
         $this->sterilkan_kategori($data);
         $this->db->where('id', $id);
         $outp = $this->db->update('kategori', $data);

@@ -10,6 +10,12 @@
 <?php if($pembangunan) : ?>
   <div class="grid grid-cols-1 lg:grid-cols-4 gap-5 py-5">
     <?php foreach($pembangunan as $data) : ?>
+      <?php
+        $data->judul = bilingual_field($data, 'judul');
+        $data->keterangan = bilingual_field($data, 'keterangan');
+        $alamat = $data->id_lokasi ? $data->alamat : bilingual_field($data, 'lokasi');
+        $alamat = $alamat ?: $data->alamat;
+      ?>
       <div class="space-y-3">
         <?php if($data->foto && is_file(LOKASI_GALERI . $data->foto)) : ?>
         <img class="h-44 w-full object-cover object-center bg-gray-300 dark:bg-gray-600"
@@ -25,7 +31,7 @@
           <div class="inline-flex"><i class="fas fa-calendar-alt mr-2"></i> <?= $data->tahun_anggaran ?></div>
           <div class="font-thin">
             <i class="fas fa-map-marker-alt mr-1"></i>
-            <?= ($data->alamat == "=== Lokasi Tidak Ditemukan ===") ? bilingual_text('unknown_location') : $data->alamat; ?>
+            <?= ($alamat == "=== Lokasi Tidak Ditemukan ===") ? bilingual_text('unknown_location') : $alamat; ?>
           </div>
           <p class="text-sm pt-1">
             <?= $data->keterangan ?>

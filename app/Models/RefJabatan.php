@@ -62,6 +62,7 @@ class RefJabatan extends BaseModel
      */
     protected $fillable = [
         'nama',
+        'nama_en',
         'jenis',
         'tupoksi',
         'created_by',

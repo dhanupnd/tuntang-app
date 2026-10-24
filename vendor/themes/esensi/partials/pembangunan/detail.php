@@ -1,14 +1,23 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 <?php if($pembangunan) : ?>
+  <?php
+    $judul = bilingual_field($pembangunan, 'judul');
+    $alamat = $pembangunan->id_lokasi ? $pembangunan->alamat : bilingual_field($pembangunan, 'lokasi');
+    $alamat = $alamat ?: $pembangunan->alamat;
+    $sumber_dana = bilingual_field($pembangunan, 'sumber_dana');
+    $volume = bilingual_field($pembangunan, 'volume');
+    $pelaksana_kegiatan = bilingual_field($pembangunan, 'pelaksana_kegiatan');
+    $keterangan = bilingual_field($pembangunan, 'keterangan');
+  ?>
   <nav role="navigation" aria-label="navigation" class="breadcrumb">
     <ol>
       <li><a href="<?= site_url() ?>"><?= bilingual_text('home') ?></a></li>
       <li><a href="<?= site_url('pembangunan') ?>"><?= bilingual_text('construction') ?></a></li>
-      <li aria-current="page"><?= $pembangunan->judul ?></li>
+      <li aria-current="page"><?= $judul ?></li>
     </ol>
   </nav>
-  <h1 class="text-h2"></i> <?= $pembangunan->judul ?></h1>
+  <h1 class="text-h2"></i> <?= $judul ?></h1>
   <div class="flex flex-col lg:flex-row justify-between gap-3 lg:gap-5 py-5">
     <div class="w-full px-2">
       <?php if($pembangunan->foto && is_file(LOKASI_GALERI . $pembangunan->foto)) : ?>
@@ -23,17 +32,17 @@
           <tr>
             <th width="150px"><?= bilingual_text('activity_name') ?></th>
             <td width="20px">:</td>
-            <td><?= $pembangunan->judul ?></td>
+            <td><?= $judul ?></td>
           </tr>
           <tr>
             <th><?= bilingual_text('address') ?></th>
             <td width="20px">:</td>
-            <td><?= $pembangunan->alamat ?></td>
+            <td><?= ($alamat == "=== Lokasi Tidak Ditemukan ===") ? bilingual_text('unknown_location') : $alamat ?></td>
           </tr>
           <tr>
             <th><?= bilingual_text('funding_source') ?></th>
             <td width="20px">:</td>
-            <td><?= $pembangunan->sumber_dana ?></td>
+            <td><?= $sumber_dana ?></td>
           </tr>
           <tr>
             <th><?= bilingual_text('budget') ?></th>
@@ -43,12 +52,12 @@
           <tr>
             <th><?= bilingual_text('volume') ?></th>
             <td width="20px">:</td>
-            <td><?= $pembangunan->volume?></td>
+            <td><?= $volume ?></td>
           </tr>
           <tr>
             <th><?= bilingual_text('implementer') ?></th>
             <td width="20px">:</td>
-            <td><?= $pembangunan->pelaksana_kegiatan ?></td>
+            <td><?= $pelaksana_kegiatan ?></td>
           </tr>
           <tr>
             <th><?= bilingual_text('year') ?></th>
@@ -58,7 +67,7 @@
           <tr>
             <th><?= bilingual_text('description') ?></th>
             <td width="20px">:</td>
-            <td><?= $pembangunan->keterangan ?></td>
+            <td><?= $keterangan ?></td>
           </tr>
         </table>
       </div>

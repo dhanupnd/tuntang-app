@@ -20,7 +20,13 @@
                     <div class="form-group">
                         <label class="control-label col-sm-4" for="nama">Nama Gambar</label>
                         <div class="col-sm-6">
-                            <input name="nama" class="form-control input-sm nomor_sk required" maxlength="50" type="text" value="<?= $gallery['nama'] ?>"></input>
+                            <input name="nama" class="form-control input-sm nomor_sk required" maxlength="50" type="text" value="<?= $gallery['nama'] ?? '' ?>"></input>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="nama_en">Nama Gambar (English)</label>
+                        <div class="col-sm-6">
+                            <input name="nama_en" class="form-control input-sm nomor_sk" maxlength="50" type="text" value="<?= $gallery['nama_en'] ?? '' ?>"></input>
                         </div>
                     </div>
                     <?php if ($gallery['gambar']) : ?>

@@ -30,8 +30,8 @@
         $('#showData').click();
         tampilkan_nol(status_tampilkan);
         status_tampilkan = !status_tampilkan;
-        if (status_tampilkan) $('#tampilkan').text('Tampilkan Nol');
-        else $('#tampilkan').text('Sembunyikan Nol');
+        if (status_tampilkan) $('#tampilkan').text('<?= bilingual_text('show_zero') ?>');
+        else $('#tampilkan').text('<?= bilingual_text('hide_zero') ?>');
     }
 
     function switchType(){
@@ -82,7 +82,7 @@
                 },
                 series: [{
                     type: type,
-                    name: 'Jumlah Populasi',
+                    name: '<?= bilingual_text('population_count') ?>',
                     shadow: 1,
                     border: 1,
                     data: data
@@ -120,7 +120,7 @@
                 },
                 series: [{
                     type: type,
-                    name: 'Jumlah Populasi',
+                    name: '<?= bilingual_text('population_count') ?>',
                     shadow: 1,
                     border: 1,
                     data: data
@@ -161,12 +161,12 @@
 </style>
 <div class="box-body">
     <div class="single_page_area">
-        <h2 class="post_titile" >Data Demografi Berdasar <?=$heading?></h2>
+        <h2 class="post_titile" ><?= bilingual_text('demographic_data_by', ['heading' => $heading]) ?></h2>
     </div>
     <div class="box-stats d-flex justify-content-end">
         <div class="btn-group-xs">
-            <a class="btn <?= ($tipe==1) ? 'btn-primary' : 'btn-default' ?> btn-xs" onclick="switchType();">Bar Graph</a>
-            <a class="btn <?= ($tipe==0) ? 'btn-primary' : 'btn-default' ?> btn-xs" onclick="switchType();">Pie Cart</a>
+            <a class="btn <?= ($tipe==1) ? 'btn-primary' : 'btn-default' ?> btn-xs" onclick="switchType();"><?= bilingual_text('bar_chart') ?></a>
+            <a class="btn <?= ($tipe==0) ? 'btn-primary' : 'btn-default' ?> btn-xs" onclick="switchType();"><?= bilingual_text('pie_chart') ?></a>
         </div>
     </div>
 </div>
@@ -178,19 +178,19 @@
 </div>
 
 <div class="box-header with-border">
-    <h2 class="post_titile">Tabel <?= $heading ?></h2>
+    <h2 class="post_titile"><?= bilingual_text('table_by', ['heading' => $heading]) ?></h2>
 </div>
 <div class="box-body">
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th rowspan="2">Kode</th>
-                    <th rowspan="2" style='text-align:left;'>Kelompok</th>
-                    <th colspan="2">Jumlah</th>
+                    <th rowspan="2"><?= bilingual_text('code') ?></th>
+                    <th rowspan="2" style='text-align:left;'><?= bilingual_text('group') ?></th>
+                    <th colspan="2"><?= bilingual_text('total') ?></th>
                     <?php if ($jenis_laporan == 'penduduk'):?>
-                        <th colspan="2">Laki-laki</th>
-                        <th colspan="2">Perempuan</th>
+                        <th colspan="2"><?= bilingual_text('male') ?></th>
+                        <th colspan="2"><?= bilingual_text('female') ?></th>
                     <?php endif;?>
                 </tr>
                 <tr>
@@ -233,11 +233,11 @@
         </table>
         <?php if($hide=="lebih"):?>
             <div style='float: left;'>
-                <button class='uibutton special' id='showData'>Selengkapnya...</button>
+                <button class='uibutton special' id='showData'><?= bilingual_text('show_more') ?></button>
             </div>
         <?php endif;?>
         <div style="float: right;">
-            <button id='tampilkan' onclick="toggle_tampilkan();" class="uibutton special">Tampilkan Nol</button>
+            <button id='tampilkan' onclick="toggle_tampilkan();" class="uibutton special"><?= bilingual_text('show_zero') ?></button>
         </div>
     </div>
 </div>
@@ -249,16 +249,16 @@
                 <input id="stat" type="hidden" value="<?=$st?>">
                 <div class="box box-info">
                     <div class="box-header with-border" style="margin-bottom: 15px;">
-                        <h2 class="post_titile">Daftar <?= $heading ?></h2>
+                        <h2 class="post_titile"><?= bilingual_text('list_of', ['name' => $heading]) ?></h2>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered" id="peserta_program">
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Program</th>
-                                    <th>Nama Peserta</th>
-                                    <th>Alamat</th>
+                                    <th><?= bilingual_text('program') ?></th>
+                                    <th><?= bilingual_text('participant_name') ?></th>
+                                    <th><?= bilingual_text('address') ?></th>
                                 </tr>
                             </thead>
                             <tfoot>
@@ -291,9 +291,11 @@
                     "orderable": false, //set not orderable
                 },
             ],
+            <?php if (bilingual_current_language() === 'id') : ?>
             'language': {
                 'url': BASE_URL + '/assets/bootstrap/js/dataTables.indonesian.lang'
             },
+            <?php endif; ?>
             'drawCallback': function (){
                 $('.dataTables_paginate > .pagination').addClass('pagination-sm no-margin');
             }

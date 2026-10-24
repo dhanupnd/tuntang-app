@@ -140,12 +140,320 @@ class Laporan_penduduk_model extends MY_Model
                 ->get('program')
                 ->row_array();
 
-            return $program['nama'];
+            return $this->terjemahkan_teks_statistik($program['nama']);
         }
 
         $list_judul = unserialize(STAT_PENDUDUK) + unserialize(STAT_KELUARGA) + unserialize(STAT_RTM) + unserialize(STAT_BANTUAN);
 
-        return $list_judul[$lap];
+        return $this->terjemahkan_teks_statistik($list_judul[$lap]);
+    }
+
+    private function terjemahkan_teks_statistik($teks)
+    {
+        if (! function_exists('bilingual_current_language') || bilingual_current_language() !== 'en') {
+            return $teks;
+        }
+
+        $peta = [
+            'AGAMA' => 'Religion',
+            'AKSEPTOR KB' => 'Family Planning Acceptors',
+            'ASURANSI KESEHATAN' => 'Health Insurance',
+            'AKTA KELAHIRAN' => 'Birth Certificate',
+            'AKTA LAHIR' => 'Birth Certificate',
+            'AKTA PERKAWINAN' => 'Marriage Certificate',
+            'ALAMAT SEKARANG' => 'Current Address',
+            'ALAMAT SEBELUMNYA' => 'Previous Address',
+            'BELUM KAWIN' => 'Single',
+            'BELUM MENGISI' => 'NOT FILLED',
+            'BPJS KETENAGAKERJAAN' => 'Employment BPJS',
+            'BUKAN PENERIMA' => 'NON-RECIPIENT',
+            'CACAT FISIK' => 'Physical Disability',
+            'CACAT GANDA' => 'Multiple Disabilities',
+            'CACAT MENTAL/JIWA' => 'Mental Disability',
+            'CACAT NETRA/BUTA' => 'Visual Impairment/Blind',
+            'CACAT RUNGU/WICARA' => 'Hearing/Speech Impairment',
+            'CERAI HIDUP' => 'Divorced',
+            'CERAI MATI' => 'Widowed',
+            'COVID' => 'COVID',
+            'DALAM KELUARGA' => 'In Family',
+            'DASAR' => 'Basic',
+            'DIPLOMA I/II' => 'Diploma I/II',
+            'DIPLOMA III/SARJANA MUDA' => 'Diploma III/Associate Degree',
+            'DIPLOMA IV/STRATA I' => 'Diploma IV/Bachelor Degree',
+            'E-KTP' => 'E-ID Card',
+            'GOLONGAN DARAH' => 'Blood Type',
+            'HIDUP' => 'Alive',
+            'HUBUNGAN DALAM KK' => 'Family Card Relationship',
+            'HUBUNGAN DALAM KELUARGA' => 'Family Relationship',
+            'IBU' => 'Mother',
+            'ID ASURANSI' => 'Insurance ID',
+            'JANDA' => 'Widow',
+            'JENIS KELAMIN' => 'Gender',
+            'JUMLAH' => 'TOTAL',
+            'KAWIN' => 'Married',
+            'KELAS SOSIAL' => 'Social Class',
+            'KELOMPOK UMUR' => 'Age Group',
+            'KEPALA KELUARGA' => 'Head of Family',
+            'KEPEMILIKAN KTP' => 'ID Card Ownership',
+            'KEWARGANEGARAAN' => 'Citizenship',
+            'KONTRAK' => 'Contract',
+            'LAKI-LAKI' => 'Male',
+            'MATI' => 'Dead',
+            'PENERIMA' => 'RECIPIENT',
+            'PENERIMA BANTUAN KELUARGA' => 'Family Aid Recipients',
+            'PENERIMA BANTUAN PENDUDUK' => 'Resident Aid Recipients',
+            'PENDATANG' => 'Newcomer',
+            'PENDIDIKAN DALAM KK' => 'Education in Family Card',
+            'PENDIDIKAN SEDANG DITEMPUH' => 'Current Education',
+            'PENDUDUK' => 'Resident',
+            'PENDUDUK BERDASARKAN UMUR' => 'Population by Age',
+            'PENDUDUK BERDASARKAN UMUR KATEGORI' => 'Population by Age Category',
+            'PENDUDUK BERDASARKAN PENDIDIKAN DALAM KK' => 'Population by Education in Family Card',
+            'PENDUDUK BERDASARKAN PENDIDIKAN SEDANG DITEMPUH' => 'Population by Current Education',
+            'PENDUDUK BERDASARKAN PEKERJAAN' => 'Population by Occupation',
+            'PENDUDUK BERDASARKAN STATUS PERKAWINAN' => 'Population by Marital Status',
+            'PENDUDUK BERDASARKAN AGAMA' => 'Population by Religion',
+            'PENDUDUK BERDASARKAN JENIS KELAMIN' => 'Population by Gender',
+            'PENDUDUK BERDASARKAN HUBUNGAN DALAM KK' => 'Population by Family Card Relationship',
+            'PENDUDUK BERDASARKAN KEWARGANEGARAAN' => 'Population by Citizenship',
+            'PENDUDUK BERDASARKAN STATUS PENDUDUK' => 'Population by Resident Status',
+            'PENDUDUK BERDASARKAN GOLONGAN DARAH' => 'Population by Blood Type',
+            'PENDUDUK BERDASARKAN CACAT' => 'Population by Disability',
+            'PENDUDUK BERDASARKAN SAKIT MENAHUN' => 'Population by Chronic Illness',
+            'PENDUDUK BERDASARKAN AKSEPTOR KB' => 'Population by Family Planning Acceptors',
+            'PENDUDUK BERDASARKAN AKTA KELAHIRAN' => 'Population by Birth Certificate',
+            'PENDUDUK BERDASARKAN KEPEMILIKAN KTP' => 'Population by ID Card Ownership',
+            'PENDUDUK BERDASARKAN ASURANSI KESEHATAN' => 'Population by Health Insurance',
+            'PENDUDUK BERDASARKAN STATUS COVID' => 'Population by COVID Status',
+            'PENDUDUK BERDASARKAN SUKU' => 'Population by Ethnicity',
+            'PENDUDUK BERDASARKAN BPJS KETENAGAKERJAAN' => 'Population by Employment BPJS',
+            'PEREMPUAN' => 'Female',
+            'PERGI' => 'Moved Away',
+            'PEKERJAAN' => 'Occupation',
+            'PENYAKIT MENAHUN' => 'Chronic Illness',
+            'PENYANDANG CACAT' => 'Persons with Disabilities',
+            'PROVINSI' => 'Province',
+            'SAKIT MENAHUN' => 'Chronic Illness',
+            'SARJANA' => 'Bachelor Degree',
+            'SEDANG' => 'Current',
+            'SEMUA' => 'All',
+            'STATUS COVID' => 'COVID Status',
+            'STATUS DASAR' => 'Basic Status',
+            'STATUS KEHAMILAN' => 'Pregnancy Status',
+            'STATUS KAWIN' => 'Marital Status',
+            'STATUS PERKAWINAN' => 'Marital Status',
+            'STATUS PENDUDUK' => 'Resident Status',
+            'STATUS REKAM' => 'Recording Status',
+            'SUAMI' => 'Husband',
+            'SUKU / ETNIS' => 'Ethnicity',
+            'TAMAT SD / SEDERAJAT' => 'Elementary School Graduate / Equivalent',
+            'TAMAT SLTP / SEDERAJAT' => 'Junior High School Graduate / Equivalent',
+            'TAMAT SLTA / SEDERAJAT' => 'Senior High School Graduate / Equivalent',
+            'TIDAK / BELUM SEKOLAH' => 'No Schooling / Not Yet in School',
+            'TIDAK ADA' => 'None',
+            'TIDAK TAMAT SD / SEDERAJAT' => 'Did Not Graduate Elementary School / Equivalent',
+            'TOTAL' => 'TOTAL',
+            'UMUR (KATEGORI)' => 'Age Category',
+            'UMUR (RENTANG)' => 'Age Range',
+            'WARGA NEGARA' => 'Citizenship',
+            'WARGA NEGARA ASING' => 'Foreign Citizen',
+            'WARGA NEGARA INDONESIA' => 'Indonesian Citizen',
+        ];
+
+        $peta += [
+            // Education in Family Card and current education.
+            'AKADEMI/DIPLOMA III/S. MUDA' => 'Academy/Diploma III/Associate Degree',
+            'BELUM MASUK TK/KELOMPOK BERMAIN' => 'Not Yet in Kindergarten/Playgroup',
+            'BELUM TAMAT SD/SEDERAJAT' => 'Did Not Graduate Elementary School / Equivalent',
+            'SEDANG D-1/SEDERAJAT' => 'Currently in Diploma I / Equivalent',
+            'SEDANG D-2/SEDERAJAT' => 'Currently in Diploma II / Equivalent',
+            'SEDANG D-3/SEDERAJAT' => 'Currently in Diploma III / Equivalent',
+            'SEDANG S-1/SEDERAJAT' => 'Currently in Bachelor Degree / Equivalent',
+            'SEDANG S-2/SEDERAJAT' => 'Currently in Master Degree / Equivalent',
+            'SEDANG S-3/SEDERAJAT' => 'Currently in Doctoral Degree / Equivalent',
+            'SEDANG SD/SEDERAJAT' => 'Currently in Elementary School / Equivalent',
+            'SEDANG SLB A/SEDERAJAT' => 'Currently in Special School A / Equivalent',
+            'SEDANG SLB B/SEDERAJAT' => 'Currently in Special School B / Equivalent',
+            'SEDANG SLB C/SEDERAJAT' => 'Currently in Special School C / Equivalent',
+            'SEDANG SLTA/SEDERAJAT' => 'Currently in Senior High School / Equivalent',
+            'SEDANG SLTP/SEDERAJAT' => 'Currently in Junior High School / Equivalent',
+            'SEDANG TK/KELOMPOK BERMAIN' => 'Currently in Kindergarten/Playgroup',
+            'SLTA/SEDERAJAT' => 'Senior High School / Equivalent',
+            'SLTP/SEDERAJAT' => 'Junior High School / Equivalent',
+            'STRATA II' => 'Master Degree',
+            'STRATA III' => 'Doctoral Degree',
+            'TIDAK DAPAT MEMBACA DAN MENULIS HURUF LATIN/ARAB' => 'Cannot Read and Write Latin/Arabic Script',
+            'TIDAK PERNAH SEKOLAH' => 'Never Attended School',
+            'TIDAK SEDANG SEKOLAH' => 'Not Currently in School',
+
+            // Family, citizenship, health, and social reference values.
+            'ANAK' => 'Child',
+            'ASURANSI LAINNYA' => 'Other Insurance',
+            'BPJS NON PENERIMA BANTUAN IURAN' => 'Non-Subsidized BPJS',
+            'BPJS PENERIMA BANTUAN IURAN' => 'Subsidized BPJS',
+            'CUCU' => 'Grandchild',
+            'DUA KEWARGANEGARAAN' => 'Dual Citizenship',
+            'FAMILI LAIN' => 'Other Relative',
+            'ISTRI' => 'Wife',
+            'KEPALA RUMAH TANGGA' => 'Head of Household',
+            'KELUARGA PRA SEJAHTERA' => 'Pre-Prosperous Family',
+            'KELUARGA SEJAHTERA I' => 'Prosperous Family I',
+            'KELUARGA SEJAHTERA II' => 'Prosperous Family II',
+            'KELUARGA SEJAHTERA III' => 'Prosperous Family III',
+            'KELUARGA SEJAHTERA III PLUS' => 'Prosperous Family III Plus',
+            'MENANTU' => 'Child-in-law',
+            'MERTUA' => 'Parent-in-law',
+            'ORANGTUA' => 'Parent',
+            'PEMBANTU' => 'Domestic Worker',
+            'TETAP' => 'Permanent',
+            'TIDAK TETAP' => 'Non-permanent',
+            'TIDAK/ BELUM PUNYA' => 'Not Yet Covered',
+            'TIDAK/BELUM PUNYA' => 'Not Yet Covered',
+            'WNA' => 'Foreign Citizen',
+            'WNI' => 'Indonesian Citizen',
+
+            // Disability, chronic illness, family planning, and ID card values.
+            'CACAT FISIK DAN MENTAL' => 'Physical and Mental Disability',
+            'CACAT LAINNYA' => 'Other Disability',
+            'TIDAK CACAT' => 'No Disability',
+            'ASTHMA' => 'Asthma',
+            'DIABETES MELITUS' => 'Diabetes Mellitus',
+            'GILA/STRESS' => 'Mental Disorder/Stress',
+            'GINJAL' => 'Kidney Disease',
+            'JANTUNG' => 'Heart Disease',
+            'KANKER' => 'Cancer',
+            'LEPRA/KUSTA' => 'Leprosy',
+            'LEVER' => 'Liver Disease',
+            'MALARIA' => 'Malaria',
+            'PARU-PARU' => 'Lung Disease',
+            'TIDAK ADA/TIDAK SAKIT' => 'No Chronic Illness',
+            'KONDOM' => 'Condom',
+            'LAINNYA' => 'Other',
+            'PIL' => 'Pill',
+            'STERILISASI PRIA' => 'Male Sterilization',
+            'STERILISASI WANITA' => 'Female Sterilization',
+            'SUNTIK' => 'Injection',
+            'SUSUK KB' => 'Contraceptive Implant',
+            'TIDAK MENGGUNAKAN' => 'Not Using',
+            'BELUM REKAM' => 'Not Yet Recorded',
+            'BELUM WAJIB' => 'Not Yet Required',
+            'SUDAH REKAM' => 'Recorded',
+
+            // Occupation reference values.
+            'AKUNTAN' => 'Accountant',
+            'ANGGOTA BPK' => 'Village Consultative Body Member',
+            'ANGGOTA DPD' => 'Regional Representative Council Member',
+            'ANGGOTA DPR-RI' => 'House of Representatives Member',
+            'ANGGOTA DPRD KABUPATEN/KOTA' => 'Regency/Municipal Council Member',
+            'ANGGOTA DPRD PROVINSI' => 'Provincial Council Member',
+            'ANGGOTA KABINET KEMENTERIAN' => 'Cabinet Member',
+            'ANGGOTA MAHKAMAH KONSTITUSI' => 'Constitutional Court Member',
+            'APOTEKER' => 'Pharmacist',
+            'ARSITEK' => 'Architect',
+            'BELUM/TIDAK BEKERJA' => 'Not Working',
+            'BIARAWATI' => 'Nun',
+            'BIDAN' => 'Midwife',
+            'BUPATI' => 'Regent',
+            'BURUH HARIAN LEPAS' => 'Casual Daily Worker',
+            'BURUH NELAYAN/PERIKANAN' => 'Fishery Laborer',
+            'BURUH PETERNAKAN' => 'Livestock Laborer',
+            'BURUH TANI/PERKEBUNAN' => 'Farm/Plantation Laborer',
+            'DOKTER' => 'Doctor',
+            'DOSEN' => 'Lecturer',
+            'DUTA BESAR' => 'Ambassador',
+            'GUBERNUR' => 'Governor',
+            'GURU' => 'Teacher',
+            'IMAM MASJID' => 'Mosque Imam',
+            'INDUSTRI' => 'Industry Worker',
+            'JURU MASAK' => 'Cook',
+            'KARYAWAN BUMD' => 'Regional-Owned Enterprise Employee',
+            'KARYAWAN BUMN' => 'State-Owned Enterprise Employee',
+            'KARYAWAN HONORER' => 'Contract Employee',
+            'KARYAWAN SWASTA' => 'Private Employee',
+            'KEPALA DESA' => 'Village Head',
+            'KEPOLISIAN RI (POLRI)' => 'Indonesian National Police',
+            'KONSTRUKSI' => 'Construction Worker',
+            'KONSULTAN' => 'Consultant',
+            'MEKANIK' => 'Mechanic',
+            'MENGURUS RUMAH TANGGA' => 'Homemaker',
+            'NELAYAN/PERIKANAN' => 'Fisher/Fishery Worker',
+            'NOTARIS' => 'Notary',
+            'PARAJI' => 'Traditional Birth Attendant',
+            'PARANORMAL' => 'Paranormal Practitioner',
+            'PASTOR' => 'Priest',
+            'PEDAGANG' => 'Trader',
+            'PEGAWAI NEGERI SIPIL (PNS)' => 'Civil Servant',
+            'PELAJAR/MAHASISWA' => 'Student',
+            'PELAUT' => 'Seafarer',
+            'PEMBANTU RUMAH TANGGA' => 'Domestic Worker',
+            'PENATA BUSANA' => 'Fashion Stylist',
+            'PENATA RAMBUT' => 'Hair Stylist',
+            'PENATA RIAS' => 'Makeup Artist',
+            'PENDETA' => 'Pastor',
+            'PENELITI' => 'Researcher',
+            'PENGACARA' => 'Lawyer',
+            'PENSIUNAN' => 'Retiree',
+            'PENTERJEMAH' => 'Translator',
+            'PENYIAR RADIO' => 'Radio Broadcaster',
+            'PENYIAR TELEVISI' => 'Television Broadcaster',
+            'PERANCANG BUSANA' => 'Fashion Designer',
+            'PERANGKAT DESA' => 'Village Official',
+            'PERAWAT' => 'Nurse',
+            'PERDAGANGAN' => 'Trade',
+            'PETANI/PEKEBUN' => 'Farmer/Planter',
+            'PETERNAK' => 'Livestock Farmer',
+            'PIALANG' => 'Broker',
+            'PILOT' => 'Pilot',
+            'PRESIDEN' => 'President',
+            'PROMOTOR ACARA' => 'Event Promoter',
+            'PSIKIATER/PSIKOLOG' => 'Psychiatrist/Psychologist',
+            'SENIMAN' => 'Artist',
+            'SOPIR' => 'Driver',
+            'TABIB' => 'Traditional Healer',
+            'TENTARA NASIONAL INDONESIA (TNI)' => 'Indonesian National Armed Forces',
+            'TRANSPORTASI' => 'Transportation Worker',
+            'TUKANG BATU' => 'Mason',
+            'TUKANG CUKUR' => 'Barber',
+            'TUKANG GIGI' => 'Dental Technician',
+            'TUKANG JAHIT' => 'Tailor',
+            'TUKANG KAYU' => 'Carpenter',
+            'TUKANG LAS/PANDAI BESI' => 'Welder/Blacksmith',
+            'TUKANG LISTRIK' => 'Electrician',
+            'TUKANG SOL SEPATU' => 'Shoe Repairer',
+            'USTADZ/MUBALIGH' => 'Islamic Preacher',
+            'WAKIL BUPATI' => 'Deputy Regent',
+            'WAKIL GUBERNUR' => 'Deputy Governor',
+            'WAKIL PRESIDEN' => 'Vice President',
+            'WAKIL WALIKOTA' => 'Deputy Mayor',
+            'WALIKOTA' => 'Mayor',
+            'WARTAWAN' => 'Journalist',
+            'WIRASWASTA' => 'Entrepreneur',
+        ];
+
+        $normalisasi = static function ($nilai) {
+            $nilai = strtoupper(trim((string) $nilai));
+            $nilai = preg_replace('/\s+/', ' ', $nilai);
+
+            return preg_replace('/\s*\/\s*/', '/', $nilai);
+        };
+        $peta = array_combine(array_map($normalisasi, array_keys($peta)), array_values($peta));
+        $kunci = $normalisasi($teks);
+
+        if (isset($peta[$kunci])) {
+            return $peta[$kunci];
+        }
+
+        return preg_replace_callback('/\bUMUR\b|\bS\/D\b|\bTAHUN\b|\bDI ATAS\b/i', static function ($match) {
+            $kata = strtoupper($match[0]);
+            $pengganti = [
+                'UMUR' => 'AGE',
+                'S/D' => 'TO',
+                'TAHUN' => 'YEARS',
+                'DI ATAS' => 'ABOVE',
+            ];
+
+            return $pengganti[$kata] ?? $match[0];
+        }, $teks);
     }
 
     // -------------------- Siapkan data untuk statistik kependudukan -------------------
@@ -160,6 +468,7 @@ class Laporan_penduduk_model extends MY_Model
 
         for ($i = 0; $i < count($data); $i++) {
             $data[$i]['no'] = $i + 1;
+            $data[$i]['nama'] = $this->terjemahkan_teks_statistik($data[$i]['nama']);
             $total['jumlah'] += $data[$i]['jumlah'];
             $total['laki'] += $data[$i]['laki'];
             $total['perempuan'] += $data[$i]['perempuan'];
@@ -193,7 +502,7 @@ class Laporan_penduduk_model extends MY_Model
         return [
             'no'        => '',
             'id'        => JUMLAH,
-            'nama'      => $nama,
+            'nama'      => $this->terjemahkan_teks_statistik($nama),
             'jumlah'    => $total['jumlah'],
             'perempuan' => $total['perempuan'],
             'laki'      => $total['laki'],
@@ -206,7 +515,7 @@ class Laporan_penduduk_model extends MY_Model
         $baris_belum = [
             'no'        => '',
             'id'        => BELUM_MENGISI,
-            'nama'      => $nama,
+            'nama'      => $this->terjemahkan_teks_statistik($nama),
             'jumlah'    => $semua['jumlah'] - $total['jumlah'],
             'perempuan' => $semua['perempuan'] - $total['perempuan'],
             'laki'      => $semua['laki'] - $total['laki'],
@@ -295,7 +604,7 @@ class Laporan_penduduk_model extends MY_Model
         // Hitung persentase
         $semua['no']      = '';
         $semua['id']      = TOTAL;
-        $semua['nama']    = 'TOTAL';
+        $semua['nama']    = $this->terjemahkan_teks_statistik('TOTAL');
         $semua['persen']  = persen(($semua['laki'] + $semua['perempuan']) / $semua['jumlah']);
         $semua['persen1'] = persen($semua['laki'] / $semua['jumlah']);
         $semua['persen2'] = persen($semua['perempuan'] / $semua['jumlah']);

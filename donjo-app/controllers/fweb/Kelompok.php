@@ -61,7 +61,7 @@ class Kelompok extends Web_Controller
         $data = $this->includes;
 
         $data['detail']   = $this->kelompok_model->get_kelompok($id);
-        $data['title']    = 'Data Kelompok ' . $data['detail']['nama'];
+        $data['title']    = bilingual_text('group_data') . ' ' . $data['detail']['nama'];
         $data['anggota']  = $this->kelompok_model->list_anggota(0, 0, 500, $id, 'anggota');
         $data['pengurus'] = $this->kelompok_model->list_pengurus($id);
 

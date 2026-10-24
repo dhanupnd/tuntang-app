@@ -33,11 +33,16 @@
                         <div class="form-group">
                             <label class="control-label">Nama Jabatan</label>
                             <input type="text" class="form-control input-sm nama_terbatas required" id="nama"
-                                name="nama" placeholder="Nama Jabatan" value="{{ $jabatan->nama }}" />
+                                name="nama" placeholder="Nama Jabatan" value="{{ $jabatan->nama ?? '' }}" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Nama Jabatan (English)</label>
+                            <input type="text" class="form-control input-sm nama_terbatas" id="nama_en"
+                                name="nama_en" placeholder="Position name in English" value="{{ $jabatan->nama_en ?? '' }}" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Tupoksi Jabatan</label>
-                            <textarea name="tupoksi" class="form-control input-sm editor required" rows="5" placeholder="Tupoksi Jabatan">{{ $jabatan->tupoksi }}</textarea>
+                            <textarea name="tupoksi" class="form-control input-sm editor" rows="5" placeholder="Tupoksi Jabatan">{{ $jabatan->tupoksi ?? '' }}</textarea>
                         </div>
                     </div>
                     <div class="box-footer">

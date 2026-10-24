@@ -6,3 +6,53 @@
   --accent-base-color: #00BA88;
   --accent-darken-color: #00966D;
 }
+
+/* Keep the public utility navigation visible while visitors browse long pages. */
+@media (min-width: 1024px) {
+  .public-top-navigation {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    z-index: 60;
+    width: min(1170px, calc(100% - 2rem));
+    transform: translateX(-50%);
+  }
+
+  .public-top-navigation > div {
+    padding-top: 0.65rem;
+    padding-bottom: 0.65rem;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-top: 0;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    transition: transform 180ms ease;
+  }
+
+  .public-top-navigation.is-hidden > div {
+    transform: translateY(-110%);
+  }
+
+  .public-top-navigation.is-on-light-content > div {
+    border-color: rgba(15, 55, 70, 0.14);
+    background: rgba(255, 255, 255, 0.72);
+    box-shadow: 0 6px 18px rgba(15, 55, 70, 0.14);
+    color: #173a48;
+  }
+
+  .public-top-navigation.is-on-light-content a:not(.btn),
+  .public-top-navigation.is-on-light-content button {
+    color: #173a48;
+  }
+
+  .public-top-navigation.is-on-light-content a:not(.btn):hover,
+  .public-top-navigation.is-on-light-content a:not(.btn):focus {
+    color: #006a82;
+  }
+}
+
+@media (min-width: 1024px) {
+  .public-village-heading {
+    padding-top: 5rem;
+  }
+}

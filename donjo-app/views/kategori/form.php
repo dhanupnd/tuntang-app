@@ -30,6 +30,12 @@
 									<input name="kategori" class="form-control input-sm required nomor_sk" maxlength="50" type="text" value="<?=$kategori['kategori']?>"></input>
 								</div>
 							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-4" for="kategori_en">Nama Kategori (English)</label>
+								<div class="col-sm-6">
+									<input name="kategori_en" class="form-control input-sm nomor_sk" maxlength="100" type="text" value="<?= $kategori['kategori_en'] ?? '' ?>"></input>
+								</div>
+							</div>
 						</div>
 						<div class='box-footer'>
 							<div class='col-xs-12'>

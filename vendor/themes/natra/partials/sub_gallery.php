@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') || exit('No direct script access allowed'); ?>
 
 <div class="single_category wow fadeInDown">
-	<h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <span class="title_text"><a href="<?= site_url('galeri'); ?>">Album Galeri : </a> <?= $parent['nama']; ?></span></h2>
+	<h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <span class="title_text"><a href="<?= site_url('galeri'); ?>"><?= bilingual_text('gallery_album') ?> : </a> <?= $parent['nama']; ?></span></h2>
 </div>
 
 <div style="content_left">
@@ -23,6 +23,6 @@
 	<?php $this->load->view("$folder_themes/commons/page"); ?>
 
 	<?php else: ?>
-		<p>Data tidak tersedia</p>
+		<p><?= bilingual_text('gallery_album_empty') ?></p>
 	<?php endif; ?>
 </div>

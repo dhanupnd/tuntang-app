@@ -40,6 +40,10 @@ if (! function_exists('bilingual_text')) {
                 'latest_articles'      => 'Artikel Terkini',
                 'index'                => 'Indeks',
                 'empty_article'        => 'Belum ada artikel yang dituliskan dalam :title',
+                'search_results_for'   => 'Hasil pencarian : :keyword',
+                'static_page'          => 'Halaman Statis',
+                'financial_article'    => 'Artikel Keuangan',
+                'category_article'     => 'Artikel Kategori :id',
                 'come_back_later'      => 'Silakan kunjungi kembali dalam waktu dekat',
                 'all_comments'         => 'Semua Komentar',
                 'leave_comment'        => 'Beri Komentar',
@@ -51,6 +55,14 @@ if (! function_exists('bilingual_text')) {
                 'change_image'         => 'Ganti Gambar',
                 'captcha_placeholder'  => 'Tulis kembali kode sebelah',
                 'send_comment'         => 'Kirim Komentar',
+                'type_here'            => 'Ketik di sini',
+                'message_content'       => 'Isi Pesan',
+                'share_with_friends'    => 'Bagikan ke teman Anda',
+                'print_article'         => 'Cetak Artikel',
+                'at'                   => 'di',
+                'comment_success_moderation' => 'Komentar anda telah berhasil dikirim dan perlu dimoderasi untuk ditampilkan.',
+                'comment_failed'       => 'Komentar anda gagal dikirim. Silakan ulangi lagi.',
+                'captcha_failed'       => 'Kode anda salah. Silakan ulangi lagi.',
                 'menu'                 => 'Menu',
                 'category_menu'        => 'Menu Kategori',
                 'self_service'         => 'Layanan Mandiri',
@@ -63,6 +75,7 @@ if (! function_exists('bilingual_text')) {
                 'no_archive'           => 'Belum ada arsip konten web.',
                 'read_count'           => 'Dibaca :count',
                 'read'                 => 'Dibaca',
+                'read_more'            => 'Baca Selengkapnya',
                 'attachment_document'  => 'Dokumen Lampiran',
                 'back_to_home'         => 'Kembali ke Beranda',
                 'not_found_home'       => 'Silahkan kembali lagi ke halaman Beranda',
@@ -71,6 +84,14 @@ if (! function_exists('bilingual_text')) {
                 'toggle_to_indonesian' => 'Gunakan bahasa Indonesia',
                 'toggle_to_english'    => 'Use English',
                 'statistics'           => 'Statistik',
+                'village_statistics'   => 'Statistik Desa',
+                'regional_statistics'  => 'Statistik Wilayah',
+                'education_statistics' => 'Statistik Pendidikan',
+                'occupation_statistics'=> 'Statistik Pekerjaan',
+                'religion_statistics'  => 'Statistik Agama',
+                'gender_statistics'    => 'Statistik Jenis Kelamin',
+                'age_statistics'       => 'Statistik Umur',
+                'covid_status_in_village' => 'Status COVID-19 di :village',
                 'article_archive'      => 'Arsip Artikel',
                 'agenda'               => 'Agenda',
                 'program_sinergi'      => 'Sinergi Program',
@@ -80,6 +101,8 @@ if (! function_exists('bilingual_text')) {
                 'village_map'          => 'Peta Wilayah Desa',
                 'office_location_map'  => 'Peta Lokasi Kantor',
                 'visitor_statistics'   => 'Statistik Pengunjung',
+                'total_visitors'       => 'Total Pengunjung',
+                'operating_system'     => 'Sistem Operasi',
                 'population'           => 'Jumlah Penduduk',
                 'latest'               => 'Terkini',
                 'popular'              => 'Populer',
@@ -106,7 +129,15 @@ if (! function_exists('bilingual_text')) {
                 'day_saturday'         => 'Sabtu',
                 'address'              => 'Alamat',
                 'postal_code'          => 'Kodepos',
+                'province'             => 'Provinsi',
+                'regency'              => 'Kabupaten',
+                'subdistrict'          => 'Kecamatan',
+                'village'              => 'Desa',
+                'no'                   => 'No',
+                'score'                => 'Nilai',
                 'telephone'            => 'Telepon',
+                'email'                => 'Email',
+                'village_office'       => 'Kantor Desa',
                 'time'                 => 'Waktu',
                 'coordinator'          => 'Koordinator',
                 'no_agenda'            => 'Belum ada agenda',
@@ -126,6 +157,7 @@ if (! function_exists('bilingual_text')) {
                 'complaint_by'         => 'Pengaduan oleh :name',
                 'responded_by'         => 'Ditanggapi oleh :name',
                 'responses'            => 'Tanggapan',
+                'responses_count'      => ':count Tanggapan',
                 'close'                => 'Tutup',
                 'no_data_available'    => 'Data tidak tersedia',
                 'title'                => 'Judul',
@@ -134,12 +166,14 @@ if (! function_exists('bilingual_text')) {
                 'image_formats'        => 'Gambar: png,jpg,jpeg',
                 'supporting_image_alt' => 'gambar pendukung tampil di sini',
                 'captcha_answer'       => 'Isikan jawaban',
+                'enter_code_above'     => 'Masukkan kode di atas',
                 'send'                 => 'Kirim',
                 'gallery_album'        => 'Album Galeri',
                 'gallery_album_title'  => 'Galeri Album :name',
                 'gallery_empty'        => 'Maaf album galeri belum tersedia!',
                 'gallery_album_empty'  => 'Maaf isi album galeri belum tersedia!',
                 'statistical_data'     => 'Data Statistik',
+                'analysis_data'        => 'Data Analisis',
                 'population_statistics'=> 'Statistik Penduduk',
                 'family_statistics'    => 'Statistik Keluarga',
                 'aid_statistics'       => 'Statistik Bantuan',
@@ -172,19 +206,30 @@ if (! function_exists('bilingual_text')) {
                 'prospective_voters'   => 'Calon Pemilih',
                 'administrative_area'  => 'Wilayah Administratif',
                 'population_data_by'   => 'Data Penduduk Menurut :heading',
+                'demographic_data_by'  => 'Data Demografi Berdasar :heading',
+                'bar_chart'            => 'Grafik Batang',
+                'pie_chart'            => 'Grafik Lingkaran',
+                'code'                 => 'Kode',
+                'program'              => 'Program',
+                'show_more'            => 'Selengkapnya...',
                 'chart_by'             => 'Grafik :heading',
                 'table_by'             => 'Tabel :heading',
                 'group'                => 'Kelompok',
                 'total'                => 'Jumlah',
+                'households'           => 'KK',
+                'hamlet'               => 'Dusun',
                 'male'                 => 'Laki-laki',
                 'female'               => 'Perempuan',
                 'show_zero'            => 'Tampilkan Nol',
+                'hide_zero'            => 'Sembunyikan Nol',
                 'list_of'              => 'Daftar :name',
                 'participant_name'     => 'Nama Peserta',
                 'region_chair'         => 'Wilayah / Ketua',
                 'chair'                => 'Ketua',
                 'list_empty'           => 'Daftar masih kosong',
                 'construction'         => 'Pembangunan',
+                'construction_detail'  => 'Detail Pembangunan',
+                'construction_data'    => 'Data Pembangunan',
                 'construction_photo'   => 'Foto Pembangunan',
                 'not_found'            => 'Tidak ditemukan',
                 'unknown_location'     => 'Lokasi tidak diketahui',
@@ -194,6 +239,10 @@ if (! function_exists('bilingual_text')) {
                 'activity_name'        => 'Nama Kegiatan',
                 'funding_source'       => 'Sumber Dana',
                 'budget'               => 'Anggaran',
+                'realization'          => 'Realisasi',
+                'apbdes_implementation'=> 'Pelaksanaan APBDes',
+                'apbdes_income'        => 'Pendapatan APBDes',
+                'apbdes_expenditure'   => 'Belanja APBDes',
                 'volume'               => 'Volume',
                 'implementer'          => 'Pelaksana',
                 'description'          => 'Keterangan',
@@ -207,15 +256,18 @@ if (! function_exists('bilingual_text')) {
                 'action'               => 'Aksi',
                 'legal_product_title'  => 'Judul Produk Hukum',
                 'view'                 => 'Lihat',
+                'view_document'        => 'Lihat Dokumen',
                 'download'             => 'Unduh',
                 'shop'                 => 'Lapak',
                 'all_categories'       => 'Semua Kategori',
                 'product_photo'        => 'Foto Produk',
                 'photo_number'         => 'Foto :number',
+                'price'                => 'Harga',
                 'buy_now'              => 'Beli Sekarang',
                 'seller_location'      => 'Lokasi Penjual',
                 'seller_location_named'=> 'Lokasi :name',
                 'no_products'          => 'Tidak ada produk yang tersedia',
+                'whatsapp_buy_message' => 'Saya ingin membeli [nama_produk] yang anda tawarkan di Lapak Desa [link_web]',
                 'voter_list_by_region' => 'Daftar Calon Pemilih Berdasarkan Wilayah (pada tgl pemilihan :date)',
                 'hamlet_name'          => 'Nama Dusun',
                 'people'               => 'Jiwa',
@@ -235,9 +287,66 @@ if (! function_exists('bilingual_text')) {
                 'recorded_list'        => 'Daftar Terdata',
                 'birth_place'          => 'Tempat Lahir',
                 'vaccine_data'         => 'Data Vaksin',
+                'vaccine_recipient_list' => 'Daftar Nama Warga Yang Telah Divaksin',
+                'institution_data'     => 'Data Lembaga',
                 'hamlet_address'       => 'Alamat Dusun',
                 'date'                 => 'Tanggal',
                 'vaccine'              => 'Vaksin',
+                'government'           => 'Pemerintah',
+                'declares_that'        => 'Menyatakan Bahwa:',
+                'letter_number'        => 'Nomor Surat',
+                'letter_date'          => 'Tanggal Surat',
+                'subject'              => 'Perihal',
+                'letter'               => 'Surat',
+                'on_behalf_of'         => 'a/n',
+                'signed_by'            => 'Ditandatangani oleh:',
+                'valid_record'         => 'Adalah benar dan tercatat dalam database sistem informasi kami.',
+                'status_idm'           => 'Status IDM',
+                'idm_status_year'      => 'Status Indeks Desa Membangun (IDM) :year',
+                'current_idm_score'    => 'SKOR IDM SAAT INI',
+                'idm_status'           => 'STATUS IDM',
+                'target_status'        => 'TARGET STATUS',
+                'minimum_score'        => 'SKOR MINIMAL',
+                'idm_indicator'        => 'INDIKATOR IDM',
+                'recommended_activity' => 'KEGIATAN YANG DAPAT DILAKUKAN',
+                'score_increase'       => '+NILAI',
+                'activity_implementers'=> 'YANG DAPAT MELAKSANAKAN KEGIATAN',
+                'central'              => 'PUSAT',
+                'other'                => 'LAINNYA',
+                'idm_chart_title'      => 'Indeks Desa Membangun (IDM)',
+                'idm_chart_title_year' => 'Indeks Desa Membangun (IDM) :year',
+                'idm_chart_subtitle'   => 'SKOR : IKS, IKE, IKL',
+                'sdgs_village'         => 'SDGs Desa',
+                'sdgs_score'           => 'Skor SDGs Desa',
+                'analysis_aggregate_title' => 'Daftar Agregasi Data Analisis Desa',
+                'analysis'             => 'Analisis',
+                'data_collection'      => 'Pendataan',
+                'subject_analysis'     => 'Subjek',
+                'indicator'            => 'Indikator',
+                'back'                 => 'Kembali',
+                'category'             => 'Kategori',
+                'public_information'   => 'Informasi Publik',
+                'public_information_periodic'  => 'Informasi Berkala',
+                'public_information_immediate' => 'Informasi Serta-merta',
+                'public_information_anytime'   => 'Informasi Setiap Saat',
+                'information_title'    => 'Judul Informasi',
+                'upload_date'          => 'Tanggal Upload',
+                'sorry'                => 'Maaf',
+                'page_unavailable'     => 'Halaman ini belum tersedia atau sedang dalam perbaikan',
+                'page_x_of_y'          => 'Halaman :page dari :total',
+                'first_page'           => 'Halaman Pertama',
+                'previous_page'        => 'Halaman Sebelumnya',
+                'next_page'            => 'Halaman Selanjutnya',
+                'last_page'            => 'Halaman Terakhir',
+                'page_number'          => 'Halaman :number',
+                'main_news'            => 'Berita Utama',
+                'sorry_no_data'        => 'Maaf, belum ada data',
+                'website_content_archive_title' => 'Arsip Konten Situs Web :village',
+                'article_date'         => 'Tanggal Artikel',
+                'article_title'        => 'Judul Artikel',
+                'author'               => 'Penulis',
+                'election_candidate_list' => 'Daftar Calon Pemilih (pada tgl pemilihan :date)',
+                'no_progress_yet'      => 'Belum ada progres',
             ],
             'en' => [
                 'language'             => 'Language',
@@ -253,6 +362,10 @@ if (! function_exists('bilingual_text')) {
                 'latest_articles'      => 'Latest Articles',
                 'index'                => 'Index',
                 'empty_article'        => 'No articles have been written in :title yet',
+                'search_results_for'   => 'Search results for: :keyword',
+                'static_page'          => 'Static Page',
+                'financial_article'    => 'Financial Article',
+                'category_article'     => 'Category Article :id',
                 'come_back_later'      => 'Please come back again soon',
                 'all_comments'         => 'All Comments',
                 'leave_comment'        => 'Leave a Comment',
@@ -264,6 +377,14 @@ if (! function_exists('bilingual_text')) {
                 'change_image'         => 'Change Image',
                 'captcha_placeholder'  => 'Retype the code shown beside',
                 'send_comment'         => 'Send Comment',
+                'type_here'            => 'Type here',
+                'message_content'       => 'Message Content',
+                'share_with_friends'    => 'Share with your friends',
+                'print_article'         => 'Print Article',
+                'at'                   => 'at',
+                'comment_success_moderation' => 'Your comment has been sent and needs to be moderated before it is displayed.',
+                'comment_failed'       => 'Your comment could not be sent. Please try again.',
+                'captcha_failed'       => 'The code is incorrect. Please try again.',
                 'menu'                 => 'Menu',
                 'category_menu'        => 'Category Menu',
                 'self_service'         => 'Self Service',
@@ -276,6 +397,7 @@ if (! function_exists('bilingual_text')) {
                 'no_archive'           => 'No web content archive yet.',
                 'read_count'           => 'Read :count',
                 'read'                 => 'Read',
+                'read_more'            => 'Read More',
                 'attachment_document'  => 'Attachment Document',
                 'back_to_home'         => 'Back to Home',
                 'not_found_home'       => 'Please return to the Home page',
@@ -284,6 +406,14 @@ if (! function_exists('bilingual_text')) {
                 'toggle_to_indonesian' => 'Gunakan bahasa Indonesia',
                 'toggle_to_english'    => 'Use English',
                 'statistics'           => 'Statistics',
+                'village_statistics'   => 'Village Statistics',
+                'regional_statistics'  => 'Regional Statistics',
+                'education_statistics' => 'Education Statistics',
+                'occupation_statistics'=> 'Occupation Statistics',
+                'religion_statistics'  => 'Religion Statistics',
+                'gender_statistics'    => 'Gender Statistics',
+                'age_statistics'       => 'Age Statistics',
+                'covid_status_in_village' => 'COVID-19 Status in :village',
                 'article_archive'      => 'Article Archive',
                 'agenda'               => 'Agenda',
                 'program_sinergi'      => 'Program Synergy',
@@ -293,6 +423,8 @@ if (! function_exists('bilingual_text')) {
                 'village_map'          => 'Village Area Map',
                 'office_location_map'  => 'Office Location Map',
                 'visitor_statistics'   => 'Visitor Statistics',
+                'total_visitors'       => 'Total Visitors',
+                'operating_system'     => 'Operating System',
                 'population'           => 'Population Total',
                 'latest'               => 'Latest',
                 'popular'              => 'Popular',
@@ -319,7 +451,15 @@ if (! function_exists('bilingual_text')) {
                 'day_saturday'         => 'Saturday',
                 'address'              => 'Address',
                 'postal_code'          => 'Postal Code',
+                'province'             => 'Province',
+                'regency'              => 'Regency',
+                'subdistrict'          => 'Subdistrict',
+                'village'              => 'Village',
+                'no'                   => 'No',
+                'score'                => 'Score',
                 'telephone'            => 'Telephone',
+                'email'                => 'Email',
+                'village_office'       => 'Village Office',
                 'time'                 => 'Time',
                 'coordinator'          => 'Coordinator',
                 'no_agenda'            => 'No agenda yet',
@@ -339,6 +479,7 @@ if (! function_exists('bilingual_text')) {
                 'complaint_by'         => 'Complaint by :name',
                 'responded_by'         => 'Responded by :name',
                 'responses'            => 'Responses',
+                'responses_count'      => ':count Responses',
                 'close'                => 'Close',
                 'no_data_available'    => 'Data is not available',
                 'title'                => 'Title',
@@ -347,12 +488,14 @@ if (! function_exists('bilingual_text')) {
                 'image_formats'        => 'Images: png,jpg,jpeg',
                 'supporting_image_alt' => 'supporting image preview appears here',
                 'captcha_answer'       => 'Enter the answer',
+                'enter_code_above'     => 'Enter the code above',
                 'send'                 => 'Send',
                 'gallery_album'        => 'Gallery Album',
                 'gallery_album_title'  => ':name Gallery Album',
                 'gallery_empty'        => 'Sorry, no gallery albums are available yet!',
                 'gallery_album_empty'  => 'Sorry, this gallery album is still empty!',
                 'statistical_data'     => 'Statistical Data',
+                'analysis_data'        => 'Analysis Data',
                 'population_statistics'=> 'Population Statistics',
                 'family_statistics'    => 'Family Statistics',
                 'aid_statistics'       => 'Aid Statistics',
@@ -385,19 +528,30 @@ if (! function_exists('bilingual_text')) {
                 'prospective_voters'   => 'Prospective Voters',
                 'administrative_area'  => 'Administrative Area',
                 'population_data_by'   => 'Population Data by :heading',
+                'demographic_data_by'  => 'Demographic Data by :heading',
+                'bar_chart'            => 'Bar Chart',
+                'pie_chart'            => 'Pie Chart',
+                'code'                 => 'Code',
+                'program'              => 'Program',
+                'show_more'            => 'Show More...',
                 'chart_by'             => ':heading Chart',
                 'table_by'             => ':heading Table',
                 'group'                => 'Group',
                 'total'                => 'Total',
+                'households'           => 'Households',
+                'hamlet'               => 'Hamlet',
                 'male'                 => 'Male',
                 'female'               => 'Female',
                 'show_zero'            => 'Show Zero',
+                'hide_zero'            => 'Hide Zero',
                 'list_of'              => ':name List',
                 'participant_name'     => 'Participant Name',
                 'region_chair'         => 'Region / Chair',
                 'chair'                => 'Chair',
                 'list_empty'           => 'The list is still empty',
                 'construction'         => 'Development',
+                'construction_detail'  => 'Development Details',
+                'construction_data'    => 'Development Data',
                 'construction_photo'   => 'Development Photo',
                 'not_found'            => 'Not found',
                 'unknown_location'     => 'Location unknown',
@@ -407,6 +561,10 @@ if (! function_exists('bilingual_text')) {
                 'activity_name'        => 'Activity Name',
                 'funding_source'       => 'Funding Source',
                 'budget'               => 'Budget',
+                'realization'          => 'Realization',
+                'apbdes_implementation'=> 'APBDes Implementation',
+                'apbdes_income'        => 'APBDes Income',
+                'apbdes_expenditure'   => 'APBDes Expenditure',
                 'volume'               => 'Volume',
                 'implementer'          => 'Implementer',
                 'description'          => 'Description',
@@ -420,15 +578,18 @@ if (! function_exists('bilingual_text')) {
                 'action'               => 'Action',
                 'legal_product_title'  => 'Legal Product Title',
                 'view'                 => 'View',
+                'view_document'        => 'View Document',
                 'download'             => 'Download',
                 'shop'                 => 'Marketplace',
                 'all_categories'       => 'All Categories',
                 'product_photo'        => 'Product Photo',
                 'photo_number'         => 'Photo :number',
+                'price'                => 'Price',
                 'buy_now'              => 'Buy Now',
                 'seller_location'      => 'Seller Location',
                 'seller_location_named'=> ':name Location',
                 'no_products'          => 'No products are available',
+                'whatsapp_buy_message' => 'I would like to buy [nama_produk] listed on the village marketplace [link_web]',
                 'voter_list_by_region' => 'Voter Candidate List by Region (on election date :date)',
                 'hamlet_name'          => 'Hamlet Name',
                 'people'               => 'People',
@@ -448,9 +609,66 @@ if (! function_exists('bilingual_text')) {
                 'recorded_list'        => 'Recorded List',
                 'birth_place'          => 'Birth Place',
                 'vaccine_data'         => 'Vaccine Data',
+                'vaccine_recipient_list' => 'List of Vaccinated Residents',
+                'institution_data'     => 'Institution Data',
                 'hamlet_address'       => 'Hamlet Address',
                 'date'                 => 'Date',
                 'vaccine'              => 'Vaccine',
+                'government'           => 'Government of',
+                'declares_that'        => 'Declares That:',
+                'letter_number'        => 'Letter Number',
+                'letter_date'          => 'Letter Date',
+                'subject'              => 'Subject',
+                'letter'               => 'Letter',
+                'on_behalf_of'         => 'on behalf of',
+                'signed_by'            => 'Signed by:',
+                'valid_record'         => 'This is valid and recorded in our information system database.',
+                'status_idm'           => 'IDM Status',
+                'idm_status_year'      => 'Developing Village Index (IDM) Status :year',
+                'current_idm_score'    => 'CURRENT IDM SCORE',
+                'idm_status'           => 'IDM STATUS',
+                'target_status'        => 'TARGET STATUS',
+                'minimum_score'        => 'MINIMUM SCORE',
+                'idm_indicator'        => 'IDM INDICATOR',
+                'recommended_activity' => 'ACTIVITIES THAT CAN BE DONE',
+                'score_increase'       => '+SCORE',
+                'activity_implementers'=> 'WHO CAN IMPLEMENT THE ACTIVITIES',
+                'central'              => 'CENTRAL',
+                'other'                => 'OTHERS',
+                'idm_chart_title'      => 'Developing Village Index (IDM)',
+                'idm_chart_title_year' => 'Developing Village Index (IDM) :year',
+                'idm_chart_subtitle'   => 'SCORE: IKS, IKE, IKL',
+                'sdgs_village'         => 'Village SDGs',
+                'sdgs_score'           => 'Village SDGs Score',
+                'analysis_aggregate_title' => 'Village Analysis Data Aggregation List',
+                'analysis'             => 'Analysis',
+                'data_collection'      => 'Data Collection',
+                'subject_analysis'     => 'Subject',
+                'indicator'            => 'Indicator',
+                'back'                 => 'Back',
+                'category'             => 'Category',
+                'public_information'   => 'Public Information',
+                'public_information_periodic'  => 'Periodic Information',
+                'public_information_immediate' => 'Immediate Information',
+                'public_information_anytime'   => 'Information Available at Any Time',
+                'information_title'    => 'Information Title',
+                'upload_date'          => 'Upload Date',
+                'sorry'                => 'Sorry',
+                'page_unavailable'     => 'This page is not available yet or is under maintenance',
+                'page_x_of_y'          => 'Page :page of :total',
+                'first_page'           => 'First Page',
+                'previous_page'        => 'Previous Page',
+                'next_page'            => 'Next Page',
+                'last_page'            => 'Last Page',
+                'page_number'          => 'Page :number',
+                'main_news'            => 'Main News',
+                'sorry_no_data'        => 'Sorry, no data yet',
+                'website_content_archive_title' => 'Website Content Archive :village',
+                'article_date'         => 'Article Date',
+                'article_title'        => 'Article Title',
+                'author'               => 'Author',
+                'election_candidate_list' => 'Voter Candidate List (on election date :date)',
+                'no_progress_yet'      => 'No progress yet',
             ],
         ];
 
@@ -465,6 +683,25 @@ if (! function_exists('bilingual_text')) {
     }
 }
 
+if (! function_exists('bilingual_date')) {
+    function bilingual_date($date, $replace_with = '-')
+    {
+        if (function_exists('date_is_empty') && date_is_empty($date)) {
+            return $replace_with;
+        }
+
+        $timestamp = strtotime($date);
+        if (! $timestamp) {
+            return $replace_with;
+        }
+
+        if (bilingual_current_language() === 'id') {
+            return function_exists('tgl_indo') ? tgl_indo($date, $replace_with) : date('d-m-Y', $timestamp);
+        }
+
+        return date('d F Y', $timestamp);
+    }
+}
 if (! function_exists('bilingual_day')) {
     function bilingual_day($day)
     {
@@ -479,6 +716,140 @@ if (! function_exists('bilingual_day')) {
         ];
 
         return bilingual_text($days[$day] ?? $day);
+    }
+}
+
+
+if (! function_exists('bilingual_village_name')) {
+    function bilingual_village_name($name, $village_label = null)
+    {
+        $name = trim((string) $name);
+        $village_label = $village_label ?: bilingual_text('village');
+
+        if ($name === '') {
+            return bilingual_current_language() === 'en' ? $village_label : ucwords($village_label);
+        }
+
+        if (bilingual_current_language() === 'en') {
+            return ucwords($name) . ' ' . bilingual_text('village');
+        }
+
+        return ucwords($village_label) . ' ' . ucwords($name);
+    }
+}
+if (! function_exists('bilingual_province_name')) {
+    function bilingual_province_name($name)
+    {
+        $name = trim((string) $name);
+
+        if (bilingual_current_language() !== 'en') {
+            return ucwords($name);
+        }
+
+        $provinces = [
+            'Jawa Tengah' => 'Central Java',
+        ];
+
+        return $provinces[$name] ?? ucwords($name);
+    }
+}
+
+if (! function_exists('bilingual_legal_document_type')) {
+    function bilingual_legal_document_type($label)
+    {
+        $label = trim((string) $label);
+
+        if (bilingual_current_language() !== 'en') {
+            return $label;
+        }
+
+        $types = [
+            'informasi publik'      => 'Public Information',
+            'keputusan kepala desa' => 'Village Head Decree',
+            'peraturan'             => 'Regulation',
+            'peraturan desa'        => 'Village Regulation',
+            'perdes'                => 'Village Regulation',
+            'peraturan kepala desa' => 'Village Head Regulation',
+        ];
+
+        return $types[strtolower($label)] ?? $label;
+    }
+}
+if (! function_exists('bilingual_finance_label')) {
+    function bilingual_finance_label($label)
+    {
+        $label = trim((string) $label);
+
+        if (bilingual_current_language() !== 'en') {
+            return $label;
+        }
+
+        $labels = [
+            'pendapatan' => 'Village Revenue',
+            'belanja' => 'Village Expenditure',
+            'pembiayaan' => 'Village Financing',
+            'pendapatan desa' => 'Village Revenue',
+            'belanja desa' => 'Village Expenditure',
+            'pembiayaan desa' => 'Village Financing',
+            'hasil usaha desa' => 'Village Business Revenue',
+            'hasil aset desa' => 'Village Asset Revenue',
+            'dana desa' => 'Village Fund',
+            'bagi hasil pajak dan retribusi' => 'Shared Tax and Village Levy Revenue',
+            'bagi hasil pajak dan retribusi desa' => 'Shared Tax and Village Levy Revenue',
+            'alokasi dana desa' => 'Village Fund Allocation',
+            'bantuan keuangan provinsi' => 'Provincial Financial Assistance',
+            'bantuan keuangan provinsi desa' => 'Provincial Financial Assistance',
+            'bantuan keuangan kabupaten/kota' => 'Regency/Municipal Financial Assistance',
+            'bantuan keuangan kabupaten/kota desa' => 'Regency/Municipal Financial Assistance',
+            'koreksi kesalahan belanja tahun-tahun sebelumnya' => 'Correction of Previous Years\' Expenditure Errors',
+            'koreksi kesalahan belanja tahun-tahun sebelumnya desa' => 'Correction of Previous Years\' Expenditure Errors',
+            'bunga bank' => 'Bank Interest',
+            'lain-lain pendapatan desa yang sah' => 'Other Legitimate Village Revenue',
+            'bidang penyelenggaraan pemerintah' => 'Village Governance',
+            'bidang penyelenggaraan pemerintah desa' => 'Village Governance',
+            'bidang penyelenggaraan pemerintahan' => 'Village Governance',
+            'bidang penyelenggaraan pemerintahan desa' => 'Village Governance',
+            'bidang penyelenggaran pemerintah' => 'Village Governance',
+            'bidang penyelenggaran pemerintah desa' => 'Village Governance',
+            'bidang penyelenggaran pemerintahan' => 'Village Governance',
+            'bidang penyelenggaran pemerintahan desa' => 'Village Governance',
+            'bidang pelaksanaan pembangunan' => 'Village Development',
+            'bidang pelaksanaan pembangunan desa' => 'Village Development',
+            'bidang pembinaan kemasyarakatan' => 'Community Development',
+            'bidang pembinaan kemasyarakatan desa' => 'Community Development',
+            'bidang pemberdayaan masyarakat' => 'Community Empowerment',
+            'bidang pemberdayaan masyarakat desa' => 'Community Empowerment',
+            'bidang penanggulangan bencana, darurat dan mendesak desa' => 'Disaster Management, Emergency and Urgent Village Affairs',
+        ];
+
+        $normalizedLabel = preg_replace('/\s+/u', ' ', strtolower($label));
+
+        return $labels[$normalizedLabel] ?? $label;
+    }
+}
+
+if (! function_exists('bilingual_apbdes_report_title')) {
+    function bilingual_apbdes_report_title($title)
+    {
+        $title = trim((string) $title);
+
+        if (bilingual_current_language() !== 'en') {
+            return $title;
+        }
+
+        if (preg_match('/^APBDes\\s+(\\d{4})\\s+(.+)$/u', $title, $matches)) {
+            $reportType = ucwords(strtolower($matches[2]));
+            $type = [
+                'Pelaksanaan' => 'Implementation',
+                'Pendapatan' => 'Revenue',
+                'Pembelanjaan' => 'Expenditure',
+                'Belanja' => 'Expenditure',
+            ][$reportType] ?? $matches[2];
+
+            return 'APBDes ' . $matches[1] . ' ' . $type;
+        }
+
+        return bilingual_finance_label($title);
     }
 }
 

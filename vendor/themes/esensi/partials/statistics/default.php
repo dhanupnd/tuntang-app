@@ -21,7 +21,7 @@
         <table class="w-full text-sm">
             <thead>
                 <tr>
-                <th rowspan="2">No</th>
+                <th rowspan="2"><?= bilingual_current_language() === 'en' ? 'No.' : 'No' ?></th>
                 <th rowspan="2"><?= bilingual_text('group') ?></th>
                 <th colspan="2"><?= bilingual_text('total') ?></th>
                 <th colspan="2"><?= bilingual_text('male') ?></th>
@@ -85,8 +85,8 @@
             <table class="w-full text-sm" id="peserta_program">
                 <thead>
                     <tr>
-                        <th>No</th>
-                        <th>Program</th>
+                        <th><?= bilingual_current_language() === 'en' ? 'No.' : 'No' ?></th>
+                        <th><?= bilingual_current_language() === 'en' ? 'Program' : 'Program' ?></th>
                         <th><?= bilingual_text('participant_name') ?></th>
                         <th><?= bilingual_text('address') ?></th>
                     </tr>
@@ -106,4 +106,9 @@
 </style>
 <script>
     const dataStats = Object.values(<?= json_encode($stat) ?>);
+    window.statisticsText = <?= json_encode([
+        'population_count' => bilingual_text('population_count'),
+        'show_zero'        => bilingual_text('show_zero'),
+        'hide_zero'        => bilingual_text('hide_zero'),
+    ]) ?>;
 </script>

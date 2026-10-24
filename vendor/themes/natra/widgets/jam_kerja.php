@@ -12,20 +12,20 @@
 					<table style="width: 100%;" cellpadding="0" cellspacing="0">
 						<thead>
 							<tr>
-								<th>Hari</th>
-								<th>Mulai</th>
-								<th>Selesai</th>
+								<th><?= bilingual_text('day') ?></th>
+								<th><?= bilingual_text('shift_starts') ?></th>
+								<th><?= bilingual_text('shift_ends') ?></th>
 							</tr>
 						</thead>
 						<tbody>
 							<?php foreach ($jam_kerja as $value) : ?>
 							<tr>
-								<td><?= $value->nama_hari ?></td>
+								<td><?= bilingual_day($value->nama_hari) ?></td>
 								<?php if ($value->status) : ?>
 									<td><?= $value->jam_masuk ?></td>
 									<td><?= $value->jam_keluar ?></td>
 								<?php else : ?>
-									<td colspan="2"><span class="label label-danger"> Libur </span></td>
+									<td colspan="2"><span class="label label-danger"> <?= bilingual_text('day_off') ?> </span></td>
 								<?php endif ?>
 							</tr>
 							<?php endforeach ?>

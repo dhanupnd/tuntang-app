@@ -11,7 +11,7 @@
 	<?php foreach ($data_widget as $subdata_name => $subdatas): ?>
 		<div class="col-md-4">
 			<div align="center"><h2><?= ($subdatas['laporan'])?></h2></div><hr>
-			<div align="center"><h4>Realisasi | Anggaran</h4></div><hr>
+			<div align="center"><h4><?= bilingual_text('realization') ?> | <?= bilingual_text('budget') ?></h4></div><hr>
 			<?php foreach ($subdatas as $key => $subdata): ?>
 				<?php if($subdata['judul'] != NULL and $key != 'laporan' and $subdata['realisasi'] != 0 or $subdata['anggaran'] != 0): ?>
 					<div class="progress-group"><?= strpos($judul = ucwords(strtolower($subdata['judul'])), 'Desa') ? $judul : $judul . ' ' . ucwords(setting('sebutan_desa')) ?><br>

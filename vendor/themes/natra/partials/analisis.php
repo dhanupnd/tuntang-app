@@ -28,7 +28,7 @@
 			},
 			yAxis: {
 				title: {
-					text: 'Jumlah Populasi'
+					text: '<?= bilingual_text('population_count') ?>'
 				}
 			},
 			legend: {
@@ -77,9 +77,9 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th width="1%">No</th>
-					<th>Jawaban</th>
-					<th width="20%" nowrap>Jumlah Responden</th>
+					<th width="1%><?= bilingual_text('no') ?></th>
+					<th><?= bilingual_text('answer') ?></th>
+					<th width="20%" nowrap><?= bilingual_text('respondent_count') ?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -93,7 +93,7 @@
 			</tbody>
 		</table>
 		<div>
-			<a href="<?= site_url("data_analisis?master={$indikator['id_master']}"); ?>" class="btn btn-primary">Kembali</a>
+			<a href="<?= site_url("data_analisis?master={$indikator['id_master']}"); ?>" class="btn btn-primary"><?= bilingual_text('back') ?></a>
 		</div>
 	</div>
 </div>

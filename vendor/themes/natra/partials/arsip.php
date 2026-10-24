@@ -9,7 +9,7 @@
 		<?php endif; ?>
 	</div>
 	<div class="single_category wow fadeInDown">
-		<h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <span class="title_text">Arsip Konten Situs Web <?=$desa["nama_desa"]?></span> </h2>
+		<h2> <span class="bold_line"><span></span></span> <span class="solid_line"></span> <span class="title_text"><?= bilingual_text('website_content_archive_title', ['village' => ucwords($desa["nama_desa"])]) ?></span> </h2>
 	</div>
 	<div style="margin-top:50px;">
 		<div class="box-body">
@@ -17,10 +17,10 @@
 				<table class="table table-striped">
 					<thead>
 						<tr>
-							<td width="3%"><b>No.</b></td>
-							<td width="20%"><b>Tanggal Artikel</b></td>
-							<td><b>Judul Artikel</b></td>
-							<td width="20%"><b>Penulis</b></td>
+							<td width="3%"><b><?= bilingual_text('no') ?></b></td>
+							<td width="20%"><b><?= bilingual_text('article_date') ?></b></td>
+							<td><b><?= bilingual_text('article_title') ?></b></td>
+							<td width="20%"><b><?= bilingual_text('author') ?></b></td>
 							<td width="10%"><b><?= bilingual_text('read') ?></b></td>
 						</tr>
 					</thead>
@@ -56,7 +56,7 @@
 				?>
 
 				<?php else: ?>
-					Belum ada arsip konten web.
+					<?= bilingual_text('no_archive') ?>
 				<?php endif; ?>
 			</div>
 		</div>

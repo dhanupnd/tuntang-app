@@ -1,12 +1,13 @@
 <?php defined('BASEPATH') || exit('No direct script access allowed'); ?>
+<?php $pemerintah_desa_title = bilingual_current_language() === 'en' ? 'Village Government' : ucwords(setting('sebutan_pemerintah_desa')); ?>
 
 <nav role="navigation" aria-label="navigation" class="breadcrumb">
     <ol>
         <li><a href="<?= site_url() ?>"><?= bilingual_text('home') ?></a></li>
-        <li aria-current="page"><?= ucwords(setting('sebutan_pemerintah_desa')) ?></li>
+        <li aria-current="page"><?= $pemerintah_desa_title ?></li>
     </ol>
 </nav>
-<h1 class="text-h2"><?= ucwords(setting('sebutan_pemerintah_desa')) ?></h1>
+<h1 class="text-h2"><?= $pemerintah_desa_title ?></h1>
 <?php if ($pemerintah) : ?>
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-5 py-5">
         <?php foreach ($pemerintah as $data) : ?>
@@ -34,5 +35,5 @@
         <?php endforeach ?>
     </div>
 <?php else : ?>
-    <p class="py-3"><?= ucwords(setting('sebutan_pemerintah_desa')) ?> <?= bilingual_current_language() === 'en' ? 'is not available.' : 'tidak tersedia.' ?></p>
+    <p class="py-3"><?= $pemerintah_desa_title ?> <?= bilingual_current_language() === 'en' ? 'is not available.' : 'tidak tersedia.' ?></p>
 <?php endif ?>

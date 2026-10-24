@@ -530,14 +530,16 @@ class Penduduk_model extends MY_Model
 			x.nama AS sex, sd.nama AS pendidikan_sedang, n.nama AS pendidikan, p.nama AS pekerjaan, g.nama AS agama, m.nama AS gol_darah, hub.nama AS hubungan, b.no_kk AS no_rtm, b.id AS id_rtm
 		");
 
-        $this->db->from("({$query_dasar}) as u");
+        $this->db->from("({$query_dasar}) AS u");
         $this->lookup_ref_penduduk();
         $this->order_by_list($order_by);
 
-        $data = $this->db->get()->result_array();
+        $sql  = $this->db->get_compiled_select();
+        $sql  = preg_replace('/FROM \(\((SELECT .*?)\) AS u\)/s', 'FROM ($1) AS u', $sql);
+        $data = $this->db->query($sql)->result_array();
 
         //Formating Output
-        $j = $offset;
+        $j = $paging->offset ?? 0;
 
         for ($i = 0; $i < count($data); $i++) {
             // Untuk penduduk mati atau hilang, gunakan umur pada tgl peristiwa

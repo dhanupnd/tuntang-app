@@ -61,7 +61,7 @@
     }
 </style>
 <div class="single_page_area">
-    <h2 class="post_titile">SDGs <?= ucwords($this->setting->sebutan_desa) ?></h2>
+    <h2 class="post_titile"><?= bilingual_text('sdgs_village') ?></h2>
     <div class="box-body">
         <?php $evaluasi = sdgs() ?>
         <?php if ($error_msg = $evaluasi->error_msg): ?>
@@ -73,7 +73,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="info-box" style="display: flex;justify-content: center;">
                         <span class="info-box-number total-bumds" style="text-align: center;"><?= $evaluasi->average ?>
-                                <span class="info-box-text desc-bumds" style="text-align: center;">Skor SDGs <?= ucwords($this->setting->sebutan_desa) ?></span>
+                                <span class="info-box-text desc-bumds" style="text-align: center;"><?= bilingual_text('sdgs_score') ?></span>
                             </span>
                         </div>
                 </div>
@@ -86,7 +86,7 @@
                             </span>
                             <div class="info-box-content">
                                 <span class="info-box-number total-bumds"><?= $value->score ?>
-                                    <span class="info-box-text desc-bumds">Nilai</span>
+                                    <span class="info-box-text desc-bumds"><?= bilingual_text('score') ?></span>
                                 </span>
                             </div>
                         </div>

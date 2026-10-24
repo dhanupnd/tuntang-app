@@ -77,6 +77,11 @@ class Teks_berjalan_model extends MY_Model
         $data = $this->db->get()->result_array();
 
         for ($i = 0; $i < count($data); $i++) {
+            if ($web === true) {
+                $data[$i]['teks']         = bilingual_field($data[$i], 'teks');
+                $data[$i]['judul_tautan'] = bilingual_field($data[$i], 'judul_tautan');
+            }
+
             $data[$i]['no']        = $i + 1;
             $data[$i]['tautan']    = menu_slug('artikel/' . $data[$i]['tautan']);
             $data[$i]['tampilkan'] = SistemEnum::valueOf($data[$i]['tipe']);
@@ -136,6 +141,22 @@ class Teks_berjalan_model extends MY_Model
         $data['teks']         = htmlentities($data['teks']);
         $data['judul_tautan'] = $data['tautan'] ? htmlentities($data['judul_tautan']) : '';
         $data['tipe']         = bilangan($data['tipe']);
+
+        if (array_key_exists('teks_en', $data)) {
+            $data['teks_en'] = trim((string) $data['teks_en']) === '' ? null : htmlentities($data['teks_en']);
+        }
+
+        if (array_key_exists('judul_tautan_en', $data)) {
+            $data['judul_tautan_en'] = $data['tautan'] && trim((string) $data['judul_tautan_en']) !== '' ? htmlentities($data['judul_tautan_en']) : null;
+        }
+
+        if (! $this->db->field_exists('teks_en', 'teks_berjalan')) {
+            unset($data['teks_en']);
+        }
+
+        if (! $this->db->field_exists('judul_tautan_en', 'teks_berjalan')) {
+            unset($data['judul_tautan_en']);
+        }
 
         return $data;
     }

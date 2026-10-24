@@ -153,7 +153,7 @@ class Pengurus extends Admin_Controller
     {
         $this->redirect_hak_akses('u');
         $this->set_validasi();
-        $this->form_validation->set_rules('pamong_tag_id_card', 'Tag ID Card', 'is_unique[tweb_desa_pamong.pamong_tag_id_card]]');
+        $this->form_validation->set_rules('pamong_tag_id_card', 'Tag ID Card', 'is_unique[tweb_desa_pamong.pamong_tag_id_card]');
 
         if ($this->form_validation->run() !== true) {
             session_error(trim(validation_errors()));
@@ -378,7 +378,8 @@ class Pengurus extends Admin_Controller
     {
         return [
             'nama'    => nama_terbatas($request['nama']),
-            'tupoksi' => $request['tupoksi'],
+            'nama_en' => trim($request['nama_en'] ?? '') === '' ? null : nama_terbatas($request['nama_en']),
+            'tupoksi' => $request['tupoksi'] ?? null,
         ];
     }
 }

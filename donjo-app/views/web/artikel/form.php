@@ -70,6 +70,17 @@
 									<?= $artikel['isi'] ?>
 								</textarea>
 							</div>
+							<div class="form-group">
+								<label class="control-label" for="judul_en">Judul Artikel (English)</label>
+								<input id="judul_en" name="judul_en" class="form-control input-sm strip_tags judul" type="text" placeholder="Article Title" maxlength="200" value="<?= $artikel['judul_en'] ?? '' ?>"></input>
+								<span class="help-block "><code>Kosongkan jika artikel belum memiliki terjemahan bahasa Inggris</code></span>
+							</div>
+							<div class="form-group">
+								<label class="control-label" for="isi_en">Isi Artikel (English)</label>
+								<textarea id="isi_en" name="isi_en" class="form-control input-sm" style="height:350px;">
+									<?= $artikel['isi_en'] ?? '' ?>
+								</textarea>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -177,7 +188,7 @@
 											<div class="input-group-addon">
 												<i class="fa fa-calendar-check-o"></i>
 											</div>
-											<input class="form-control input-sm pull-right tgl_jam" name="tgl_agenda" type="text" value="<?= $artikel['tgl_agenda'] ?>">
+											<input class="form-control input-sm pull-right tgl_jam required" name="tgl_agenda" type="text" value="<?= $artikel['tgl_agenda'] ?>">
 										</div>
 										<span class="help-block"><code>(Isikan Tanggal Kegiatan)</code></span>
 										<label class="control-label" for="lokasi_kegiatan">Lokasi Kegiatan</label>
@@ -185,7 +196,7 @@
 											<div class="input-group-addon">
 												<i class="fa fa-map-marker"></i>
 											</div>
-											<input class="form-control input-sm pull-right" name="lokasi_kegiatan" type="text" placeholder="Masukan lokasi tempat dilakukan kegiatan" value="<?= $artikel['lokasi_kegiatan'] ?>">
+											<input class="form-control input-sm pull-right required" name="lokasi_kegiatan" type="text" placeholder="Masukan lokasi tempat dilakukan kegiatan" value="<?= $artikel['lokasi_kegiatan'] ?>">
 										</div>
 										<span class="help-block"><code>(Isikan Lokasi Tempat Dilakukan Kegiatan)</code></span>
 										<label class="control-label" for="koordinator_kegiatan">Koordinator Kegiatan</label>
@@ -193,7 +204,7 @@
 											<div class="input-group-addon">
 												<i class="fa fa-user"></i>
 											</div>
-											<input class="form-control input-sm pull-right" name="koordinator_kegiatan" type="text" placeholder="Masukan nama koordinator" value="<?= $artikel['koordinator_kegiatan'] ?>">
+											<input class="form-control input-sm pull-right required" name="koordinator_kegiatan" type="text" placeholder="Masukan nama koordinator" value="<?= $artikel['koordinator_kegiatan'] ?>">
 										</div>
 										<span class="help-block"><code>(Isikan Koordinator Kegiatan)</code></span>
 									</div>

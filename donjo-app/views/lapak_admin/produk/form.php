@@ -32,6 +32,10 @@
 								<label class="control-label" for="nama">Nama Produk</label>
 								<input name="nama" class="form-control input-sm strip_tags judul required" type="text" placeholder="Nama Produk" minlength="3" maxlength="100" value="<?= e($main->nama); ?>" />
 							</div>
+							<div class="form-group">
+								<label class="control-label" for="nama_en">Nama Produk (English)</label>
+								<input name="nama_en" class="form-control input-sm strip_tags judul" type="text" placeholder="Product Name" minlength="3" maxlength="100" value="<?= e($main->nama_en ?? ''); ?>" />
+							</div>
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
@@ -39,7 +43,7 @@
 										<select class="form-control input-sm select2 required" name="id_produk_kategori">
 											<option value="">Pilih Kategori Produk</option>
 											<?php foreach ($kategori as $kat) : ?>
-												<option value="<?= $kat->id; ?>" <?= selected($main->id_produk_kategori, $kat->id); ?>><?= $kat->kategori; ?></option>
+												<option value="<?= $kat->id; ?>" <?= selected($main->id_produk_kategori, $kat->id); ?>><?= $kat->kategori; ?><?= empty($kat->kategori_en) ? '' : ' / ' . $kat->kategori_en; ?></option>
 											<?php endforeach ?>
 										</select>
 									</div>
@@ -66,6 +70,10 @@
 										</select>
 									</div>
 								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label" for="satuan_en">Satuan Produk (English)</label>
+								<input name="satuan_en" class="form-control input-sm strip_tags" type="text" placeholder="Product Unit" maxlength="100" value="<?= e($main->satuan_en ?? ''); ?>" />
 							</div>
 							<div class="row">
 								<div class="col-sm-12">
@@ -101,6 +109,10 @@
 							<div class="form-group">
 								<label class="control-label" for="kode_desa">Deskripsi Produk</label>
 								<textarea name="deskripsi" class="form-control input-sm required" rows="5"><?= e($main->deskripsi); ?></textarea>
+							</div>
+							<div class="form-group">
+								<label class="control-label" for="deskripsi_en">Deskripsi Produk (English)</label>
+								<textarea name="deskripsi_en" class="form-control input-sm" rows="5"><?= e($main->deskripsi_en ?? ''); ?></textarea>
 							</div>
 						</div>
 						<div class="box-footer">

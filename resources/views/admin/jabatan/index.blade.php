@@ -44,6 +44,7 @@
                                     <th class="padat">NO</th>
                                     <th class="padat">AKSI</th>
                                     <th>Jabatan</th>
+                                    <th>Jabatan (English)</th>
                                 </tr>
                             </thead>
                         </table>
@@ -85,6 +86,11 @@
                     {
                         data: 'nama',
                         name: 'nama',
+                    },
+                    {
+                        data: 'nama_en',
+                        name: 'nama_en',
+                        defaultContent: '-',
                     },
                 ],
                 order: [

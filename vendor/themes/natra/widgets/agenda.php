@@ -9,13 +9,13 @@
 	<div id="agenda" class="box-body">
 		<ul class="nav nav-tabs">
 			<?php if (count($hari_ini) > 0): ?>
-				<li class="active"><a data-toggle="tab" href="#hari-ini">Hari ini</a></li>
+				<li class="active"><a data-toggle="tab" href="#hari-ini"><?= bilingual_text('today') ?></a></li>
 			<?php endif; ?>
 			<?php if (count($yad) > 0): ?>
-				<li class="<?php count($hari_ini) == 0 and print('active')?>"><a data-toggle="tab" href="#yad">Mendatang</a></li>
+				<li class="<?php count($hari_ini) == 0 and print('active')?>"><a data-toggle="tab" href="#yad"><?= bilingual_text('upcoming') ?></a></li>
 			<?php endif; ?>
 			<?php if (count($lama) > 0): ?>
-				<li class="<?php count(array_merge($hari_ini, $yad)) == 0 and print('active')?>"><a data-toggle="tab" href="#lama">Lama</a></li>
+				<li class="<?php count(array_merge($hari_ini, $yad)) == 0 and print('active')?>"><a data-toggle="tab" href="#lama"><?= bilingual_text('past') ?></a></li>
 			<?php endif; ?>
 		</ul>
 		<div class="tab-content">
@@ -29,17 +29,17 @@
 										<td colspan="3"><a href="<?= site_url('artikel/'.buat_slug($agenda))?>"><?= $agenda['judul']?></a></td>
 									</tr>
 									<tr>
-										<th id="label-meta-agenda" width="30%">Waktu</th>
+										<th id="label-meta-agenda" width="30%"><?= bilingual_text('time') ?></th>
 										<td width="5%">:</td>
 										<td id="isi-meta-agenda" width="65%"><?= tgl_indo2($agenda['tgl_agenda'])?></td>
 									</tr>
 									<tr>
-										<th id="label-meta-agenda">Lokasi</th>
+										<th id="label-meta-agenda"><?= bilingual_text('location') ?></th>
 										<td>:</td>
 										<td id="isi-meta-agenda"><?= $agenda['lokasi_kegiatan']?></td>
 									</tr>
 									<tr>
-										<th id="label-meta-agenda">Koordinator</th>
+										<th id="label-meta-agenda"><?= bilingual_text('coordinator') ?></th>
 										<td>:</td>
 										<td id="isi-meta-agenda"><?= $agenda['koordinator_kegiatan']?></td>
 									</tr>
@@ -59,17 +59,17 @@
 											<td colspan="3"><a href="<?= site_url('artikel/'.buat_slug($agenda))?>"><?= $agenda['judul']?></a></td>
 										</tr>
 										<tr>
-											<th id="label-meta-agenda" width="30%">Waktu</th>
+											<th id="label-meta-agenda" width="30%"><?= bilingual_text('time') ?></th>
 											<td width="5%">:</td>
 											<td id="isi-meta-agenda" width="65%"><?= tgl_indo2($agenda['tgl_agenda'])?></td>
 										</tr>
 										<tr>
-											<th id="label-meta-agenda">Lokasi</th>
+											<th id="label-meta-agenda"><?= bilingual_text('location') ?></th>
 											<td>:</td>
 											<td id="isi-meta-agenda"><?= $agenda['lokasi_kegiatan']?></td>
 										</tr>
 										<tr>
-											<th id="label-meta-agenda">Koordinator</th>
+											<th id="label-meta-agenda"><?= bilingual_text('coordinator') ?></th>
 											<td>:</td>
 											<td id="isi-meta-agenda"><?= $agenda['koordinator_kegiatan']?></td>
 										</tr>
@@ -90,17 +90,17 @@
 											<td colspan="3"><a href="<?= site_url('artikel/'.buat_slug($agenda))?>"><?= $agenda['judul']?></a></td>
 										</tr>
 										<tr>
-											<th id="label-meta-agenda" width="30%">Waktu</th>
+											<th id="label-meta-agenda" width="30%"><?= bilingual_text('time') ?></th>
 											<td width="5%">:</td>
 											<td id="isi-meta-agenda" width="65%"><?= tgl_indo2($agenda['tgl_agenda'])?></td>
 										</tr>
 										<tr>
-											<th id="label-meta-agenda">Lokasi</th>
+											<th id="label-meta-agenda"><?= bilingual_text('location') ?></th>
 											<td>:</td>
 											<td id="isi-meta-agenda"><?= $agenda['lokasi_kegiatan']?></td>
 										</tr>
 										<tr>
-											<th id="label-meta-agenda">Koordinator</th>
+											<th id="label-meta-agenda"><?= bilingual_text('coordinator') ?></th>
 											<td>:</td>
 											<td id="isi-meta-agenda"><?= $agenda['koordinator_kegiatan']?></td>
 										</tr>
@@ -111,7 +111,7 @@
 					</marquee>
 				</div>
 			<?php else: ?>
-				<p>Belum ada agenda</p>
+				<p><?= bilingual_text('no_agenda') ?></p>
 			<?php endif; ?>
 		</div>
 	</div>

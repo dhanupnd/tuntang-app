@@ -62,6 +62,8 @@ class First_artikel_m extends CI_Model
             ->row_array();
         if (empty($data)) {
             $data = null;
+        } else {
+            $this->bilingual_artikel($data);
         }
 
         return $data;
@@ -125,7 +127,11 @@ class First_artikel_m extends CI_Model
             $this->db
                 ->group_start()
                 ->like('a.judul', $cari)
+                ->or_like('a.judul_en', $cari)
                 ->or_like('a.isi', $cari)
+                ->or_like('a.isi_en', $cari)
+                ->or_like('k.kategori', $cari)
+                ->or_like('k.kategori_en', $cari)
                 ->group_end();
         }
     }
@@ -134,13 +140,14 @@ class First_artikel_m extends CI_Model
     {
         $this->paging_artikel_sql();
         $data = $this->db
-            ->select('a.*, u.nama AS owner, k.kategori, k.slug AS kat_slug, YEAR(tgl_upload) as thn, MONTH(tgl_upload) as bln, DAY(tgl_upload) as hri')
+            ->select('a.*, u.nama AS owner, k.kategori, k.kategori_en, k.slug AS kat_slug, YEAR(tgl_upload) as thn, MONTH(tgl_upload) as bln, DAY(tgl_upload) as hri')
             ->order_by('a.tgl_upload DESC')
             ->limit($limit, $offset)
             ->get()
             ->result_array();
 
         for ($i = 0; $i < count($data); $i++) {
+            $this->bilingual_artikel($data[$i]);
             $this->sterilkan_artikel($data[$i]);
             $this->icon_keuangan($data[$i]);
         }
@@ -187,6 +194,7 @@ class First_artikel_m extends CI_Model
         $data = $this->db->get('artikel a')->result_array();
 
         for ($i = 0; $i < count($data); $i++) {
+            $this->bilingual_artikel($data[$i]);
             $data[$i]['judul'] = $this->security->xss_clean($data[$i]['judul']);
         }
 
@@ -219,7 +227,7 @@ class First_artikel_m extends CI_Model
     public function full_arsip($offset = 0, $limit = 50)
     {
         $query = $this->db
-            ->select('a.*,u.nama AS owner,k.kategori, YEAR(tgl_upload) as thn, MONTH(tgl_upload) as bln, DAY(tgl_upload) as hri')
+            ->select('a.*,u.nama AS owner,k.kategori,k.kategori_en, YEAR(tgl_upload) as thn, MONTH(tgl_upload) as bln, DAY(tgl_upload) as hri')
             ->from('artikel a')
             ->join('user u', 'a.id_user = u.id', 'LEFT')
             ->join('kategori k', 'a.id_kategori = k.id', 'left')
@@ -231,6 +239,7 @@ class First_artikel_m extends CI_Model
         $data = $query->result_array();
         if ($query->num_rows() > 0) {
             for ($i = 0; $i < count($data); $i++) {
+                $this->bilingual_artikel($data[$i]);
                 $nomer           = $offset + $i + 1;
                 $id              = $data[$i]['id'];
                 $tgl             = date('d/m/Y', strtotime($data[$i]['tgl_upload']));
@@ -248,7 +257,7 @@ class First_artikel_m extends CI_Model
     private function sql_gambar_slide_show($gambar)
     {
         $this->db
-            ->select('id, judul, gambar, slug, YEAR(tgl_upload) as thn, MONTH(tgl_upload) as bln, DAY(tgl_upload) as hri')
+            ->select('id, judul, judul_en, gambar, slug, YEAR(tgl_upload) as thn, MONTH(tgl_upload) as bln, DAY(tgl_upload) as hri')
             ->from('artikel')
             ->where('enabled', 1)
             ->where('headline', 3)
@@ -274,7 +283,13 @@ class First_artikel_m extends CI_Model
 
         $sql .= ($gambar_utama) ? 'ORDER BY tgl_upload DESC LIMIT 10' : 'ORDER BY RAND() LIMIT 10';
 
-        return $this->db->query($sql)->result_array();
+        $data = $this->db->query($sql)->result_array();
+
+        for ($i = 0; $i < count($data); $i++) {
+            $this->bilingual_artikel($data[$i]);
+        }
+
+        return $data;
     }
 
     // Ambil gambar slider besar tergantung dari settingnya.
@@ -288,7 +303,7 @@ class First_artikel_m extends CI_Model
             case '1':
                 // 10 gambar utama semua artikel terbaru
                 $slider_gambar['gambar'] = $this->db
-                    ->select('id, judul, gambar, slug, YEAR(tgl_upload) as thn, MONTH(tgl_upload) as bln, DAY(tgl_upload) as hri')
+                    ->select('id, judul, judul_en, gambar, slug, YEAR(tgl_upload) as thn, MONTH(tgl_upload) as bln, DAY(tgl_upload) as hri')
                     ->where('enabled', 1)
                     ->where('gambar !=', '')
                     ->where('tgl_upload <', date('Y-m-d H:i:s'))
@@ -316,6 +331,11 @@ class First_artikel_m extends CI_Model
         }
 
         $slider_gambar['sumber'] = $sumber;
+        if (in_array($sumber, ['1', '2'])) {
+            for ($i = 0; $i < count($slider_gambar['gambar']); $i++) {
+                $this->bilingual_artikel($slider_gambar['gambar'][$i]);
+            }
+        }
 
         return $slider_gambar;
     }
@@ -343,9 +363,15 @@ class First_artikel_m extends CI_Model
                 break;
         }
 
-        return $this->db
+        $data = $this->db
             ->get('agenda g')
             ->result_array();
+
+        for ($i = 0; $i < count($data); $i++) {
+            $this->bilingual_artikel($data[$i]);
+        }
+
+        return $data;
     }
 
     public function komentar_show()
@@ -381,21 +407,23 @@ class First_artikel_m extends CI_Model
 
         if (empty($data)) {
             $judul = [
-                999  => 'Halaman Statis',
-                1000 => 'Agenda',
-                1001 => 'Artikel Keuangan',
-                $id  => "Artikel Kategori {$id}",
+                999  => bilingual_text('static_page'),
+                1000 => bilingual_text('agenda'),
+                1001 => bilingual_text('financial_article'),
+                $id  => bilingual_text('category_article', ['id' => $id]),
             ];
 
             $data['kategori'] = $judul[$id];
         }
+
+        $data['kategori'] = bilingual_field($data, 'kategori');
 
         return $data;
     }
 
     public function get_artikel($thn, $bln, $hr, $url)
     {
-        $this->db->select('a.*, u.nama AS owner, k.kategori, k.slug AS kat_slug, YEAR(tgl_upload) AS thn, MONTH(tgl_upload) AS bln, DAY(tgl_upload) AS hri')
+        $this->db->select('a.*, u.nama AS owner, k.kategori, k.kategori_en, k.slug AS kat_slug, YEAR(tgl_upload) AS thn, MONTH(tgl_upload) AS bln, DAY(tgl_upload) AS hri')
             ->from('artikel a')
             ->join('user u', 'a.id_user = u.id', 'left')
             ->join('kategori k', 'a.id_kategori = k.id', 'left')
@@ -415,6 +443,7 @@ class First_artikel_m extends CI_Model
 
         if ($query->num_rows() > 0) {
             $data = $query->row_array();
+            $this->bilingual_artikel($data);
             $this->sterilkan_artikel($data);
         } else {
             $data = false;
@@ -474,12 +503,13 @@ class First_artikel_m extends CI_Model
     public function list_artikel($offset = 0, $limit = 50, $id = 0)
     {
         $this->list_artikel_sql($id);
-        $this->db->select('a.*, u.nama AS owner, k.kategori, k.slug AS kat_slug, YEAR(tgl_upload) AS thn, MONTH(tgl_upload) AS bln, DAY(tgl_upload) AS hri');
+        $this->db->select('a.*, u.nama AS owner, k.kategori, k.kategori_en, k.slug AS kat_slug, YEAR(tgl_upload) AS thn, MONTH(tgl_upload) AS bln, DAY(tgl_upload) AS hri');
         $this->db->order_by('a.tgl_upload', 'DESC');
         $this->db->limit($limit, $offset);
         $data = $this->db->get()->result_array();
 
         for ($i = 0; $i < count($data); $i++) {
+            $this->bilingual_artikel($data[$i]);
             $data[$i]['judul'] = $this->security->xss_clean($data[$i]['judul']);
             if (empty($this->setting->user_admin) || $data[$i]['id_user'] != $this->setting->user_admin) {
                 $data[$i]['isi'] = $this->security->xss_clean($data[$i]['isi']);
@@ -489,6 +519,15 @@ class First_artikel_m extends CI_Model
         }
 
         return $data;
+    }
+
+    private function bilingual_artikel(&$data)
+    {
+        foreach (['judul', 'isi', 'kategori'] as $field) {
+            if (array_key_exists($field, $data) || array_key_exists($field . '_en', $data)) {
+                $data[$field] = bilingual_field($data, $field);
+            }
+        }
     }
 
     /**

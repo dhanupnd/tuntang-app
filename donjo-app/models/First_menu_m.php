@@ -49,6 +49,7 @@ class First_menu_m extends MY_Model
         $data = $this->db->where(['parrent' => $parrent, 'enabled' => 1])->order_by('urut')->get('menu')->result_array();
 
         for ($i = 0; $i < count($data); $i++) {
+            $data[$i]['nama'] = bilingual_field($data[$i], 'nama');
             // 99 adalah link eksternal
             if ($data[$i]['link_tipe'] != 99) {
                 $data[$i]['link'] = menu_slug($data[$i]['link']);
@@ -63,6 +64,7 @@ class First_menu_m extends MY_Model
         $data = $this->db->where(['parrent' => 0, 'enabled' => 1])->order_by('urut')->get('menu')->result_array();
 
         for ($i = 0; $i < count($data); $i++) {
+            $data[$i]['nama'] = bilingual_field($data[$i], 'nama');
             // 99 adalah link eksternal
             if ($data[$i]['link_tipe'] != 99) {
                 $data[$i]['link'] = menu_slug($data[$i]['link']);
@@ -88,7 +90,11 @@ class First_menu_m extends MY_Model
         $data = $this->list_kategori();
 
         foreach ($data as $key => $sub_menu) {
+            $data[$key]['kategori'] = bilingual_field($sub_menu, 'kategori');
             $data[$key]['submenu'] = $this->list_kategori($sub_menu['id']);
+            foreach ($data[$key]['submenu'] as $submenu_key => $submenu) {
+                $data[$key]['submenu'][$submenu_key]['kategori'] = bilingual_field($submenu, 'kategori');
+            }
         }
 
         return $data;

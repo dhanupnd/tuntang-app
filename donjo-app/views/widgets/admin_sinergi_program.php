@@ -3,6 +3,7 @@
 		$("[name='setting[" + key + "][baris]']").val('');
 		$("[name='setting[" + key + "][kolom]']").val('');
 		$("[name='setting[" + key + "][judul]']").val('');
+		$("[name='setting[" + key + "][judul_en]']").val('');
 		$("[name='setting[" + key + "][tautan]']").val('');
 		$("[name='setting[" + key + "][gambar]']").val('');
 		$("[name='setting[" + key + "][old_gambar]']").val('');
@@ -41,6 +42,7 @@
 																	<th>Baris</th>
 																	<th>Kolom</th>
 																	<th>Judul</th>
+																	<th>Judul (English)</th>
 																	<th>Gambar</th>
 																	<th>Tautan</th>
 																</tr>
@@ -78,6 +80,9 @@
 																		</td>
 																		<td>
 																			<input class="form-control input-sm" type="text" placeholder="Judul" name="setting[<?= $s ?>][judul]" value="<?= $program['judul'] ?>" size="40">
+																		</td>
+																		<td>
+																			<input class="form-control input-sm" type="text" placeholder="Title in English" name="setting[<?= $s ?>][judul_en]" value="<?= $program['judul_en'] ?? '' ?>" size="40">
 																		</td>
 																		<td>
 																			<input type="hidden" name="setting[<?= $s ?>][old_gambar]" value="<?= $program['gambar'] ?>" />
@@ -119,6 +124,10 @@
 																			<input class="form-control input-sm" type="text" placeholder="Judul" name="setting[<?= $s ?>][judul]" value="" size="40">
 																		</td>
 																		<td>
+																			<input class="form-control input-sm" type="text" placeholder="Title in English" name="setting[<?= $s ?>][judul_en]" value="" size="40">
+																		</td>
+																		<td>
+																			<input type="hidden" name="setting[<?= $s ?>][old_gambar]" value="" />
 																			<input type="file" name="setting[<?= $s ?>][gambar]" accept=".jpg,.jpeg,.png" />
 																		</td>
 																		<td>

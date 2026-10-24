@@ -137,7 +137,6 @@ class Web_widget extends Admin_Controller
     public function update_setting($widget)
     {
         $this->redirect_hak_akses('u');
-        $this->cek_tidy();
         $setting = $this->input->post('setting');
         $this->web_widget_model->update_setting($widget, $setting);
 

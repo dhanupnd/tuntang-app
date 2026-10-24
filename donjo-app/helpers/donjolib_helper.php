@@ -455,8 +455,9 @@ function mandiri_timer()
 
 function mandiri_timeout()
 {
-    (isset($_SESSION['mandiri_timeout'])) ? $timeout = $_SESSION['mandiri_timeout'] : $timeout = null;
-    if (time() > $timeout) {
+    $timeout = $_SESSION['mandiri_timeout'] ?? null;
+
+    if (empty($timeout) || time() >= (int) $timeout) {
         mandiri_timer();
     }
 }

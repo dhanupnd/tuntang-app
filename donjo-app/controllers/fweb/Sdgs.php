@@ -52,6 +52,7 @@ class Sdgs extends Web_Controller
 
         $data = $this->includes;
         $this->_get_common_data($data);
+        $data['title']          = bilingual_current_language() === 'en' ? 'Village SDGs' : 'SDGs ' . ucwords($this->setting->sebutan_desa);
         $data['halaman_statis'] = 'sdgs/index';
         $this->set_template('layouts/halaman_statis_lebar.tpl.php');
         $this->load->view($this->template, $data);

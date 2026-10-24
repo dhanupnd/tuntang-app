@@ -222,9 +222,14 @@ class Web_artikel_model extends MY_Model
             return;
         }
 
+        if (! $this->validasi_data_agenda($cat, $data)) {
+            return;
+        }
+
         $data['isi'] = bersihkan_xss($data['isi']); // hapus potensi xss
         // Batasi judul menggunakan teks polos
         $data['judul'] = judul($data['judul']);
+        $this->siapkan_data_bilingual($data);
 
         $fp          = time();
         $list_gambar = ['gambar', 'gambar1', 'gambar2', 'gambar3'];
@@ -338,9 +343,14 @@ class Web_artikel_model extends MY_Model
             return;
         }
 
+        if (! $this->validasi_data_agenda($cat, $data)) {
+            return;
+        }
+
         $data['isi'] = bersihkan_xss($data['isi']); // hapus potensi xss
         // Batasi judul menggunakan teks polos
         $data['judul'] = judul($data['judul']);
+        $this->siapkan_data_bilingual($data);
 
         $fp          = time();
         $list_gambar = ['gambar', 'gambar1', 'gambar2', 'gambar3'];
@@ -422,6 +432,25 @@ class Web_artikel_model extends MY_Model
         status_sukses($outp);
     }
 
+    private function siapkan_data_bilingual(&$data)
+    {
+        if (array_key_exists('judul_en', $data)) {
+            $data['judul_en'] = trim($data['judul_en']) === '' ? null : judul($data['judul_en']);
+        }
+
+        if (array_key_exists('isi_en', $data)) {
+            $data['isi_en'] = trim($data['isi_en']) === '' ? null : bersihkan_xss($data['isi_en']);
+        }
+
+        if (! $this->db->field_exists('judul_en', 'artikel')) {
+            unset($data['judul_en']);
+        }
+
+        if (! $this->db->field_exists('isi_en', 'artikel')) {
+            unset($data['isi_en']);
+        }
+    }
+
     private function update_agenda($id_artikel, $data)
     {
         $agenda = $this->ambil_data_agenda($data);
@@ -438,6 +467,22 @@ class Web_artikel_model extends MY_Model
         }
 
         return $outp;
+    }
+
+    private function validasi_data_agenda($cat, $data)
+    {
+        if ($cat != AGENDA) {
+            return true;
+        }
+
+        if (empty($data['tgl_agenda']) || empty($data['lokasi_kegiatan']) || empty($data['koordinator_kegiatan'])) {
+            $_SESSION['error_msg'] .= ' -> Tanggal, lokasi, dan koordinator kegiatan agenda harus diisi';
+            $_SESSION['success'] = -1;
+
+            return false;
+        }
+
+        return true;
     }
 
     public function update_kategori($id, $id_kategori)
